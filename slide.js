@@ -5,7 +5,6 @@ class Slider {
     /* Helper functions */
 
     handleOpenOrClose = (event) => {
-        // log(event.target)
         if (this.elements.includes(event.target)) {
             if (this.isClosed) {
                 this.handleOpenSet(event);
@@ -60,7 +59,8 @@ class Slider {
 
     /* **************** */
 
-    constructor(container, direction, selectedElementPosition, clickToOpen, containerHeight, containerWidth, animationSpeed) {
+    constructor(container, direction, selectedElementPosition, clickToOpen, containerHeight, 
+        containerWidth, animationSpeed, degree) {
         this.container = container;
         this.elements = [...container.children];
         this.numElements = this.elements.length;
@@ -79,14 +79,14 @@ class Slider {
             this.clickToOpen = true;
         }
 
-        if (containerWidth) {
+        if (containerWidth !== undefined) {
             this.containerWidth = containerWidth;   
             container.style.width = `${containerWidth}px`;       
         } else {
             this.containerWidth = container.getBoundingClientRect().width;
         }
 
-        if (containerHeight) {
+        if (containerHeight !== undefined) {
             this.containerHeight = containerHeight;
             container.style.height = `${containerHeight}px`;
         } else {
@@ -96,11 +96,17 @@ class Slider {
         this.elementHeight = this.elements[0].getBoundingClientRect().height;
         this.elementWidth = this.elements[0].getBoundingClientRect().width;
         
-        if (animationSpeed) {
+        if (animationSpeed !== undefined) {
             this.animationSpeed = animationSpeed;
         } else {
             this.animationSpeed = 350;
         } 
+
+        if (degree !== undefined && degree >= 0 && degree <= 90) {
+            this.degree = degree;
+        } else {
+            this.degree = 45;
+        }
 
         this.isClosed = true;
         this.closeSetOnDOMContentLoaded();
@@ -128,15 +134,32 @@ class Slider {
         log('open')
         let top = 0;
         let left = 0;
+        let t_shift = 0;
+        let l_shift = 0;
         if (this.direction === 'vertical') {
             top = (this.containerHeight - this.elementHeight) / (this.numElements - 1);
         } else if (this.direction === 'horizontal') {
             left = (this.containerWidth - this.elementWidth) / (this.numElements - 1);
-        } else { // diagonal
-            top = (this.containerHeight - this.elementHeight) / (this.numElements - 1);
-            left = (this.containerWidth - this.elementWidth) / (this.numElements - 1);
+        } else { // diagonal  
+            if (this.degree > 45) {
+                top = (this.containerHeight - this.elementHeight) / (this.numElements - 1);
+                left = top / Math.tan(this.degree * Math.PI / 180);
+            } else {
+                left = (this.containerWidth - this.elementWidth) / (this.numElements - 1);
+                top = left * Math.tan(this.degree * Math.PI / 180);
+            }
+            if (this.selectedElementPosition === 'center') { 
+                t_shift = (this.containerHeight - ((top * (this.numElements - 1)) + this.elementHeight)) / 2; 
+                l_shift = (this.containerWidth - ((left * (this.numElements - 1)) + this.elementWidth)) / 2;    
+            } else {
+                if (this.selectedElementPosition.search('bottom') !== -1) {
+                    t_shift = (this.containerHeight - ((top * (this.numElements - 1)) + this.elementHeight)); 
+                } 
+                if (this.selectedElementPosition.search('right') !== -1) {
+                    l_shift = (this.containerWidth - ((left * (this.numElements - 1)) + this.elementWidth));   
+                }
+            }
         }
-        // log(top, left);
 
         for (let i = 0; i < this.numElements; i++) {
             this.elements[i].style.display = 'inline-block';
@@ -147,6 +170,11 @@ class Slider {
             }
             if (this.selectedElementPosition.search('right') !== -1) {
                 l = left * (this.numElements - 1 - i);
+            }
+            if (this.direction.search('diagonal') !== -1 && this.degree > 45) {
+                l = l + l_shift;
+            } else if (this.direction.search('diagonal') !== -1 && this.degree <= 45) {
+                t = t + t_shift;
             }
 
             if (noAnimation) {
@@ -179,7 +207,7 @@ class Slider {
                 top = (this.containerHeight / 2) - (this.elementHeight / 2);
                 left = (this.containerWidth / 2) - (this.elementWidth / 2);  
             }
-        } else {
+        } else { // not center
             if (this.selectedElementPosition.search('right') !== -1) {
                 left = this.containerWidth - this.elementWidth
             }
@@ -187,7 +215,6 @@ class Slider {
                 top = this.containerHeight - this.elementHeight;
             }
         } 
-        // log(top, left)
 
         for (let i = 0; i < this.numElements; i++) {
             this.elements[i].style.display = 'inline-block';
