@@ -26,7 +26,11 @@ class Slider {
     }
 
     updateZIndex = () => {
-        if (this.selectedElementPosition === 'center' && !this.keepOriginalOrder) {
+        if (this.keepOriginalOrder) {
+            for (let i = 0; i < this.numElements; i++) {
+                this.originalElements[i].style.zIndex = this.numElements - i;
+            }
+        } else if (this.selectedElementPosition === 'center') {
             log('here')
             for (let i = 0; i < Math.floor(this.numElements / 2); i++) {
                 this.elements[i].style.zIndex = i;
@@ -35,11 +39,7 @@ class Slider {
             this.elements[this.selectedElementIndex].style.zIndex = Math.floor(this.numElements / 2) + 1;
         } else {
             for (let i = 0; i < this.numElements; i++) {
-                if (this.keepOriginalOrder) {
-                    this.originalElements[i].style.zIndex = this.numElements - i;
-                } else {
-                    this.elements[i].style.zIndex = this.numElements - i;
-                } 
+                this.elements[i].style.zIndex = this.numElements - i;
             }
         }
     }
@@ -70,7 +70,9 @@ class Slider {
         selectedElementPosition, 
         keepOriginalOrder, 
         clickToOpen,
-        animationSpeed, 
+        animationSpeed,
+        showSlideAnimation,
+        showFadeAnimation,
         degree
     ) {
         this.container = container;
@@ -103,12 +105,24 @@ class Slider {
 
         this.elementHeight = this.elements[0].getBoundingClientRect().height;
         this.elementWidth = this.elements[0].getBoundingClientRect().width;
-        
+
         if (animationSpeed !== undefined) {
             this.animationSpeed = animationSpeed;
         } else {
-            this.animationSpeed = 350;
+            this.animationSpeed = 375;
         } 
+
+        if (showSlideAnimation !== undefined) {
+            this.showSlideAnimation = showSlideAnimation
+        } else {
+            showSlideAnimation = true;
+        }
+
+        if (showFadeAnimation !== undefined) {
+            this.showFadeAnimation = showFadeAnimation
+        } else {
+            showFadeAnimation = true;
+        }
 
         if (degree !== undefined && degree >= 0 && degree <= 90) {
             this.degree = degree;
@@ -139,7 +153,6 @@ class Slider {
     }
 
     openSet = (noAnimation) => {
-        log('open')
         let top = 0;
         let left = 0;
         let t_shift = 0;
@@ -176,8 +189,14 @@ class Slider {
             elements = this.elements;
         }
 
+        let animationSpeed;
+        if (noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) {
+            animationSpeed = 0;
+        } else {
+            animationSpeed = this.animationSpeed;
+        }
+
         for (let i = 0; i < this.numElements; i++) {
-            elements[i].style.display = 'inline-block';
             let t = top * i;
             let l = left * i;;
             if (this.selectedElementPosition.search('bottom') !== -1 || this.direction === 'diagonal-up') {
@@ -192,24 +211,38 @@ class Slider {
                 t = t + t_shift;
             }
 
-            if (noAnimation) {
-                elements[i].style.top = `${t}px`;
-                elements[i].style.left = `${l}px`;
-                elements[i].style.opacity = '1';
-            } else {
-                $(`#${elements[i].id}`).animate({
+            elements[i].style.display = 'inline-block';
+
+            // Show only slide animation, both, or none
+            if (this.showSlideAnimation || noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) { 
+
+                const properties  = {
                     top: `${t}px`,
-                    left: `${l}px`,
-                    opacity: '1'
-                }, this.animationSpeed);
+                    left: `${l}px`
+                }
+                if (this.showFadeAnimation) {
+                    properties.opacity = '1'
+                } else { // No fade
+                    elements[i].style.opacity = '1';
+                }
+                $(`#${elements[i].id}`).animate(properties, animationSpeed);
+
+            } else { // Show only fade animation
+
+                $(`#${elements[i].id}`).animate({opacity: '0'}, animationSpeed, () => {
+                    elements[i].style.top = `${t}px`;
+                    elements[i].style.left = `${l}px`;
+                    $(`#${elements[i].id}`).animate({opacity: '1'});
+                });
+                
             }
+            
         } 
 
         this.isClosed = false;   
     }
 
     closeSet = (noAnimation) => {
-        log('close')
         let top = 0;
         let left = 0;    
         if (this.selectedElementPosition === 'center') {
@@ -230,32 +263,60 @@ class Slider {
             }
         } 
 
+        let animationSpeed;
+        if (noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) {
+            animationSpeed = 0;
+        } else {
+            animationSpeed = this.animationSpeed;
+        }
+
         for (let i = 0; i < this.numElements; i++) {
             this.elements[i].style.display = 'inline-block';
-            if (noAnimation) {
-                this.elements[i].style.top = `${top}px`;
-                this.elements[i].style.left = `${left}px`;
-                if (i === this.selectedElementIndex) {
-                    this.elements[i].style.opacity = '1';
-                } else {
-                    this.elements[i].style.opacity = '0';
+
+            // Show only slide animation, both, or none
+            if (this.showSlideAnimation || noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) { 
+
+                const properties = {
+                    top: `${top}px`,
+                    left: `${left}px`
                 }
-            } else {
-                if (i === this.selectedElementIndex) {
-                    $(`#${this.elements[i].id}`).animate({
-                        top: `${top}px`,
-                        left: `${left}px`,
-                        opacity: '1'
-                    }, this.animationSpeed);
-                } else {
-                    $(`#${this.elements[i].id}`).animate({
-                        top: `${top}px`,
-                        left: `${left}px`,
-                        opacity: '0'
-                    }, this.animationSpeed, () => {
+                let prevZIndex = 0;
+                if (this.showFadeAnimation) {
+                    properties.opacity = (i === this.selectedElementIndex) ? '1' : '0';
+                } else { // No fade
+                    if (i === this.selectedElementIndex) {
+                        // Temporarily bring the selected element to the front
+                        prevZIndex =  this.elements[i].style.zIndex;
+                        this.elements[i].style.zIndex = 2147483647; // update set z index
+                    }
+                }
+                $(`#${this.elements[i].id}`).animate(properties, animationSpeed, () => {
+                    if (i !== this.selectedElementIndex) {
                         this.elements[i].style.display = 'none';
-                    });
-                }
+                    } else { // i === this.selectedElementIndex
+                        if (!this.showFadeAnimation) { // No fade
+                            this.elements[i].style.zIndex = prevZIndex; // revert z index
+                        }
+                    } 
+                });
+
+            } else if (this.showFadeAnimation) { // Show only fade animation
+
+                $(`#${this.elements[i].id}`).animate({opacity: '0'}, animationSpeed, () => {
+                    if (i !== this.selectedElementIndex) {
+                        this.elements[i].style.display = 'none';
+                    } else {
+                        this.elements[i].style.top = `${top}px`;
+                        this.elements[i].style.left = `${left}px`;
+                        $(`#${this.elements[i].id}`).animate({
+                            opacity: '1'
+                        }, {
+                            duation: animationSpeed,
+                            queue: false
+                        });
+                    }
+                });                
+                
             }
         }
 
@@ -269,14 +330,19 @@ class VerticalSlider extends Slider {
         selectedElementPosition,
         keepOriginalOrder, 
         clickToOpen,
-        animationSpeed
+        animationSpeed,
+        showSlideAnimation,
+        showFadeAnimation
         ) {
-        super(container, 
+        super(
+            container, 
             'vertical', 
             selectedElementPosition, 
             keepOriginalOrder, 
             clickToOpen, 
-            animationSpeed
+            animationSpeed,
+            showSlideAnimation,
+            showFadeAnimation
         );
     }
 }
@@ -287,14 +353,19 @@ class HorizontalSlider extends Slider {
         selectedElementPosition,
         keepOriginalOrder, 
         clickToOpen, 
-        animationSpeed
+        animationSpeed,
+        showSlideAnimation,
+        showFadeAnimation
     ) {
-        super(container, 
+        super(
+            container, 
             'horizontal', 
             selectedElementPosition, 
             keepOriginalOrder, 
             clickToOpen, 
-            animationSpeed
+            animationSpeed,
+            showSlideAnimation,
+            showFadeAnimation
         );
     }
 }
@@ -307,6 +378,8 @@ class DiagonalSlider extends Slider {
         keepOriginalOrder, 
         clickToOpen, 
         animationSpeed, 
+        showSlideAnimation,
+        showFadeAnimation,
         upOrDown
     ) {
         let direction = 'diagonal';
@@ -323,6 +396,8 @@ class DiagonalSlider extends Slider {
             keepOriginalOrder, 
             clickToOpen,
             animationSpeed, 
+            showSlideAnimation,
+            showFadeAnimation,
             degree
         );
     }
