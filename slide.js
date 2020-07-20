@@ -26,7 +26,8 @@ class Slider {
     }
 
     updateZIndex = () => {
-        if (this.selectedElementPosition === 'center') {
+        if (this.selectedElementPosition === 'center' && !this.keepOriginalOrder) {
+            log('here')
             for (let i = 0; i < Math.floor(this.numElements / 2); i++) {
                 this.elements[i].style.zIndex = i;
                 this.elements[this.numElements - 1 - i].style.zIndex = i;
@@ -34,7 +35,11 @@ class Slider {
             this.elements[this.selectedElementIndex].style.zIndex = Math.floor(this.numElements / 2) + 1;
         } else {
             for (let i = 0; i < this.numElements; i++) {
-                this.elements[i].style.zIndex = this.numElements - i;
+                if (this.keepOriginalOrder) {
+                    this.originalElements[i].style.zIndex = this.numElements - i;
+                } else {
+                    this.elements[i].style.zIndex = this.numElements - i;
+                } 
             }
         }
     }
@@ -59,10 +64,18 @@ class Slider {
 
     /* **************** */
 
-    constructor(container, direction, selectedElementPosition, clickToOpen, containerHeight, 
-        containerWidth, animationSpeed, degree) {
+    constructor(
+        container, 
+        direction, 
+        selectedElementPosition, 
+        keepOriginalOrder, 
+        clickToOpen,
+        animationSpeed, 
+        degree
+    ) {
         this.container = container;
         this.elements = [...container.children];
+        this.originalElements = [...container.children];
         this.numElements = this.elements.length;
         this.direction = direction;
         this.selectedElementPosition = selectedElementPosition;
@@ -72,6 +85,12 @@ class Slider {
         } else { // center
             this.selectedElementIndex =  Math.floor(this.numElements / 2);
         }
+
+        if (keepOriginalOrder !== undefined) {
+            this.keepOriginalOrder = keepOriginalOrder
+        } else {
+            this.keepOriginalOrder = false;
+        }
         
         if (clickToOpen !== undefined) {
             this.clickToOpen = clickToOpen;
@@ -79,19 +98,8 @@ class Slider {
             this.clickToOpen = true;
         }
 
-        if (containerWidth !== undefined) {
-            this.containerWidth = containerWidth;   
-            container.style.width = `${containerWidth}px`;       
-        } else {
-            this.containerWidth = container.getBoundingClientRect().width;
-        }
-
-        if (containerHeight !== undefined) {
-            this.containerHeight = containerHeight;
-            container.style.height = `${containerHeight}px`;
-        } else {
-            this.containerHeight = container.getBoundingClientRect().height;
-        }
+        this.containerWidth = container.getBoundingClientRect().width
+        this.containerHeight = container.getBoundingClientRect().height;
 
         this.elementHeight = this.elements[0].getBoundingClientRect().height;
         this.elementWidth = this.elements[0].getBoundingClientRect().width;
@@ -161,8 +169,15 @@ class Slider {
             }
         }
 
+        let elements;
+        if (this.keepOriginalOrder) {
+            elements = this.originalElements;
+        } else {
+            elements = this.elements;
+        }
+
         for (let i = 0; i < this.numElements; i++) {
-            this.elements[i].style.display = 'inline-block';
+            elements[i].style.display = 'inline-block';
             let t = top * i;
             let l = left * i;;
             if (this.selectedElementPosition.search('bottom') !== -1 || this.direction === 'diagonal-up') {
@@ -178,17 +193,16 @@ class Slider {
             }
 
             if (noAnimation) {
-                this.elements[i].style.top = `${t}px`;
-                this.elements[i].style.left = `${l}px`;
-                this.elements[i].style.opacity = '1';
+                elements[i].style.top = `${t}px`;
+                elements[i].style.left = `${l}px`;
+                elements[i].style.opacity = '1';
             } else {
-                $(`#${this.elements[i].id}`).animate({
+                $(`#${elements[i].id}`).animate({
                     top: `${t}px`,
                     left: `${l}px`,
                     opacity: '1'
                 }, this.animationSpeed);
             }
-            
         } 
 
         this.isClosed = false;   
@@ -246,5 +260,70 @@ class Slider {
         }
 
         this.isClosed = true;
+    }
+}
+
+class VerticalSlider extends Slider {
+    constructor(
+        container, 
+        selectedElementPosition,
+        keepOriginalOrder, 
+        clickToOpen,
+        animationSpeed
+        ) {
+        super(container, 
+            'vertical', 
+            selectedElementPosition, 
+            keepOriginalOrder, 
+            clickToOpen, 
+            animationSpeed
+        );
+    }
+}
+
+class HorizontalSlider extends Slider {
+    constructor(
+        container, 
+        selectedElementPosition,
+        keepOriginalOrder, 
+        clickToOpen, 
+        animationSpeed
+    ) {
+        super(container, 
+            'horizontal', 
+            selectedElementPosition, 
+            keepOriginalOrder, 
+            clickToOpen, 
+            animationSpeed
+        );
+    }
+}
+
+class DiagonalSlider extends Slider {
+    constructor(
+        container, 
+        degree, 
+        selectedElementPosition, 
+        keepOriginalOrder, 
+        clickToOpen, 
+        animationSpeed, 
+        upOrDown
+    ) {
+        let direction = 'diagonal';
+        if (selectedElementPosition == 'center') {
+            if (upOrDown !== undefined && (upOrDown === 'up' || upOrDown === 'down')) {
+                direction = direction.concat('-');
+                direction = direction.concat(upOrDown);
+            }
+        }
+        super(
+            container, 
+            direction, 
+            selectedElementPosition, 
+            keepOriginalOrder, 
+            clickToOpen,
+            animationSpeed, 
+            degree
+        );
     }
 }

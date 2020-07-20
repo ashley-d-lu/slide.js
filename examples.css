@@ -1,6 +1,6 @@
-.container {
-    height: 400px;
-    width: 400px;
+#card-container {
+    height: 300px;
+    width: 300px;
     position: relative;
 }
 
