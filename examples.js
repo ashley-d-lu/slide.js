@@ -13,3 +13,7 @@ const dropdown = document.querySelector('#dropdown-menu');
 const dropdownSlider = new VerticalSlider(dropdown, 'top', true, true, undefined, true, true);
 log(dropdownSlider)
 dropdownSlider.openSetOnDOMContentLoaded();
+
+const products = document.querySelector('#products');
+const productsSlider = new HorizontalSlider(products, 'center', true, false, undefined, true, true);
+productsSlider.openSetOnDOMContentLoaded();

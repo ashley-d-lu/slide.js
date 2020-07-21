@@ -1,5 +1,5 @@
 body {
-    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
 }
 
 #card-container {
@@ -38,14 +38,14 @@ body {
 
 #dropdown-menu {
     width: 150px;
-    height: 280px;
+    height: 320px;
     position: relative;
 }
 
 .menu-option {
     position: absolute;
     width: 150px;
-    height: 35px;
+    height: 40px;
     vertical-align: middle;
 }
 
@@ -60,4 +60,16 @@ body {
     display: inline;
     top: 5px;
     margin: 0px 5px;
+}
+
+#products {
+    position: relative;
+    height: 100px;
+    width: 600px;
+}
+
+.product {
+    position: absolute;
+    height: 100px;
+    width: 100px;
 }

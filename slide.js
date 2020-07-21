@@ -29,7 +29,6 @@ class Slider {
                 this.originalElements[i].style.zIndex = this.numElements - i;
             }
         } else if (this.selectedElementPosition === 'center') {
-            log('here')
             for (let i = 0; i < Math.floor(this.numElements / 2); i++) {
                 this.elements[i].style.zIndex = i;
                 this.elements[this.numElements - 1 - i].style.zIndex = i;
@@ -45,7 +44,7 @@ class Slider {
     handleOpenSet = (event) => {
         let target = event.target;
         if (event.type === 'click') {
-            while (target.parentNode !== this.container) {
+            while (target.parentNode !== this.container && target !== this.container) {
                 target = target.parentNode;
             }
         }
@@ -58,14 +57,14 @@ class Slider {
     handleCloseSet = (event) => {
         let target = event.target;
         if (event.type === 'click') {
-            while (target.parentNode !== this.container) {
+            while (target.parentNode !== this.container  && target !== this.container) {
                 target = target.parentNode;
             }
         }
 
         if (!this.isClosed && (this.elements.includes(target) || !this.clickToOpen)) {
 
-            if (event.type === 'click') {
+            if (event.type === 'click' && this.elements.includes(target)) {
                 const index = this.elements.indexOf(target)
                 this.updateSelectedElement(this.elements[index], index);
             }
