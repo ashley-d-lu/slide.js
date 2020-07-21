@@ -5,12 +5,10 @@ class Slider {
     /* Helper functions */
 
     handleOpenOrClose = (event) => {
-        if (this.elements.includes(event.target)) {
-            if (this.isClosed) {
-                this.handleOpenSet(event);
-            } else {
-                this.handleCloseSet(event);
-            }
+        if (this.isClosed) {
+            this.handleOpenSet(event);
+        } else {
+            this.handleCloseSet(event);
         }
     }
 
@@ -45,16 +43,30 @@ class Slider {
     }
 
     handleOpenSet = (event) => {
-        if (this.isClosed && this.elements.includes(event.target)) {
+        let target = event.target;
+        if (event.type === 'click') {
+            while (target.parentNode !== this.container) {
+                target = target.parentNode;
+            }
+        }
+
+        if (this.isClosed && this.elements.includes(target)) {
             this.openSet();
         }
     }
 
     handleCloseSet = (event) => {
-        if (!this.isClosed && (this.elements.includes(event.target) || !this.clickToOpen)) {
+        let target = event.target;
+        if (event.type === 'click') {
+            while (target.parentNode !== this.container) {
+                target = target.parentNode;
+            }
+        }
+
+        if (!this.isClosed && (this.elements.includes(target) || !this.clickToOpen)) {
 
             if (event.type === 'click') {
-                const index = this.elements.indexOf(event.target)
+                const index = this.elements.indexOf(target)
                 this.updateSelectedElement(this.elements[index], index);
             }
             
@@ -321,6 +333,10 @@ class Slider {
         }
 
         this.isClosed = true;
+    }
+
+    getSelectedElement = () => {
+        return this.elements[this.selectedElementIndex];
     }
 }
 

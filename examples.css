@@ -1,6 +1,10 @@
+body {
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+}
+
 #card-container {
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
     position: relative;
 }
 
@@ -30,4 +34,30 @@
 
 .purple {
     background-color: rgb(178, 119, 255);
+}
+
+#dropdown-menu {
+    width: 150px;
+    height: 280px;
+    position: relative;
+}
+
+.menu-option {
+    position: absolute;
+    width: 150px;
+    height: 35px;
+    vertical-align: middle;
+}
+
+.menu-option-text {
+    position: relative;
+    display: inline;
+    font-weight: bold;
+}
+
+.menu-icon {
+    position: relative;
+    display: inline;
+    top: 5px;
+    margin: 0px 5px;
 }
