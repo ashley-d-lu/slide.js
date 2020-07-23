@@ -1,67 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="slide.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer type="text/javascript" src="examples.js"></script>
-    <link rel="stylesheet" type="text/css" href="examples.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <script type='text/javascript' src='slide.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script defer type='text/javascript' src='examples.js'></script>
+    <link rel='stylesheet' type='text/css' href='examples.css'>
     <title>Demo</title>
 </head>
 <body>
 
-    <div id="card-container">
-        <div class="card blue" id="card1"></div>
-        <div class="card orange" id="card2"></div>
-        <div class="card red" id="card3"></div>
-        <div class="card green" id="card4"></div>
-        <div class="card purple" id="card5"></div>
+    <div id='card-container'>
+        <div class='card blue' id='card1'></div>
+        <div class='card yellow' id='card2'></div>
+        <div class='card red' id='card3'></div>
+        <div class='card green' id='card4'></div>
+        <div class='card orange' id='card5'></div>
     </div>
 
-    <div id="dropdown-menu">
-        <div class="menu-option" id="home">
-            <img src="/menuIcons/home-24px.svg" class="menu-icon">
-            <div class="menu-option-text">Home</div>
+    <button id='open-btn'>Open</button>
+    <button id='close-btn'>Close</button>
+    <span>Currently selected element: </span><span id='selected-elem-html'></span>
+
+    <div id='dropdown-menu'>
+        <div class='menu-option' id='home'>
+            <img src='/menuIcons/home-24px.svg' class='menu-icon'>
+            <div class='menu-option-text'>Home</div>
         </div>
-        <div class="menu-option" id="explore">
-            <img src="/menuIcons/explore-24px.svg" class="menu-icon">
-            <div class="menu-option-text">Explore</div>
+        <div class='menu-option' id='explore'>
+            <img src='/menuIcons/explore-24px.svg' class='menu-icon'>
+            <div class='menu-option-text'>Explore</div>
         </div>
-        <div class="menu-option" id="notifications">
-            <img src="/menuIcons/notifications-24px.svg" class="menu-icon">
-            <div class="menu-option-text">Notifications</div>
+        <div class='menu-option' id='notifications'>
+            <img src='/menuIcons/notifications-24px.svg' class='menu-icon'>
+            <div class='menu-option-text'>Notifications</div>
         </div>
-        <div class="menu-option" id="messages">
-            <img src="/menuIcons/email-24px.svg" class="menu-icon">
-            <div class="menu-option-text">Messages</div>
+        <div class='menu-option' id='messages'>
+            <img src='/menuIcons/email-24px.svg' class='menu-icon'>
+            <div class='menu-option-text'>Messages</div>
         </div>
-        <div class="menu-option" id="bookmarks">
-            <img src="/menuIcons/bookmark_border-24px.svg" class="menu-icon">
-            <div class="menu-option-text">Bookmarks</div>
+        <div class='menu-option' id='bookmarks'>
+            <img src='/menuIcons/bookmark_border-24px.svg' class='menu-icon'>
+            <div class='menu-option-text'>Bookmarks</div>
         </div>
-        <div class="menu-option" id="lists">
-            <img src="/menuIcons/format_list_bulleted-24px.svg" class="menu-icon">
-            <div class="menu-option-text">Lists</div>
+        <div class='menu-option' id='lists'>
+            <img src='/menuIcons/format_list_bulleted-24px.svg' class='menu-icon'>
+            <div class='menu-option-text'>Lists</div>
         </div>
-        <div class="menu-option" id="profile">
-            <img src="/menuIcons/person-24px.svg" class="menu-icon">
-            <div class="menu-option-text">Profile</div>
+        <div class='menu-option' id='profile'>
+            <img src='/menuIcons/person-24px.svg' class='menu-icon'>
+            <div class='menu-option-text'>Profile</div>
         </div>
-        <div class="menu-option" id="more">
-            <img src="/menuIcons/more_horiz-24px.svg" class="menu-icon">
-            <div class="menu-option-text">More</div>
+        <div class='menu-option' id='more'>
+            <img src='/menuIcons/more_horiz-24px.svg' class='menu-icon'>
+            <div class='menu-option-text'>More</div>
         </div>
     </div>
     
-    <div id="products">
-        <img src="/products/iphone11-green-select-2019.png" id="green-iphone" class="product">
-        <img src="/products/iphone11-white-select-2019.png" id="white-iphone" class="product">
-        <img src="/products/iphone11-black-select-2019.png" id="black-iphone" class="product">
-        <img src="/products/iphone11-purple-select-2019.png" id="purple-iphone" class="product">
-        <img src="/products/iphone11-yellow-select-2019.png" id="yellow-iphone" class="product">
-        <img src="/products/iphone11-red-select-2019.png" id="red-iphone" class="product">
+    <div id='products'>
+        <img src='/products/iphone11-green-select-2019.png' id='green-iphone' class='product'>
+        <img src='/products/iphone11-white-select-2019.png' id='white-iphone' class='product'>
+        <img src='/products/iphone11-black-select-2019.png' id='black-iphone' class='product'>
+        <img src='/products/iphone11-purple-select-2019.png' id='purple-iphone' class='product'>
+        <img src='/products/iphone11-yellow-select-2019.png' id='yellow-iphone' class='product'>
+        <img src='/products/iphone11-red-select-2019.png' id='red-iphone' class='product'>
     </div>
 
 </body>

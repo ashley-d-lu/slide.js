@@ -6,8 +6,22 @@ const slider = new HorizontalSlider(cards, 'center', false, false, 500, true, fa
 // // const slider = new DiagonalSlider(cards, 20, 'top-left', true, false, 400, true, false);
 // // const slider = new Slider(cards, 'vertical', 'top', true, false, 350, 70);
 // // const slider = new Slider (cards, 'diagonal-up', 'center');
-log(slider)
+log(slider);
 slider.openSetOnDOMContentLoaded();
+
+const openButton = document.querySelector('#open-btn');
+openButton.addEventListener('click', slider.openSet);
+
+const closeButton = document.querySelector('#close-btn');
+closeButton.addEventListener('click', slider.closeSet);
+
+slider.onSelectedElementChanged = () => {
+    const selectedElement = slider.getSelectedElement().cloneNode(true);
+    const tmp = document.createElement('div');
+    tmp.appendChild(selectedElement);
+    const selElemTextBox = document.querySelector('#selected-elem-html')
+    selElemTextBox.innerText = tmp.innerHTML;
+}
 
 const dropdown = document.querySelector('#dropdown-menu');
 const dropdownSlider = new VerticalSlider(dropdown, 'top', true, true, undefined, true, true);

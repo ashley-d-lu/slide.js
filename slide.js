@@ -21,6 +21,7 @@ class Slider {
         this.elements.splice(index, 1)[0];
         this.elements.splice(this.selectedElementIndex, 0, selectedElement);
         this.updateZIndex();
+        this.onSelectedElementChanged();
     }
 
     updateZIndex = () => {
@@ -87,8 +88,12 @@ class Slider {
         degree
     ) {
         this.container = container;
+        container.style.position = 'relative';
+
         this.elements = [...container.children];
         this.originalElements = [...container.children];
+        this.elements.forEach(element => element.style.position = 'absolute');
+        
         this.numElements = this.elements.length;
         this.direction = direction;
         this.selectedElementPosition = selectedElementPosition;
@@ -156,14 +161,14 @@ class Slider {
     }
 
     openSetOnDOMContentLoaded = () => {
-        this.openSet(true);
+        this.openSet(undefined, true);
     }
 
     closeSetOnDOMContentLoaded = () => {
-        this.closeSet(true);
+        this.closeSet(undefined, true);
     }
 
-    openSet = (noAnimation) => {
+    openSet = (event, noAnimation) => {
         let top = 0;
         let left = 0;
         let t_shift = 0;
@@ -253,7 +258,7 @@ class Slider {
         this.isClosed = false;   
     }
 
-    closeSet = (noAnimation) => {
+    closeSet = (event, noAnimation) => {
         let top = 0;
         let left = 0;    
         if (this.selectedElementPosition === 'center') {
@@ -337,6 +342,8 @@ class Slider {
     getSelectedElement = () => {
         return this.elements[this.selectedElementIndex];
     }
+
+    onSelectedElementChanged = () => {}
 }
 
 class VerticalSlider extends Slider {
