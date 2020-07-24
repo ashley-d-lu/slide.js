@@ -1,5 +1,6 @@
 body {
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    padding: 0% 10%;
 }
 
 button {
@@ -17,7 +18,69 @@ button:hover {
     background-color: rgb(211, 208, 208);
 }
 
-#card-container {
+pre {
+    margin-bottom: 0px;
+}
+
+h1 {
+    position: relative;
+    display: inline;
+}
+
+h1:after {
+    background-color: #ffd146;
+    content: " ";
+    height: 30%;
+    position: absolute;
+    left: 0;
+    margin-left: -1rem;
+    top: 60%;
+    width: calc(100% + 2.75rem);
+    z-index: -1;
+}
+
+.leftclearfix {
+    clear: left;
+}
+
+.float-left {
+    float: left;
+}
+
+.margin-left-40 {
+    margin-left: 40px;
+}
+
+.divider {
+    margin-top: 80px;
+}
+
+.divider-100 {
+    margin-top: 100px;
+}
+
+#angle-btns {
+    margin-left: 30px;
+}
+
+.card-container {
+    margin: 20px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(201, 201, 201);
+}
+
+.horizontal {
+    height: 100px;
+    width: 400px;
+}
+
+.vertical {
+    height: 400px;
+    width: 100px;
+}
+
+.diagonal {
     height: 400px;
     width: 400px;
 }
@@ -27,10 +90,15 @@ button:hover {
     width: 100px;
     top: 0px;
     left: 0px;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: 500;
+    color: white
 }
 
 .blue {
-    background-color: #007bff;;
+    background-color: #007bff;
+    ;
 }
 
 .yellow {
@@ -46,7 +114,19 @@ button:hover {
 }
 
 .orange {
-    background-color:#fd7e14;
+    background-color: #fd7e14;
+}
+
+.outlined-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(201, 201, 201);
+}
+
+#counter {
+    margin-top: 55px;
 }
 
 #dropdown-menu {

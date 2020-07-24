@@ -2,7 +2,113 @@
 const log = console.log;
 
 class Slider {
-    /* Helper functions */
+    constructor(container, properties) {
+        // Customizable properties
+        const {
+            direction, // only mandatory property
+            selectedElementPosition,
+            clickToOpen,
+            keepOriginalOrder,
+            animationSpeed,
+            showSlideAnimation,
+            showFadeAnimation,
+            degree,
+            upOrDown,
+            onSelectedElementChanged
+        } = properties;
+
+        this.container = container;
+        container.style.position = 'relative';
+
+        this.elements = [...container.children];
+        this.originalElements = [...container.children];
+        this.elements.forEach(element => element.style.position = 'absolute');
+
+        this.numElements = this.elements.length;
+
+        this.direction = direction;
+
+        if (this.direction === 'diagonal' && upOrDown !== undefined) {
+            if (selectedElementPosition == 'center') {
+                if (upOrDown !== undefined && (upOrDown === 'up' || upOrDown === 'down')) {
+                    this.direction = this.direction.concat('-');
+                    this.direction = this.direction.concat(upOrDown);
+                }
+            }
+        }
+
+        if (selectedElementPosition !== undefined) {
+            this.selectedElementPosition = selectedElementPosition;
+        } else {
+            this.selectedElementPosition = 'center';
+        }
+
+        if (this.selectedElementPosition !== 'center') {
+            this.selectedElementIndex = 0;
+        } else { // center
+            this.selectedElementIndex = Math.floor(this.numElements / 2);
+        }
+
+        if (keepOriginalOrder !== undefined) {
+            this.keepOriginalOrder = keepOriginalOrder
+        } else {
+            this.keepOriginalOrder = false;
+        }
+
+        if (clickToOpen !== undefined) {
+            this.clickToOpen = clickToOpen;
+        } else {
+            this.clickToOpen = false;
+        }
+
+        this.containerWidth = container.getBoundingClientRect().width
+        this.containerHeight = container.getBoundingClientRect().height;
+
+        this.elementHeight = this.elements[0].getBoundingClientRect().height;
+        this.elementWidth = this.elements[0].getBoundingClientRect().width;
+
+        if (animationSpeed !== undefined) {
+            this.animationSpeed = animationSpeed;
+        } else {
+            this.animationSpeed = 375;
+        }
+
+        if (showSlideAnimation !== undefined) {
+            this.showSlideAnimation = showSlideAnimation
+        } else {
+            this.showSlideAnimation = true;
+        }
+
+        if (showFadeAnimation !== undefined) {
+            this.showFadeAnimation = showFadeAnimation
+        } else {
+            this.showFadeAnimation = true;
+        }
+
+        if (degree !== undefined && degree >= 0 && degree <= 90) {
+            this.degree = degree;
+        } else {
+            this.degree = 45;
+        }
+
+        if (onSelectedElementChanged !== undefined) {
+            this.onSelectedElementChanged = onSelectedElementChanged;
+        }
+
+        this.isClosed = true;
+        this.closeSetOnDOMContentLoaded();
+        this.updateZIndex();
+
+        if (this.clickToOpen) {
+            container.addEventListener('click', this.handleOpenOrClose);
+        } else {
+            this.elements[this.selectedElementIndex].addEventListener('mouseover', this.handleOpenSet);
+            container.addEventListener('click', this.handleCloseSet);
+            container.addEventListener('mouseleave', this.handleCloseSet);
+        }
+    }
+
+    /* -------------------------- Helper functions -------------------------- */
 
     handleOpenOrClose = (event) => {
         if (this.isClosed) {
@@ -58,7 +164,7 @@ class Slider {
     handleCloseSet = (event) => {
         let target = event.target;
         if (event.type === 'click') {
-            while (target.parentNode !== this.container  && target !== this.container) {
+            while (target.parentNode !== this.container && target !== this.container) {
                 target = target.parentNode;
             }
         }
@@ -69,96 +175,15 @@ class Slider {
                 const index = this.elements.indexOf(target)
                 this.updateSelectedElement(this.elements[index], index);
             }
-            
+
             this.closeSet();
         }
     }
 
-    /* **************** */
+    /* -------------------- End Helper functions -------------------- */
 
-    constructor(
-        container, 
-        direction, 
-        selectedElementPosition, 
-        keepOriginalOrder, 
-        clickToOpen,
-        animationSpeed,
-        showSlideAnimation,
-        showFadeAnimation,
-        degree
-    ) {
-        this.container = container;
-        container.style.position = 'relative';
 
-        this.elements = [...container.children];
-        this.originalElements = [...container.children];
-        this.elements.forEach(element => element.style.position = 'absolute');
-        
-        this.numElements = this.elements.length;
-        this.direction = direction;
-        this.selectedElementPosition = selectedElementPosition;
-
-        if (this.selectedElementPosition !== 'center') {
-            this.selectedElementIndex = 0;
-        } else { // center
-            this.selectedElementIndex =  Math.floor(this.numElements / 2);
-        }
-
-        if (keepOriginalOrder !== undefined) {
-            this.keepOriginalOrder = keepOriginalOrder
-        } else {
-            this.keepOriginalOrder = false;
-        }
-        
-        if (clickToOpen !== undefined) {
-            this.clickToOpen = clickToOpen;
-        } else {
-            this.clickToOpen = true;
-        }
-
-        this.containerWidth = container.getBoundingClientRect().width
-        this.containerHeight = container.getBoundingClientRect().height;
-
-        this.elementHeight = this.elements[0].getBoundingClientRect().height;
-        this.elementWidth = this.elements[0].getBoundingClientRect().width;
-
-        if (animationSpeed !== undefined) {
-            this.animationSpeed = animationSpeed;
-        } else {
-            this.animationSpeed = 375;
-        } 
-
-        if (showSlideAnimation !== undefined) {
-            this.showSlideAnimation = showSlideAnimation
-        } else {
-            showSlideAnimation = true;
-        }
-
-        if (showFadeAnimation !== undefined) {
-            this.showFadeAnimation = showFadeAnimation
-        } else {
-            showFadeAnimation = true;
-        }
-
-        if (degree !== undefined && degree >= 0 && degree <= 90) {
-            this.degree = degree;
-        } else {
-            this.degree = 45;
-        }
-
-        this.isClosed = true;
-        this.closeSetOnDOMContentLoaded();
-        this.updateZIndex(); 
-
-        if (this.clickToOpen) {
-            container.addEventListener('click', this.handleOpenOrClose);
-        } else {
-            this.elements[this.selectedElementIndex].addEventListener('mouseover', this.handleOpenSet);
-            container.addEventListener('click', this.handleCloseSet);
-            container.addEventListener('mouseleave', this.handleCloseSet);
-        }
-
-    }
+    /* ---------------------- API Functions -------------------------- */
 
     openSetOnDOMContentLoaded = () => {
         this.openSet(undefined, true);
@@ -185,15 +210,15 @@ class Slider {
                 left = (this.containerWidth - this.elementWidth) / (this.numElements - 1);
                 top = left * Math.tan(this.degree * Math.PI / 180);
             }
-            if (this.selectedElementPosition === 'center') { 
-                t_shift = (this.containerHeight - ((top * (this.numElements - 1)) + this.elementHeight)) / 2; 
-                l_shift = (this.containerWidth - ((left * (this.numElements - 1)) + this.elementWidth)) / 2;    
+            if (this.selectedElementPosition === 'center') {
+                t_shift = (this.containerHeight - ((top * (this.numElements - 1)) + this.elementHeight)) / 2;
+                l_shift = (this.containerWidth - ((left * (this.numElements - 1)) + this.elementWidth)) / 2;
             } else {
                 if (this.selectedElementPosition.search('bottom') !== -1) {
-                    t_shift = (this.containerHeight - ((top * (this.numElements - 1)) + this.elementHeight)); 
-                } 
+                    t_shift = (this.containerHeight - ((top * (this.numElements - 1)) + this.elementHeight));
+                }
                 if (this.selectedElementPosition.search('right') !== -1) {
-                    l_shift = (this.containerWidth - ((left * (this.numElements - 1)) + this.elementWidth));   
+                    l_shift = (this.containerWidth - ((left * (this.numElements - 1)) + this.elementWidth));
                 }
             }
         }
@@ -230,9 +255,9 @@ class Slider {
             elements[i].style.display = 'inline-block';
 
             // Show only slide animation, both, or none
-            if (this.showSlideAnimation || noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) { 
+            if (this.showSlideAnimation || noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) {
 
-                const properties  = {
+                const properties = {
                     top: `${t}px`,
                     left: `${l}px`
                 }
@@ -245,30 +270,34 @@ class Slider {
 
             } else { // Show only fade animation
 
-                $(`#${elements[i].id}`).animate({opacity: '0'}, animationSpeed, () => {
+                $(`#${elements[i].id}`).animate({
+                    opacity: '0'
+                }, animationSpeed, () => {
                     elements[i].style.top = `${t}px`;
                     elements[i].style.left = `${l}px`;
-                    $(`#${elements[i].id}`).animate({opacity: '1'});
+                    $(`#${elements[i].id}`).animate({
+                        opacity: '1'
+                    });
                 });
-                
-            }
-            
-        } 
 
-        this.isClosed = false;   
+            }
+
+        }
+
+        this.isClosed = false;
     }
 
     closeSet = (event, noAnimation) => {
         let top = 0;
-        let left = 0;    
+        let left = 0;
         if (this.selectedElementPosition === 'center') {
             if (this.direction === 'vertical') {
                 top = (this.containerHeight / 2) - (this.elementHeight / 2);
             } else if (this.direction === 'horizontal') {
-                left = (this.containerWidth / 2) - (this.elementWidth / 2);  
+                left = (this.containerWidth / 2) - (this.elementWidth / 2);
             } else { // diagonal
                 top = (this.containerHeight / 2) - (this.elementHeight / 2);
-                left = (this.containerWidth / 2) - (this.elementWidth / 2);  
+                left = (this.containerWidth / 2) - (this.elementWidth / 2);
             }
         } else { // not center
             if (this.selectedElementPosition.search('right') !== -1) {
@@ -277,7 +306,7 @@ class Slider {
             if (this.selectedElementPosition.search('bottom') !== -1) {
                 top = this.containerHeight - this.elementHeight;
             }
-        } 
+        }
 
         let animationSpeed;
         if (noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) {
@@ -290,7 +319,7 @@ class Slider {
             this.elements[i].style.display = 'inline-block';
 
             // Show only slide animation, both, or none
-            if (this.showSlideAnimation || noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) { 
+            if (this.showSlideAnimation || noAnimation || (!this.showSlideAnimation && !this.showFadeAnimation)) {
 
                 const properties = {
                     top: `${top}px`,
@@ -302,7 +331,7 @@ class Slider {
                 } else { // No fade
                     if (i === this.selectedElementIndex) {
                         // Temporarily bring the selected element to the front
-                        prevZIndex =  this.elements[i].style.zIndex;
+                        prevZIndex = this.elements[i].style.zIndex;
                         this.elements[i].style.zIndex = 2147483647; // update set z index
                     }
                 }
@@ -313,12 +342,14 @@ class Slider {
                         if (!this.showFadeAnimation) { // No fade
                             this.elements[i].style.zIndex = prevZIndex; // revert z index
                         }
-                    } 
+                    }
                 });
 
             } else if (this.showFadeAnimation) { // Show only fade animation
 
-                $(`#${this.elements[i].id}`).animate({opacity: '0'}, animationSpeed, () => {
+                $(`#${this.elements[i].id}`).animate({
+                    opacity: '0'
+                }, animationSpeed, () => {
                     if (i !== this.selectedElementIndex) {
                         this.elements[i].style.display = 'none';
                     } else {
@@ -331,8 +362,8 @@ class Slider {
                             queue: false
                         });
                     }
-                });                
-                
+                });
+
             }
         }
 
@@ -344,83 +375,6 @@ class Slider {
     }
 
     onSelectedElementChanged = () => {}
-}
 
-class VerticalSlider extends Slider {
-    constructor(
-        container, 
-        selectedElementPosition,
-        keepOriginalOrder, 
-        clickToOpen,
-        animationSpeed,
-        showSlideAnimation,
-        showFadeAnimation
-        ) {
-        super(
-            container, 
-            'vertical', 
-            selectedElementPosition, 
-            keepOriginalOrder, 
-            clickToOpen, 
-            animationSpeed,
-            showSlideAnimation,
-            showFadeAnimation
-        );
-    }
-}
-
-class HorizontalSlider extends Slider {
-    constructor(
-        container, 
-        selectedElementPosition,
-        keepOriginalOrder, 
-        clickToOpen, 
-        animationSpeed,
-        showSlideAnimation,
-        showFadeAnimation
-    ) {
-        super(
-            container, 
-            'horizontal', 
-            selectedElementPosition, 
-            keepOriginalOrder, 
-            clickToOpen, 
-            animationSpeed,
-            showSlideAnimation,
-            showFadeAnimation
-        );
-    }
-}
-
-class DiagonalSlider extends Slider {
-    constructor(
-        container, 
-        degree, 
-        selectedElementPosition, 
-        keepOriginalOrder, 
-        clickToOpen, 
-        animationSpeed, 
-        showSlideAnimation,
-        showFadeAnimation,
-        upOrDown
-    ) {
-        let direction = 'diagonal';
-        if (selectedElementPosition == 'center') {
-            if (upOrDown !== undefined && (upOrDown === 'up' || upOrDown === 'down')) {
-                direction = direction.concat('-');
-                direction = direction.concat(upOrDown);
-            }
-        }
-        super(
-            container, 
-            direction, 
-            selectedElementPosition, 
-            keepOriginalOrder, 
-            clickToOpen,
-            animationSpeed, 
-            showSlideAnimation,
-            showFadeAnimation,
-            degree
-        );
-    }
+    /* -------------------- End API Functions ------------------------ */
 }
