@@ -1,6 +1,6 @@
 body {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    padding: 0% 10%;
+    padding: 0% 20%;
 }
 
 button {
@@ -22,6 +22,7 @@ pre {
     margin-bottom: 0px;
 }
 
+/* From https://medium.com/@mattlistor/highlight-effect-using-css-204ab4590480 */
 h1 {
     position: relative;
     display: inline;
@@ -38,6 +39,8 @@ h1:after {
     width: calc(100% + 2.75rem);
     z-index: -1;
 }
+
+/* --------------------------------------------------------------------------  */
 
 .leftclearfix {
     clear: left;
@@ -57,6 +60,18 @@ h1:after {
 
 .divider-100 {
     margin-top: 100px;
+}
+
+.small {
+    font-size: 12px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+#library-name {
+    font-size: 100px;
 }
 
 #angle-btns {
@@ -98,7 +113,6 @@ h1:after {
 
 .blue {
     background-color: #007bff;
-    ;
 }
 
 .yellow {

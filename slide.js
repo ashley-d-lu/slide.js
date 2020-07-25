@@ -2,10 +2,10 @@
 const log = console.log;
 
 class Slider {
-    constructor(container, properties) {
+    constructor(containerSelector, properties) {
         // Customizable properties
         const {
-            direction, // only mandatory property
+            direction, // the only required property
             selectedElementPosition,
             clickToOpen,
             keepOriginalOrder,
@@ -14,14 +14,16 @@ class Slider {
             showFadeAnimation,
             degree,
             upOrDown,
-            onSelectedElementChanged
+            onElementSelected
         } = properties;
 
-        this.container = container;
-        container.style.position = 'relative';
+        this.containerSelector = containerSelector;
 
-        this.elements = [...container.children];
-        this.originalElements = [...container.children];
+        this.container = document.querySelector(containerSelector)
+        this.container.style.position = 'relative';
+
+        this.elements = [...this.container.children];
+        this.originalElements = [...this.container.children];
         this.elements.forEach(element => element.style.position = 'absolute');
 
         this.numElements = this.elements.length;
@@ -61,8 +63,8 @@ class Slider {
             this.clickToOpen = false;
         }
 
-        this.containerWidth = container.getBoundingClientRect().width
-        this.containerHeight = container.getBoundingClientRect().height;
+        this.containerWidth = this.container.getBoundingClientRect().width
+        this.containerHeight = this.container.getBoundingClientRect().height;
 
         this.elementHeight = this.elements[0].getBoundingClientRect().height;
         this.elementWidth = this.elements[0].getBoundingClientRect().width;
@@ -91,8 +93,10 @@ class Slider {
             this.degree = 45;
         }
 
-        if (onSelectedElementChanged !== undefined) {
-            this.onSelectedElementChanged = onSelectedElementChanged;
+        if (onElementSelected !== undefined) {
+            this.onElementSelected = onElementSelected;
+        } else {
+            this.onElementSelected = () => {};
         }
 
         this.isClosed = true;
@@ -100,15 +104,15 @@ class Slider {
         this.updateZIndex();
 
         if (this.clickToOpen) {
-            container.addEventListener('click', this.handleOpenOrClose);
+            this.container.addEventListener('click', this.handleOpenOrClose);
         } else {
             this.elements[this.selectedElementIndex].addEventListener('mouseover', this.handleOpenSet);
-            container.addEventListener('click', this.handleCloseSet);
-            container.addEventListener('mouseleave', this.handleCloseSet);
+            this.container.addEventListener('click', this.handleCloseSet);
+            this.container.addEventListener('mouseleave', this.handleCloseSet);
         }
     }
 
-    /* -------------------------- Helper functions -------------------------- */
+    /* ----------------------- Helper/Private functions ----------------------- */
 
     handleOpenOrClose = (event) => {
         if (this.isClosed) {
@@ -127,7 +131,7 @@ class Slider {
         this.elements.splice(index, 1)[0];
         this.elements.splice(this.selectedElementIndex, 0, selectedElement);
         this.updateZIndex();
-        this.onSelectedElementChanged();
+        this.onElementSelected();
     }
 
     updateZIndex = () => {
@@ -180,7 +184,7 @@ class Slider {
         }
     }
 
-    /* -------------------- End Helper functions -------------------- */
+    /* ----------------- End Helper/Private functions ----------------- */
 
 
     /* ---------------------- API Functions -------------------------- */
@@ -194,6 +198,9 @@ class Slider {
     }
 
     openSet = (event, noAnimation) => {
+
+        // Calculate <top> and <left> units used to calculate the top and left positions
+        // of the ith element in the loop
         let top = 0;
         let left = 0;
         let t_shift = 0;
@@ -203,6 +210,8 @@ class Slider {
         } else if (this.direction === 'horizontal') {
             left = (this.containerWidth - this.elementWidth) / (this.numElements - 1);
         } else { // diagonal  
+
+            // If direction === 'diagonal', use trig to calculate <top> and <left>
             if (this.degree > 45) {
                 top = (this.containerHeight - this.elementHeight) / (this.numElements - 1);
                 left = top / Math.tan(this.degree * Math.PI / 180);
@@ -210,6 +219,8 @@ class Slider {
                 left = (this.containerWidth - this.elementWidth) / (this.numElements - 1);
                 top = left * Math.tan(this.degree * Math.PI / 180);
             }
+
+            // Calculate top and left shifts to be applied to all elements based on the selectedElementPosition
             if (this.selectedElementPosition === 'center') {
                 t_shift = (this.containerHeight - ((top * (this.numElements - 1)) + this.elementHeight)) / 2;
                 l_shift = (this.containerWidth - ((left * (this.numElements - 1)) + this.elementWidth)) / 2;
@@ -221,6 +232,7 @@ class Slider {
                     l_shift = (this.containerWidth - ((left * (this.numElements - 1)) + this.elementWidth));
                 }
             }
+
         }
 
         let elements;
@@ -238,6 +250,9 @@ class Slider {
         }
 
         for (let i = 0; i < this.numElements; i++) {
+
+            // Calculate the top and left position of the ith element based on <i>,
+            // <top>, <left>, <t_shift>, and <l_shift>
             let t = top * i;
             let l = left * i;;
             if (this.selectedElementPosition.search('bottom') !== -1 || this.direction === 'diagonal-up') {
@@ -281,16 +296,19 @@ class Slider {
                 });
 
             }
-
         }
 
         this.isClosed = false;
     }
 
     closeSet = (event, noAnimation) => {
+
+        // Calculate <top> and <left> units used to calculte the top and left positions
+        // of all elements
         let top = 0;
         let left = 0;
         if (this.selectedElementPosition === 'center') {
+
             if (this.direction === 'vertical') {
                 top = (this.containerHeight / 2) - (this.elementHeight / 2);
             } else if (this.direction === 'horizontal') {
@@ -299,13 +317,16 @@ class Slider {
                 top = (this.containerHeight / 2) - (this.elementHeight / 2);
                 left = (this.containerWidth / 2) - (this.elementWidth / 2);
             }
+
         } else { // not center
+
             if (this.selectedElementPosition.search('right') !== -1) {
                 left = this.containerWidth - this.elementWidth
             }
             if (this.selectedElementPosition.search('bottom') !== -1) {
                 top = this.containerHeight - this.elementHeight;
             }
+
         }
 
         let animationSpeed;
@@ -373,8 +394,6 @@ class Slider {
     getSelectedElement = () => {
         return this.elements[this.selectedElementIndex];
     }
-
-    onSelectedElementChanged = () => {}
 
     /* -------------------- End API Functions ------------------------ */
 }

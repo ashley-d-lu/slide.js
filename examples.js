@@ -1,37 +1,35 @@
 "use strict";
 
-const cardsHorizLeft = document.querySelector('#cards-horiz-left');
-const cardsHorizLeftSlider = new Slider(cardsHorizLeft, {
+const slider = new Slider('#cards', {
+    direction: 'horizontal'
+});
+
+const cardsHorizLeftSlider = new Slider('#cards-horiz-left', {
     direction: 'horizontal',
     selectedElementPosition: 'left'
 });
 
-const cardsHorizCenter = document.querySelector('#cards-horiz-center');
-const cardsHorizCenterSlider = new Slider(cardsHorizCenter, {
+const cardsHorizCenterSlider = new Slider('#cards-horiz-center', {
     direction: 'horizontal',
     selectedElementPosition: 'center'
 });
 
-const cardsHorizRight = document.querySelector('#cards-horiz-right');
-const cardsHorizRightSlider = new Slider(cardsHorizRight, {
+const cardsHorizRightSlider = new Slider('#cards-horiz-right', {
     direction: 'horizontal',
     selectedElementPosition: 'right'
 });
 
-const cardsVerticalTop = document.querySelector('#cards-vertical-top');
-const cardsVerticalTopSlider = new Slider(cardsVerticalTop, {
+const cardsVerticalTopSlider = new Slider('#cards-vertical-top', {
     direction: 'vertical',
     selectedElementPosition: 'top'
 });
 
-const cardsVerticalCenter = document.querySelector('#cards-vertical-center');
-const cardsVerticalCenterSlider = new Slider(cardsVerticalCenter, {
+const cardsVerticalCenterSlider = new Slider('#cards-vertical-center', {
     direction: 'vertical',
     selectedElementPosition: 'center'
 });
 
-const cardsVerticalBottom = document.querySelector('#cards-vertical-bottom');
-const cardsVerticalBottomSlider = new Slider(cardsVerticalBottom, {
+const cardsVerticalBottomSlider = new Slider('#cards-vertical-bottom', {
     direction: 'vertical',
     selectedElementPosition: 'bottom'
 });
@@ -39,7 +37,7 @@ const cardsVerticalBottomSlider = new Slider(cardsVerticalBottom, {
 
 const cardsDiagonal = document.querySelector('#cards-diagonal');
 const cardsDiagonalClone = cardsDiagonal.cloneNode(true);
-let cardsDiagonalSlider = new Slider(cardsDiagonal, {
+let cardsDiagonalSlider = new Slider('#cards-diagonal', {
     direction: 'diagonal',
     selectedElementPosition: 'top-left',
     degree: 45
@@ -69,95 +67,95 @@ const changeSelectedPos = (position, degree) => {
     document.querySelector('#diagonal-example').removeChild(document.querySelector('#cards-diagonal'));
     const cardsDiagonalClone2 = cardsDiagonalClone.cloneNode(true);
     document.querySelector('#diagonal-example').appendChild(cardsDiagonalClone2)
-    cardsDiagonalSlider = new Slider(cardsDiagonalClone2, {
+    cardsDiagonalSlider = new Slider('#cards-diagonal', {
         direction: 'diagonal',
         selectedElementPosition: position,
         degree: degree
     });
 
+    if (position === 'center') {
+        position = `'${position}',`.concat(' // default');;
+    } else {
+        position = `'${position}',`;
+    }
+
+    if (degree === 45) {
+        degree = `${degree}`.concat(' // default')
+    } else {
+        degree = `${degree}`;
+    }
+
     // Update code example
     document.querySelector('#diagonal-example-position-code').innerText =
-        `            const slider = new Slider(container, {
+        `            const slider = new Slider(containerSelector, {
                 direction: 'diagonal',
-                selectedElementPosition: '${position}',
+                selectedElementPosition: ${position}
                 degree: ${degree}
             });
     `;
 }
 
-const cardsDiagonalUp = document.querySelector('#cards-diagonal-up');
-const cardsDiagonalUpSlider = new Slider(cardsDiagonalUp, {
+const cardsDiagonalUpSlider = new Slider('#cards-diagonal-up', {
     direction: 'diagonal',
     selectedElementPosition: 'center',
     upOrDown: 'up'
 });
 
-const cardsDiagonalDown = document.querySelector('#cards-diagonal-down');
-const cardsDiagonalDownSlider = new Slider(cardsDiagonalDown, {
+const cardsDiagonalDownSlider = new Slider('#cards-diagonal-down', {
     direction: 'diagonal',
     selectedElementPosition: 'center',
     upOrDown: 'down'
 });
 
-const cardsclickToOpenFalse = document.querySelector('#cards-clickToOpen-false');
-const cardsclickToOpenFalseSlider = new Slider(cardsclickToOpenFalse, {
+const cardsclickToOpenFalseSlider = new Slider('#cards-clickToOpen-false', {
     direction: 'horizontal',
     clickToOpen: false
 })
 
-const cardsclickToOpenTrue = document.querySelector('#cards-clickToOpen-true');
-const cardsclickToOpenTrueSlider = new Slider(cardsclickToOpenTrue, {
+const cardsclickToOpenTrueSlider = new Slider('#cards-clickToOpen-true', {
     direction: 'horizontal',
     clickToOpen: true
 })
 
-const cardsKeepOriginalOrderFalse = document.querySelector('#cards-keepOriginalOrder-false');
-const cardsKeepOriginalOrderFalseSlider = new Slider(cardsKeepOriginalOrderFalse, {
+const cardsKeepOriginalOrderFalseSlider = new Slider('#cards-keepOriginalOrder-false', {
     direction: 'horizontal',
     keepOriginalOrder: false
 })
 
-const cardsKeepOriginalOrderTrue = document.querySelector('#cards-keepOriginalOrder-true');
-const cardsKeepOriginalOrderTrueSlider = new Slider(cardsKeepOriginalOrderTrue, {
+const cardsKeepOriginalOrderTrueSlider = new Slider('#cards-keepOriginalOrder-true', {
     direction: 'horizontal',
     keepOriginalOrder: true
 })
 
-const cardsAnimationSpeed = document.querySelector('#cards-animationSpeed-600')
-const cardsAnimationSpeedSlider = new Slider(cardsAnimationSpeed, {
+const cardsAnimationSpeedSlider = new Slider('#cards-animationSpeed-600', {
     direction: 'horizontal',
     animationSpeed: 600
 })
 
-const cardsAnimationSpeed100 = document.querySelector('#cards-animationSpeed-100')
-const cardsAnimationSpeed100Slider = new Slider(cardsAnimationSpeed100, {
+const cardsAnimationSpeed100Slider = new Slider('#cards-animationSpeed-100', {
     direction: 'horizontal',
     animationSpeed: 100
 })
 
-const cardsAnimationTrueTrue = document.querySelector('#cards-animation-true-true')
-const cardsAnimationTrueTrueSlider = new Slider(cardsAnimationTrueTrue, {
+const cardsAnimationTrueTrueSlider = new Slider('#cards-animation-true-true', {
     direction: 'horizontal',
     showSlideAnimation: true,
     showFadeAnimation: true
 })
 
-const cardsAnimationTrueFalse = document.querySelector('#cards-animation-true-false')
-const cardsAnimationTrueFalseSlider = new Slider(cardsAnimationTrueFalse, {
+const cardsAnimationTrueFalseSlider = new Slider('#cards-animation-true-false', {
     direction: 'horizontal',
     showSlideAnimation: true,
     showFadeAnimation: false
 })
 
-const cardsAnimationFalseTrue = document.querySelector('#cards-animation-false-true')
-const cardsAnimationFalseTrueSlider = new Slider(cardsAnimationFalseTrue, {
+const cardsAnimationFalseTrueSlider = new Slider('#cards-animation-false-true', {
     direction: 'horizontal',
     showSlideAnimation: false,
     showFadeAnimation: true
 })
 
-const cardsAnimationFalseFalse = document.querySelector('#cards-animation-false-false');
-const cardsAnimationFalseFalseSlider = new Slider(cardsAnimationFalseFalse, {
+const cardsAnimationFalseFalseSlider = new Slider('#cards-animation-false-false', {
     direction: 'horizontal',
     showSlideAnimation: false,
     showFadeAnimation: false
@@ -169,20 +167,17 @@ const updateCounter = () => {
     document.querySelector('#counter').innerText = `Counter: ${count}`;
 }
 
-const cardsOnSelElChanged = document.querySelector('#cards-onSelectedElementChanged');
-const cardsOnSelElChangedSlider = new Slider(cardsOnSelElChanged, {
+const cardsOnSelElChangedSlider = new Slider('#cards-onElementSelected', {
     direction: 'horizontal',
-    onSelectedElementChanged: updateCounter
+    onElementSelected: updateCounter
 });
 
-const cardsOpen = document.querySelector('#cards-open');
-const cardsOpenSlider = new Slider(cardsOpen, {
+const cardsOpenSlider = new Slider('#cards-open', {
     direction: 'horizontal'
 });
 cardsOpenSlider.openSetOnDOMContentLoaded();
 
-const cardsFunctions = document.querySelector('#cards-functions');
-const slider = new Slider(cardsFunctions, {
+const functionsSlider = new Slider('#cards-functions', {
     direction: 'horizontal',
     selectedElementPosition: 'center'
 });
@@ -191,40 +186,37 @@ const slider = new Slider(cardsFunctions, {
 document.querySelector('#selected-elem-className').innerText = 'Currently selected element: card red';
 
 const openButton = document.querySelector('#open-btn');
-openButton.addEventListener('click', slider.openSet);
+openButton.addEventListener('click', functionsSlider.openSet);
 
 const closeButton = document.querySelector('#close-btn');
-closeButton.addEventListener('click', slider.closeSet);
+closeButton.addEventListener('click', functionsSlider.closeSet);
 
 const selElemTextBox = document.querySelector('#selected-elem-className')
 
-slider.onSelectedElementChanged = () => {
-    const selectedElement = slider.getSelectedElement();
+functionsSlider.onElementSelected = () => {
+    const selectedElement = functionsSlider.getSelectedElement();
     console.log(selectedElement);
     selElemTextBox.innerText = `Currently selected element: ${selectedElement.className}`;
 }
 
-const displayStringVersionOfHTMLNode = (selectedElement) => {
-    selectedElement = selectedElement.cloneNode(true);
-    const tmp = document.createElement('div');
-    tmp.appendChild(selectedElement);
-    selElemTextBox.innerText = tmp.innerHTML;
-}
+// const displayStringVersionOfHTMLNode = (selectedElement) => {
+//     selectedElement = selectedElement.cloneNode(true);
+//     const tmp = document.createElement('div');
+//     tmp.appendChild(selectedElement);
+//     selElemTextBox.innerText = tmp.innerHTML;
+// }
 
 
-const dropdown = document.querySelector('#dropdown-menu');
-const dropdownSlider = new Slider(dropdown, {
+const dropdownSlider = new Slider('#dropdown-menu', {
     direction: 'vertical',
     selectedElementPosition: 'top',
     keepOriginalOrder: true,
     clickToOpen: true
 });
-// log(dropdownSlider)
 dropdownSlider.openSetOnDOMContentLoaded();
 
 
-const products = document.querySelector('#products');
-const productsSlider = new Slider(products, {
+const productsSlider = new Slider('#products', {
     direction: 'horizontal',
     selectedElementPosition: 'center',
     keepOriginalOrder: true

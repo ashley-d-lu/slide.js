@@ -8,30 +8,81 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script defer type='text/javascript' src='examples.js'></script>
     <link rel='stylesheet' type='text/css' href='examples.css'>
-    <title>Demo</title>
+    <title>Slide.js</title>
 </head>
 
 <body>
+    <div id='library-name'>Slide.js</div>
 
+    <div class='divider'></div>
     <h1>How To Use</h1>
+    <p>To turn a set of HTML elements into a slider:</p>
+    <ol>
+        <li>Give a unique id to each HTML element.</li>
+        <li>Enclose all the HTML elements in a container div.*</li>
+        <li>Set the height and width of the container div. This will determine the height
+            and width of the slider when it is open (and how far apart the elements
+            will be).
+        </li>
+        <li>Instantiate a Slider object, passing in the selector of the
+            container div and an object containing customizable properties and their values. The only
+            required property is direction, which takes value 'horizontal', 'vertical',
+            or 'diagonal'. If a property is not specified, it will take its default value.
+        </li>
+    </ol>
+    <p class='small'>*Note: The library changes the 
+        position of the container div to 'relative' and the position of its child
+        elements to 'absolute'.</p>
+    <p class='bold'>Example:</p>
+    <p>HTML:</p>
+    <pre>
+        &lt;div id='cards' class='horizontal card-container'
+            &lt;div id='card1' class='card blue'&gt;&lt;/div&gt;
+            &lt;div id='card2' class='card yellow'&gt;&lt;/div&gt;
+            &lt;div id='card3' class='card red'&gt;&lt;/div&gt;
+            &lt;div id='card4' class='card green'&gt;&lt;/div&gt;
+            &lt;div id='card5' class='card orange'&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    </pre>
 
-    <p></p>
+    <p>CSS:</p>
+    <pre>
+        .horizontal {
+            height: 100px;
+            width: 400px;
+        }
+    </pre>
+
+    <p>JavaScript:</p>
+    <pre>
+        const slider = new Slider('#cards', {
+            direction: 'horizontal'
+        });
+    </pre>
+
+    <div id='cards' class='horizontal card-container'>
+        <div class='card blue' id='card1'></div>
+        <div class='card yellow' id='card2'></div>
+        <div class='card red' id='card3'></div>
+        <div class='card green' id='card4'></div>
+        <div class='card orange' id='card5'></div>
+    </div>
 
     <div class='divider'></div>
     <h1>Customizable Properties</h1>
 
-    <h3>direction</h3>
+    <h3>direction (Required)</h3>
     <p>direction can be 'horizontal', 'vertical', or 'diagonal'.</p>
 
     <h3>selectedElementPosition</h3>
 
     <p>selectedElementPosition determines the position of the selected element within the container.
-        It's default value is 'center'.
+        Its default value is 'center'.
     </p>
 
     <p>For horizontal sliders, selectedElementPosition can be 'left', 'center', or 'right'</p>
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
             selectedElementPosition: 'left' or 'center' or 'right'
         });
@@ -63,7 +114,7 @@
 
     <p>For vertical sliders, selectedElementPosition can be 'top', 'center', or 'bottom'</p>
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'vertical',
             selectedElementPosition: 'top' or 'center' or 'bottom'
         });
@@ -100,21 +151,21 @@
     </p>
 
     <h3>degree</h3>
-    <p>degree can also be customized for diagonal sliders. It determines the angle from the horizontal that
-        the set opens in. Its default value is 45. It can take any value from 0 to 90.
+    <p>degree can also be customized for diagonal sliders. It determines the angle (from the horizontal) at
+        which the set opens. Its default value is 45. It takes any value from 0 to 90.
     </p>
 
     <div id='diagonal-example'>
         <pre id='diagonal-example-position-code'>
-            const slider = new Slider(container, {
+            const slider = new Slider(containerSelector, {
                 direction: 'diagonal',
                 selectedElementPosition: 'top-left',
-                degree: 45
+                degree: 45 // default
             });
         </pre>
 
         <div class='float-left'>
-            <p>Try different positions:</p>
+            <p>Customize selectedElementPosition:</p>
             <button id='topleft-btn'>top-left</button>
             <button id='topright-btn'>top-right</button>
             <button id='bottomright-btn'>bottom-right</button>
@@ -122,7 +173,7 @@
             <button id='center-btn'>center</button>
         </div>
         <div class='float-left' id='angle-btns'>
-            <p>Try different angles:</p>
+            <p>Customize degree:</p>
             <button id='degree-20-btn'>20</button>
             <button id='degree-45-btn'>45</button>
             <button id='degree-70-btn'>70</button>
@@ -140,12 +191,12 @@
 
     <h3>upOrDown</h3>
     <p>urOrDown can be customized for diagonal sliders with selectedElementPosition='center'. It determines
-        whether the set opens in an upward or downward direction. Its default value is down
+        whether the set opens in an upward or downward direction. Its default value is 'down'.
     </p>
 
     <div class='float-left'>
         <pre>
-            const slider = new Slider(container, {
+            const slider = new Slider(containerSelector, {
                 direction: 'diagonal',
                 selectedElementPosition: 'center', // default
                 upOrDown: 'down' // default
@@ -162,7 +213,7 @@
 
     <div class='float-left'>
         <pre>
-            const slider = new Slider(container, {
+            const slider = new Slider(containerSelector, {
                 direction: 'diagonal',
                 selectedElementPosition: 'center', // default
                 upOrDown: 'up'
@@ -181,11 +232,11 @@
 
     <h3>clickToOpen</h3>
     <p>If clickToOpen is true, the set is opened by clicking on the selected element.
-        If clickToOpen is false, the set is opened by hovering over the the selected element.
+        If clickToOpen is false, the set is opened by hovering over the selected element.
         Its default value is false.
     </p>
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
             clickToOpen: false // default
         });
@@ -200,7 +251,7 @@
     </div>
 
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
             clickToOpen: true
         });
@@ -217,10 +268,10 @@
     <p>keepOriginalOrder determines if the elements are displayed in their original order when the set is open.
         Its default value is false.
     </p>
-    <p>Try selecting different items the examples to see the effect.</p>
+    <div>Try selecting different items the examples to see the effect.</div>
 
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
             keepOriginalOrder: false // default
         });
@@ -234,7 +285,7 @@
     </div>
 
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
             keepOriginalOrder: true
         });
@@ -253,7 +304,7 @@
     </p>
 
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
             animationSpeed: 600
         });
@@ -267,7 +318,7 @@
     </div>
 
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
             animationSpeed: 100
         });
@@ -291,7 +342,7 @@
 
     <div class='float-left'>
         <pre>
-            const slider = new Slider(container, {
+            const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
                 showSlideAnimation: true, // default
                 showFadeAnimation: true // default
@@ -308,7 +359,7 @@
 
     <div class='float-left'>
         <pre>
-            const slider = new Slider(container, {
+            const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
                 showSlideAnimation: true, // default
                 showFadeAnimation: false
@@ -326,7 +377,7 @@
 
     <div class='float-left'>
         <pre>
-            const slider = new Slider(container, {
+            const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
                 showSlideAnimation: false, 
                 showFadeAnimation: true // default
@@ -343,7 +394,7 @@
 
     <div class='float-left'>
         <pre>
-            const slider = new Slider(container, {
+            const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
                 showSlideAnimation: false,
                 showFadeAnimation: false
@@ -359,28 +410,28 @@
     </div>
     <div class='leftclearfix'></div>
 
-    <h3>onSelectedElementChanged</h3>
-    <p>onSelectedElementChanged is a function that is called when the selected element changes. 
-        It's default value is a function that does nothing. You can assign
-        it to your own function.
+    <h3>onElementSelected</h3>
+    <p>onElementSelected is a function that is called when the user selects an element.
+        Its default value is a function that does nothing. It can be assigned
+        it to another function.
     </p>
     <pre class='float-left'>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
-            onSelectedElementChanged: updateCounter
+            onElementSelected: updateCounter
         });
     </pre>
     <p class='float-left margin-left-40'>or</p>
     <pre class='float-left'>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
         });
-        slider.onSelectedElementChanged = updateCounter;
+        slider.onElementSelected = updateCounter;
     </pre>
     <div class='leftclearfix'></div>
 
     <div class='float-left'>
-        <div id='cards-onSelectedElementChanged' class='horizontal card-container'>
+        <div id='cards-onElementSelected' class='horizontal card-container'>
             <div class='card blue' id='osec-card1'></div>
             <div class='card yellow' id='osec-card2'></div>
             <div class='card red' id='osec-card3'></div>
@@ -395,11 +446,11 @@
     <h1>Functions</h1>
 
     <h3>openSetOnDOMContentLoaded</h3>
-    <p>By default, the slider is initialized to closed when the DOM loads. Call openSetOnDOMContentLoaded when the DOM
-        loads to initialize it to open.
+    <p>By default, the slider is initialized to closed when the DOM loads. To initialize the slider to open,
+        call the openSetOnDOMContentLoaded after the DOM loads.
     </p>
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal'
         });
         slider.openSetOnDOMContentLoaded();
@@ -421,14 +472,16 @@
     <h3>getSelectedElement</h3>
     <p>getSelectedElement returns the HTML node corresponding to the currently selected item.</p>
 
-    <p>Example using openSet, closeSet, and getSelectedElement: openSet is called when the "Open"
-        button is clicked. closeSet is called when the "Close" button is clicked. 
-        onSelectedElementChanged is assigned to a function that calls getSelectedElement, logs the selected element,
-         and displays its class name.
-    </p>
+    <p class='bold'>Example using openSet, closeSet, and getSelectedElement:</p>
+    <ul>
+        <li>openSet is called when the "Open" button is clicked. </li>
+        <li>closeSet is called when the "Close" button is clicked.</li>
+        <li>onElementSelected is assigned to a function that uses getSelectedElement to
+            get the currently selected element, logs it, and displays its class name.</li>
+    </ul>
 
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal'
         });
 
@@ -436,19 +489,19 @@
 
         closeButton.addEventListener('click', slider.closeSet);
 
-        slider.onSelectedElementChanged = () => {
+        slider.onElementSelected = () => {
             const selectedElement = slider.getSelectedElement();
             console.log(selectedElement);
             selElemTextBox.innerText = selectedElement.className;
-        }
+        };
     </pre>
 
     <div id='cards-functions' class='horizontal card-container'>
-        <div class='card blue' id='card1'></div>
-        <div class='card yellow' id='card2'></div>
-        <div class='card red' id='card3'></div>
-        <div class='card green' id='card4'></div>
-        <div class='card orange' id='card5'></div>
+        <div class='card blue' id='functions-card1'></div>
+        <div class='card yellow' id='functions-card2'></div>
+        <div class='card red' id='functions-card3'></div>
+        <div class='card green' id='functions-card4'></div>
+        <div class='card orange' id='functions-card5'></div>
     </div>
 
     <button id='open-btn'>Open</button>
@@ -458,14 +511,15 @@
     <div class='divider-100'></div>
     <h1>Practical Examples</h1>
 
-    <p>An animated version of Twitter's sidebar menu:</p>
+    <p class='bold'>An animated version of Twitter's sidebar menu:</p>
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'vertical',
             selectedElementPosition: 'top',
             keepOriginalOrder: true,
             clickToOpen: true
         });
+        slider.openSetOnDOMContentLoaded();
     </pre>
     <div id='dropdown-menu'>
         <div class='menu-option' id='home'>
@@ -502,21 +556,24 @@
         </div>
     </div>
 
-    <p>A display for different options for a product:</p>
+    <p class='bold'>A display for different options for a product:</p>
     <pre>
-        const slider = new Slider(container, {
+        const slider = new Slider(containerSelector, {
             direction: 'horizontal',
             keepOriginalOrder: true
         });
+        slider.openSetOnDOMContentLoaded();
     </pre>
     <div id='products'>
-        <img src='/products/iphone11-green-select-2019.png' id='green-iphone' class='product'>
-        <img src='/products/iphone11-white-select-2019.png' id='white-iphone' class='product'>
-        <img src='/products/iphone11-black-select-2019.png' id='black-iphone' class='product'>
-        <img src='/products/iphone11-purple-select-2019.png' id='purple-iphone' class='product'>
-        <img src='/products/iphone11-yellow-select-2019.png' id='yellow-iphone' class='product'>
-        <img src='/products/iphone11-red-select-2019.png' id='red-iphone' class='product'>
+        <img src='/productImages/iphone11-green-select-2019.png' id='green-iphone' class='product'>
+        <img src='/productImages/iphone11-white-select-2019.png' id='white-iphone' class='product'>
+        <img src='/productImages/iphone11-black-select-2019.png' id='black-iphone' class='product'>
+        <img src='/productImages/iphone11-purple-select-2019.png' id='purple-iphone' class='product'>
+        <img src='/productImages/iphone11-yellow-select-2019.png' id='yellow-iphone' class='product'>
+        <img src='/productImages/iphone11-red-select-2019.png' id='red-iphone' class='product'>
     </div>
+
+    <div class='divider'></div>
 
 </body>
 
