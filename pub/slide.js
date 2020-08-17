@@ -14,7 +14,9 @@ class Slider {
             showFadeAnimation,
             degree,
             upOrDown,
-            onElementSelected
+            onElementSelected,
+            lightbox,
+            captions
         } = properties;
 
         this.containerSelector = containerSelector;
@@ -23,8 +25,46 @@ class Slider {
         this.container.style.position = 'relative';
 
         this.elements = [...this.container.children];
-        this.originalElements = [...this.container.children];
         this.elements.forEach(element => element.style.position = 'absolute');
+
+        if (lightbox !== undefined) {
+            this.lightbox = lightbox;
+        } else {
+            this.lightbox = false;
+        }
+
+        if (lightbox) {
+            
+            this.elements.forEach(element => {
+
+                // Create containing div for the 'expand' and 'close' icon
+                const div = document.createElement('div');
+                div.style.position = 'absolute';
+                div.style.top = '2%';
+                div.style.right = div.style.top;
+                div.style.height = '20px';
+                div.style.width = '20px';
+                div.style.backgroundColor = 'rgb(255, 255, 255, 0.3)';
+                div.style.borderRadius = '10%'
+
+                // Create icon img
+                const icon = document.createElement('img');
+                icon.src = './lightboxIcons/unfold_more-24px.svg';
+                icon.style.transform = 'rotate(45deg)';
+                icon.style.opacity = 0.8;
+                icon.style.height = 'inherit';
+                icon.style.width = 'inherit'
+
+                div.appendChild(icon);
+
+                // Enter full screen when the icon's containing div is clicked
+                div.addEventListener('click', this.enterFullScreen);
+
+                // Add to element
+                element.appendChild(div);
+
+            });
+        }
 
         this.numElements = this.elements.length;
 
@@ -99,6 +139,8 @@ class Slider {
             this.onElementSelected = () => {};
         }
 
+        this.originalElements = [...this.elements];
+
         this.isClosed = true;
         this.closeSetOnDOMContentLoaded();
         this.updateZIndex();
@@ -110,6 +152,7 @@ class Slider {
             this.container.addEventListener('click', this.handleCloseSet);
             this.container.addEventListener('mouseleave', this.handleCloseSet);
         }
+        
     }
 
     /* ----------------------- Helper/Private functions ----------------------- */
@@ -122,10 +165,23 @@ class Slider {
         }
     }
 
+    afterCloseForHover = () => {
+        console.log('addMouseover')
+        this.elements[this.selectedElementIndex].removeEventListener('mouseleave', this.afterCloseForHover);
+        this.elements[this.selectedElementIndex].addEventListener('mouseover', this.handleOpenSet); 
+        this.container.addEventListener('mouseleave', this.handleCloseSet);
+    }
+
     updateSelectedElement = (selectedElement, index) => {
         if (!this.clickToOpen) {
             this.elements[this.selectedElementIndex].removeEventListener('mouseover', this.handleOpenSet);
-            selectedElement.addEventListener('mouseover', this.handleOpenSet);
+            if (index === this.selectedElementIndex) {
+                this.indexDidNotChange = true;
+                this.container.removeEventListener('mouseleave', this.handleCloseSet);
+            } else {
+                selectedElement.addEventListener('mouseover', this.handleOpenSet);
+            }
+           
         }
 
         this.elements.splice(index, 1)[0];
@@ -153,19 +209,22 @@ class Slider {
     }
 
     handleOpenSet = (event) => {
+        console.log('handleOpenSet')
         let target = event.target;
-        if (event.type === 'click') {
+        // if (event.type === 'click') {
             while (target.parentNode !== this.container && target !== this.container) {
                 target = target.parentNode;
             }
-        }
+        // }
 
         if (this.isClosed && this.elements.includes(target)) {
+            console.log('openSet')
             this.openSet();
         }
     }
 
     handleCloseSet = (event) => {
+        console.log('handleCloseSet')
         let target = event.target;
         if (event.type === 'click') {
             while (target.parentNode !== this.container && target !== this.container) {
@@ -184,6 +243,113 @@ class Slider {
         }
     }
 
+    enterFullScreen = (event) => {
+        // Prevent other event handlers from being triggered
+        event.stopPropagation();
+
+        // Get icon's div and image
+        let img;
+        let div;
+        if (event.target.tagName === 'IMG') {
+            img = event.target;
+            div = event.target.parentNode;
+        } else {
+            div = event.target;
+            img = event.target.children[0];
+        }
+
+        // Change icon's image
+        img.src = './lightboxIcons/unfold_less-24px.svg';
+
+        // Change icon's event listener
+        div.removeEventListener('click', this.enterFullScreen);
+        div.addEventListener('click', this.exitFullScreen);
+
+        // Get element we're expanding to full screen
+        const element = div.parentNode;
+
+        // Record the element's previous top and left values to easily reverting the  
+        // top and left positions when full screen closes
+        this.prevTop = element.style.top;
+        this.prevLeft = element.style.left;
+
+        // Change position to fixed so it's position is relative to the browser
+        // instead of this.container
+        element.style.position = 'fixed';
+
+        // Set transition speed
+        element.style.transitionDuration = '400ms';
+
+        // Center the element
+        element.style.top = '50%';
+        element.style.left = '50%';
+        element.style.transform = 'translate(-50%, -50%)';
+        element.style.webkitTransform = 'translate(-50%, -50%)';
+
+        let newHeight;
+        let newWidth;
+
+        // Calculate the new height and width
+        if (this.elementHeight > this.elementWidth) {
+            const widthOverHeight = this.elementWidth / this.elementHeight;
+            newHeight = '65vh';
+            newWidth = `calc(65vh * ${widthOverHeight})`;
+        } else {
+            const heightOverWidth = this.elementHeight / this.elementWidth;
+            newHeight = `calc(65vw * ${heightOverWidth})`;
+            newWidth = '65vw';
+        }
+
+        // Set new height and width
+        element.style.height = newHeight;
+        element.style.width = newWidth;
+    }
+
+    exitFullScreen = (event) => {
+        // Prevent other event handlers from being triggered
+        event.stopPropagation();
+        console.log('exitFullScreen');
+
+        // Get icon's div and image
+        let img;
+        let div;
+        if (event.target.tagName === 'IMG') {
+            img = event.target;
+            div = event.target.parentNode;
+        } else {
+            div = event.target;
+            img = event.target.children[0];
+        }
+
+        // Change icon's image
+        img.src = './lightboxIcons/unfold_more-24px.svg';
+
+        // Change icon's event listener
+        div.removeEventListener('click', this.exitFullScreen);
+        div.addEventListener('click', this.enterFullScreen);
+
+        // Get element that is exiting fullscreen
+        const element = div.parentNode;
+
+        // Get rid of centering properties
+        element.style.transform = 'none';
+        element.style.webkitTransform = 'none';
+
+        // Reset position to 'absolute'
+        element.style.position = 'absolute';
+
+        // Reset the height, width, top, and left properties
+        element.style.height = `${this.elementHeight}px`;
+        element.style.width = `${this.elementWidth}px`;
+        element.style.top = this.prevTop;
+        element.style.left = this.prevLeft;
+
+        // Get rid of transition property after the element exits fullscreen
+        setTimeout(() => {
+            element.style.transitionDuration = '0ms';
+        }, 201);
+    }
+
     /* ----------------- End Helper/Private functions ----------------- */
 
 
@@ -198,6 +364,14 @@ class Slider {
     }
 
     openSet = (event, noAnimation) => {
+
+        // Hide expand icons if the set opens on hover
+        if (this.lightbox && !this.clickToOpen) {
+            this.elements.forEach(element => {
+                const iconDiv = element.children[element.children.length - 1];
+                iconDiv.style.display = 'none';
+            })
+        }
 
         // Calculate <top> and <left> units used to calculate the top and left positions
         // of the ith element in the loop
@@ -379,13 +553,28 @@ class Slider {
                         $(`#${this.elements[i].id}`).animate({
                             opacity: '1'
                         }, {
-                            duation: animationSpeed,
+                            duration: animationSpeed,
                             queue: false
                         });
                     }
                 });
 
             }
+        }
+
+        if (!this.clickToOpen && this.indexDidNotChange) {
+            setTimeout(() => {
+                console.log('setTimeout', this.elements[this.selectedElementIndex])
+                this.elements[this.selectedElementIndex].addEventListener('mouseleave', this.afterCloseForHover);
+            }, this.animationSpeed + 1);
+        }
+
+        // Unhide expand icons if the set opens on hover
+        if (this.lightbox && !this.clickToOpen) {
+            this.elements.forEach(element => {
+                const iconDiv = element.children[element.children.length - 1];
+                iconDiv.style.display = 'block';
+            })
         }
 
         this.isClosed = true;

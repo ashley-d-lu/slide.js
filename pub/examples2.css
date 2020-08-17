@@ -1,0 +1,18 @@
+body {
+    padding: 0px 0px;
+}
+
+.photos {
+    height: 300px;
+    width: 1230px;
+}
+
+.photo-container {
+    height: 300px;
+    width: 400px;
+}
+
+img {
+    height: inherit;
+    width: inherit;
+}
