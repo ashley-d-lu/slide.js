@@ -18,7 +18,8 @@ class Slider {
             lightbox,
             captions,
             onlyShowCaptionsOnHover,
-            hoverAnimation
+            hoverAnimation,
+            scaleFactor
         } = properties;
 
         this.containerSelector = containerSelector;
@@ -126,7 +127,6 @@ class Slider {
         if (this.hasCaptions) {
             for (let i = 0; i < this.elements.length; i++) {
                 if (this.captions.length >= i) {
-                    // Add caption
                     const caption = document.createElement('div');
                     caption.style.position = 'absolute';
                     caption.style.right = '1%';
@@ -247,6 +247,13 @@ class Slider {
             this.degree = 45;
         }
 
+        if (scaleFactor !== undefined) {
+            this.scaleFactor = scaleFactor;
+            this.elements.forEach(element => {
+                element.style.transitionDuration = `${this.animationSpeed}ms`;
+            })
+        }
+
         if (onElementSelected !== undefined) {
             this.onElementSelected = onElementSelected;
         } else {
@@ -259,6 +266,7 @@ class Slider {
         this.closeSetOnDOMContentLoaded();
         this.updateZIndex();
 
+        // Add event listeners to open/close the set set on click/hover
         this.addEventListeners();
         
     }
@@ -513,6 +521,12 @@ class Slider {
         // Get rid of transition property after the element exits fullscreen
         setTimeout(() => {
             element.style.transitionDuration = '0ms';
+
+            // and reset transition property and scale (if needed) 
+            if (this.scaleFactor !== undefined && !this.isClosed) {
+                element.style.transform = `scale(${this.scaleFactor})`;
+                element.style.transitionDuration = `${this.animationSpeed}ms`;
+            }
         }, 201);
 
         // If there is a caption ...
@@ -667,6 +681,11 @@ class Slider {
                 });
 
             }
+
+            // Scale the size
+            if (this.scaleFactor !== undefined) {
+                elements[i].style.transform = `scale(${this.scaleFactor})`;
+            }
         }
 
         this.isClosed = false;
@@ -735,8 +754,13 @@ class Slider {
                             this.elements[i].style.zIndex = prevZIndex; // revert z index
                         }
                     }
+                    
                     if (this.hoverAnimation) { 
                         this.updatePrevOffsetTop();
+                    }
+
+                    if (this.scaleFactor !== undefined) {
+                        this.elements[i].style.transform = 'scale(1)';
                     }
                 });
 
@@ -757,9 +781,13 @@ class Slider {
                             queue: false
                         });
                     }
-                }, () => {
+
                     if (this.hoverAnimation) { 
                         this.updatePrevOffsetTop();
+                    }
+
+                    if (this.scaleFactor !== undefined) {
+                        this.elements[i].style.transform = 'scale(1)';
                     }
                 });
 

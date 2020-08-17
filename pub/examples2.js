@@ -9,6 +9,7 @@ const slider = new Slider('#lightbox', {
         'Lake, 2020'
     ],
     onlyShowCaptionsOnHover: true,
-    hoverAnimation: true
+    // hoverAnimation: true,
+    scaleFactor: 0.8
 });
 slider.openSetOnDOMContentLoaded();
