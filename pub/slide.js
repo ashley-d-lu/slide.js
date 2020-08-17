@@ -17,7 +17,8 @@ class Slider {
             onElementSelected,
             lightbox,
             captions,
-            onlyShowCaptionsOnHover
+            onlyShowCaptionsOnHover,
+            hoverAnimation
         } = properties;
 
         this.containerSelector = containerSelector;
@@ -34,19 +35,6 @@ class Slider {
             this.lightbox = lightbox;
         } else {
             this.lightbox = false;
-        }
-
-        if (captions !== undefined) {
-            this.captions = captions;
-            this.hasCaptions = true;
-        } else {
-            this.hasCaptions = false;
-        }
-
-        if (onlyShowCaptionsOnHover !== undefined) {
-            this.onlyShowCaptionsOnHover = onlyShowCaptionsOnHover;
-        } else {
-            this.onlyShowCaptionsOnHover = false;
         }
 
         if (lightbox) {
@@ -118,6 +106,21 @@ class Slider {
             document.body.appendChild(this.modal);
         }
 
+        this.inFullscreenMode = false;
+
+        if (captions !== undefined) {
+            this.captions = captions;
+            this.hasCaptions = true;
+        } else {
+            this.hasCaptions = false;
+        }
+
+        if (onlyShowCaptionsOnHover !== undefined) {
+            this.onlyShowCaptionsOnHover = onlyShowCaptionsOnHover;
+        } else {
+            this.onlyShowCaptionsOnHover = false;
+        }
+
         // Add captions
         if (this.captions !== []) {
             for (let i = 0; i < this.elements.length; i++) {
@@ -146,7 +149,35 @@ class Slider {
                     }
                 }
             }
-        }    
+        }
+        
+        if (hoverAnimation !== undefined) {
+            this.hoverAnimation = hoverAnimation;
+        } else {
+            this.hoverAnimation = false;
+        }
+
+        this.updatePrevOffsetTop();
+        
+        // Add hover animations
+        if (this.hoverAnimation) {
+            this.elements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    if (!this.inFullscreenMode && !this.isClosed) {
+                        $(`#${element.id}`).animate({
+                            top: `${element.offsetTop - (0.05 * this.elementHeight)}px`
+                        }, 200);
+                    }
+                });
+                element.addEventListener('mouseleave', () => {
+                    if (!this.inFullscreenMode && !this.isClosed) {
+                        $(`#${element.id}`).animate({
+                            top: `${element.prevOffsetTop}px`
+                        }, 200);
+                    }
+                });
+            });
+        }
 
         this.direction = direction;
 
@@ -302,6 +333,12 @@ class Slider {
         }
     }
 
+    updatePrevOffsetTop = () => {
+        this.elements.forEach(element => {
+            element.prevOffsetTop = element.offsetTop;
+        });
+    }
+
     handleOpenSet = (event) => {
         console.log('handleOpenSet')
         let target = event.target;
@@ -340,6 +377,8 @@ class Slider {
     enterFullScreen = (event) => {
         // Prevent other event handlers from being triggered
         event.stopPropagation();
+
+        this.inFullscreenMode = true;
 
         // Remove original event listeners
         this.removeEventListeners();
@@ -410,7 +449,7 @@ class Slider {
         element.style.height = newHeight;
         element.style.width = newWidth;
 
-        // if there is a caption ...
+        // If there is a caption ...
         if (this.hasCaptions) {
             const caption = element.children[element.children.length - 1];
             // Change color of caption to white
@@ -461,7 +500,7 @@ class Slider {
         // Reset the height, width, top, and left properties
         element.style.height = `${this.elementHeight}px`;
         element.style.width = `${this.elementWidth}px`;
-        element.style.top = this.prevTop;
+        element.style.top = this.hoverAnimation ? element.prevOffsetTop : this.prevTop;
         element.style.left = this.prevLeft;
 
         // Revert z index
@@ -489,6 +528,10 @@ class Slider {
         
         // Re-add original event listeners
         this.addEventListeners();
+
+        setTimeout(() => {
+            this.inFullscreenMode = false;
+        }, 401);
     }
 
     /* ----------------- End Helper/Private functions ----------------- */
@@ -596,7 +639,9 @@ class Slider {
                 } else { // No fade
                     elements[i].style.opacity = '1';
                 }
-                $(`#${elements[i].id}`).animate(properties, animationSpeed);
+                $(`#${elements[i].id}`).animate(properties, animationSpeed, () => {
+                    this.updatePrevOffsetTop();
+                });
 
             } else { // Show only fade animation
 
@@ -607,6 +652,8 @@ class Slider {
                     elements[i].style.left = `${l}px`;
                     $(`#${elements[i].id}`).animate({
                         opacity: '1'
+                    }, () => {
+                        this.updatePrevOffsetTop();
                     });
                 });
 
@@ -679,6 +726,7 @@ class Slider {
                             this.elements[i].style.zIndex = prevZIndex; // revert z index
                         }
                     }
+                    this.updatePrevOffsetTop();
                 });
 
             } else if (this.showFadeAnimation) { // Show only fade animation
@@ -698,6 +746,8 @@ class Slider {
                             queue: false
                         });
                     }
+                }, () => {
+                    this.updatePrevOffsetTop();
                 });
 
             }

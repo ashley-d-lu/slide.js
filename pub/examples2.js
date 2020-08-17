@@ -8,6 +8,7 @@ const slider = new Slider('#lightbox', {
         'Bridge, 2020',
         'Lake, 2020'
     ],
-    onlyShowCaptionsOnHover: true
+    onlyShowCaptionsOnHover: true,
+    hoverAnimation: true
 });
 slider.openSetOnDOMContentLoaded();
