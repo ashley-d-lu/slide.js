@@ -16,7 +16,8 @@ class Slider {
             upOrDown,
             onElementSelected,
             lightbox,
-            captions
+            captions,
+            onlyShowCaptionsOnHover
         } = properties;
 
         this.containerSelector = containerSelector;
@@ -27,15 +28,31 @@ class Slider {
         this.elements = [...this.container.children];
         this.elements.forEach(element => element.style.position = 'absolute');
 
+        this.numElements = this.elements.length;
+
         if (lightbox !== undefined) {
             this.lightbox = lightbox;
         } else {
             this.lightbox = false;
         }
 
+        if (captions !== undefined) {
+            this.captions = captions;
+            this.hasCaptions = true;
+        } else {
+            this.hasCaptions = false;
+        }
+
+        if (onlyShowCaptionsOnHover !== undefined) {
+            this.onlyShowCaptionsOnHover = onlyShowCaptionsOnHover;
+        } else {
+            this.onlyShowCaptionsOnHover = false;
+        }
+
         if (lightbox) {
             
-            this.elements.forEach(element => {
+            // Add expand/close icon button to all elements in this.elements
+            for (let i = 0; i < this.numElements; i++) {
 
                 // Create containing div for the 'expand' and 'close' icon
                 const div = document.createElement('div');
@@ -59,12 +76,12 @@ class Slider {
 
                 div.appendChild(icon);
 
-                div.addEventListener('mouseover', () => {
+                // Only show expand/close icon when hovering overing it
+                this.elements[i].addEventListener('mouseover', () => {
                     div.style.backgroundColor = 'rgb(255, 255, 255, 0.5)';
                     div.children[0].style.opacity = 0.8;
                 })
-                
-                div.addEventListener('mouseleave', () => {
+                this.elements[i].addEventListener('mouseleave', () => {
                     div.style.backgroundColor = 'rgb(255, 255, 255, 0)';
                     div.children[0].style.opacity = 0;
                 })
@@ -76,23 +93,46 @@ class Slider {
                 div.addEventListener('click', this.enterFullScreen);
 
                 // Add to element
-                element.appendChild(div);
+                this.elements[i].appendChild(div);
+                
+                if (this.captions !== [] && this.captions.length >= i) {
+                    // Add caption
+                    const caption = document.createElement('div');
+                    caption.style.position = 'absolute';
+                    caption.style.right = '1%';
+                    caption.innerText = this.captions[i];
+                    caption.style.fontWeight = '500';
+                    caption.style.fontSize = '14px';
+                    caption.style.transitionDuration = '400ms';
 
-                // Create modal element
-                this.modal = document.createElement('div');
-                this.modal.style.display = 'none';
-                this.modal.style.position = 'fixed';
-                this.modal.style.top = '0px';
-                this.modal.style.left = '0px'
-                this.modal.style.height = '100%';
-                this.modal.style.width = '100%';
-                this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
-                document.body.appendChild(this.modal);
+                    this.elements[i].appendChild(caption);
 
-            });
+                    if (this.onlyShowCaptionsOnHover) {
+                        caption.style.opacity = '0';
+
+                        // Only show caption when hovering over element
+                        this.elements[i].addEventListener('mouseleave', () => {
+                            caption.style.opacity = '0';
+                        });
+                        this.elements[i].addEventListener('mouseover', () => {
+                            caption.style.opacity = '1';
+                        });
+                    }
+                }
+
+            }
+
+            // Create modal element
+            this.modal = document.createElement('div');
+            this.modal.style.display = 'none';
+            this.modal.style.position = 'fixed';
+            this.modal.style.top = '0px';
+            this.modal.style.left = '0px'
+            this.modal.style.height = '100%';
+            this.modal.style.width = '100%';
+            this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
+            document.body.appendChild(this.modal);
         }
-
-        this.numElements = this.elements.length;
 
         this.direction = direction;
 
@@ -330,8 +370,13 @@ class Slider {
         // Center the element
         element.style.top = '50%';
         element.style.left = '50%';
-        element.style.transform = 'translate(-50%, -50%)';
-        element.style.webkitTransform = 'translate(-50%, -50%)';
+        if (!this.hasCaptions) {
+            element.style.transform = 'translate(-50%, -50%)';
+            element.style.webkitTransform = 'translate(-50%, -50%)';
+        } else {
+            element.style.transform = 'translate(-50%, -52%)';
+            element.style.webkitTransform = 'translate(-50%, -52%)';
+        }
 
         let newHeight;
         let newWidth;
@@ -339,17 +384,25 @@ class Slider {
         // Calculate the new height and width
         if (this.elementHeight > this.elementWidth) {
             const widthOverHeight = this.elementWidth / this.elementHeight;
-            newHeight = '65vh';
-            newWidth = `calc(65vh * ${widthOverHeight})`;
+            newHeight = '60vh';
+            newWidth = `calc(60vh * ${widthOverHeight})`;
         } else {
             const heightOverWidth = this.elementHeight / this.elementWidth;
-            newHeight = `calc(65vw * ${heightOverWidth})`;
-            newWidth = '65vw';
+            newHeight = `calc(60vw * ${heightOverWidth})`;
+            newWidth = '60vw';
         }
 
         // Set new height and width
         element.style.height = newHeight;
         element.style.width = newWidth;
+
+        // if there is a caption ...
+        if (this.hasCaptions) {
+            const caption = element.children[element.children.length - 1];
+            // Change color of caption to white
+            caption.style.color = 'white';
+            caption.style.fontWeight = '400';
+        }
 
         // Open modal
         this.modal.style.display = 'block';
@@ -405,6 +458,14 @@ class Slider {
             element.style.transitionDuration = '0ms';
         }, 201);
 
+        // If there is a caption ...
+        if (this.hasCaptions) {
+            const caption = element.children[element.children.length - 1];
+            // Change color of caption to black
+            caption.style.color = 'black';
+            caption.style.fontWeight = '500';
+        }
+
         // Close modal
         this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
         this.modal.style.zIndex = 0;
@@ -413,7 +474,7 @@ class Slider {
         }, 400);
         
         // Re-add original event listeners
-        this.removeEventListeners();
+        this.addEventListeners();
     }
 
     /* ----------------- End Helper/Private functions ----------------- */
@@ -432,12 +493,12 @@ class Slider {
     openSet = (event, noAnimation) => {
 
         // Hide expand icons if the set opens on hover
-        if (this.lightbox && !this.clickToOpen) {
-            this.elements.forEach(element => {
-                const iconDiv = element.children[element.children.length - 1];
-                iconDiv.style.display = 'none';
-            })
-        }
+        // if (this.lightbox && !this.clickToOpen) {
+        //     this.elements.forEach(element => {
+        //         const iconDiv = element.children[element.children.length - 1];
+        //         iconDiv.style.display = 'none';
+        //     })
+        // }
 
         // Calculate <top> and <left> units used to calculate the top and left positions
         // of the ith element in the loop
@@ -635,13 +696,13 @@ class Slider {
             }, this.animationSpeed + 1);
         }
 
-        // Unhide expand icons if the set opens on hover
-        if (this.lightbox && !this.clickToOpen) {
-            this.elements.forEach(element => {
-                const iconDiv = element.children[element.children.length - 1];
-                iconDiv.style.display = 'block';
-            })
-        }
+        // // Unhide expand icons if the set opens on hover
+        // if (this.lightbox && !this.clickToOpen) {
+        //     this.elements.forEach(element => {
+        //         const iconDiv = element.children[element.children.length - 1];
+        //         iconDiv.style.display = 'block';
+        //     })
+        // }
 
         this.isClosed = true;
     }
