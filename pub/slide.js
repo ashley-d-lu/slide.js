@@ -54,13 +54,22 @@ class Slider {
             // Add expand/close icon button to all elements in this.elements
             for (let i = 0; i < this.numElements; i++) {
 
+                // Hover area
+                const hoverArea = document.createElement('div');
+                hoverArea.style.position = 'absolute';
+                hoverArea.style.top = '0px';
+                hoverArea.style.right = '0px';
+                hoverArea.style.height = '50px';
+                hoverArea.style.width = '50px';
+                hoverArea.style.padding = '7%';
+
                 // Create containing div for the 'expand' and 'close' icon
                 const div = document.createElement('div');
                 div.style.position = 'absolute';
                 div.style.top = '0px';
                 div.style.right = '0px';
-                div.style.margin = '2%';
-                div.style.padding = '1%';
+                div.style.margin = '10%';
+                div.style.padding = '5%';
                 div.style.height = '20px';
                 div.style.width = '20px';
                 div.style.borderRadius = '10%'
@@ -75,13 +84,14 @@ class Slider {
                 icon.style.width = 'inherit'
 
                 div.appendChild(icon);
+                hoverArea.appendChild(div);
 
                 // Only show expand/close icon when hovering overing it
-                this.elements[i].addEventListener('mouseover', () => {
+                hoverArea.addEventListener('mouseover', () => {
                     div.style.backgroundColor = 'rgb(255, 255, 255, 0.5)';
                     div.children[0].style.opacity = 0.8;
                 })
-                this.elements[i].addEventListener('mouseleave', () => {
+                hoverArea.addEventListener('mouseleave', () => {
                     div.style.backgroundColor = 'rgb(255, 255, 255, 0)';
                     div.children[0].style.opacity = 0;
                 })
@@ -93,33 +103,7 @@ class Slider {
                 div.addEventListener('click', this.enterFullScreen);
 
                 // Add to element
-                this.elements[i].appendChild(div);
-                
-                if (this.captions !== [] && this.captions.length >= i) {
-                    // Add caption
-                    const caption = document.createElement('div');
-                    caption.style.position = 'absolute';
-                    caption.style.right = '1%';
-                    caption.innerText = this.captions[i];
-                    caption.style.fontWeight = '500';
-                    caption.style.fontSize = '14px';
-                    caption.style.transitionDuration = '400ms';
-
-                    this.elements[i].appendChild(caption);
-
-                    if (this.onlyShowCaptionsOnHover) {
-                        caption.style.opacity = '0';
-
-                        // Only show caption when hovering over element
-                        this.elements[i].addEventListener('mouseleave', () => {
-                            caption.style.opacity = '0';
-                        });
-                        this.elements[i].addEventListener('mouseover', () => {
-                            caption.style.opacity = '1';
-                        });
-                    }
-                }
-
+                this.elements[i].appendChild(hoverArea);
             }
 
             // Create modal element
@@ -133,6 +117,36 @@ class Slider {
             this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
             document.body.appendChild(this.modal);
         }
+
+        // Add captions
+        if (this.captions !== []) {
+            for (let i = 0; i < this.elements.length; i++) {
+                if (this.captions.length >= i) {
+                    // Add caption
+                    const caption = document.createElement('div');
+                    caption.style.position = 'absolute';
+                    caption.style.right = '1%';
+                    caption.innerText = this.captions[i];
+                    caption.style.fontWeight = '500';
+                    caption.style.fontSize = '14px';
+                    caption.style.transitionDuration = '400ms';
+    
+                    this.elements[i].appendChild(caption);
+    
+                    if (this.onlyShowCaptionsOnHover) {
+                        caption.style.opacity = '0';
+    
+                        // Only show caption when hovering over element
+                        this.elements[i].addEventListener('mouseleave', () => {
+                            caption.style.opacity = '0';
+                        });
+                        this.elements[i].addEventListener('mouseover', () => {
+                            caption.style.opacity = '1';
+                        });
+                    }
+                }
+            }
+        }    
 
         this.direction = direction;
 
@@ -349,7 +363,7 @@ class Slider {
         div.addEventListener('click', this.exitFullScreen);
 
         // Get element we're expanding to full screen
-        const element = div.parentNode;
+        const element = div.parentNode.parentNode;
 
         // Record the element's previous top and left values to easily reverting the  
         // top and left positions when exiting fullscreen
@@ -435,7 +449,7 @@ class Slider {
         div.addEventListener('click', this.enterFullScreen);
 
         // Get element that is exiting fullscreen
-        const element = div.parentNode;
+        const element = div.parentNode.parentNode;
 
         // Get rid of centering properties
         element.style.transform = 'none';
