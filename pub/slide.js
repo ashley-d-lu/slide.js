@@ -112,6 +112,7 @@ class Slider {
             this.captions = captions;
             this.hasCaptions = true;
         } else {
+            this.captions = [];
             this.hasCaptions = false;
         }
 
@@ -122,7 +123,7 @@ class Slider {
         }
 
         // Add captions
-        if (this.captions !== []) {
+        if (this.hasCaptions) {
             for (let i = 0; i < this.elements.length; i++) {
                 if (this.captions.length >= i) {
                     // Add caption
@@ -157,7 +158,9 @@ class Slider {
             this.hoverAnimation = false;
         }
 
-        this.updatePrevOffsetTop();
+        if (this.hoverAnimation) { 
+            this.updatePrevOffsetTop();
+        }
         
         // Add hover animations
         if (this.hoverAnimation) {
@@ -455,6 +458,7 @@ class Slider {
             // Change color of caption to white
             caption.style.color = 'white';
             caption.style.fontWeight = '400';
+            caption.style.fontSize = '16px';
         }
 
         // Open modal
@@ -517,6 +521,7 @@ class Slider {
             // Change color of caption to black
             caption.style.color = 'black';
             caption.style.fontWeight = '500';
+            caption.style.fontSize = '14px';
         }
 
         // Close modal
@@ -640,7 +645,9 @@ class Slider {
                     elements[i].style.opacity = '1';
                 }
                 $(`#${elements[i].id}`).animate(properties, animationSpeed, () => {
-                    this.updatePrevOffsetTop();
+                    if (this.hoverAnimation) { 
+                        this.updatePrevOffsetTop();
+                    }
                 });
 
             } else { // Show only fade animation
@@ -653,7 +660,9 @@ class Slider {
                     $(`#${elements[i].id}`).animate({
                         opacity: '1'
                     }, () => {
-                        this.updatePrevOffsetTop();
+                        if (this.hoverAnimation) { 
+                            this.updatePrevOffsetTop();
+                        }
                     });
                 });
 
@@ -726,7 +735,9 @@ class Slider {
                             this.elements[i].style.zIndex = prevZIndex; // revert z index
                         }
                     }
-                    this.updatePrevOffsetTop();
+                    if (this.hoverAnimation) { 
+                        this.updatePrevOffsetTop();
+                    }
                 });
 
             } else if (this.showFadeAnimation) { // Show only fade animation
@@ -747,7 +758,9 @@ class Slider {
                         });
                     }
                 }, () => {
-                    this.updatePrevOffsetTop();
+                    if (this.hoverAnimation) { 
+                        this.updatePrevOffsetTop();
+                    }
                 });
 
             }
