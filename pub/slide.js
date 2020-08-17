@@ -40,28 +40,54 @@ class Slider {
                 // Create containing div for the 'expand' and 'close' icon
                 const div = document.createElement('div');
                 div.style.position = 'absolute';
-                div.style.top = '2%';
-                div.style.right = div.style.top;
+                div.style.top = '0px';
+                div.style.right = '0px';
+                div.style.margin = '2%';
+                div.style.padding = '1%';
                 div.style.height = '20px';
                 div.style.width = '20px';
-                div.style.backgroundColor = 'rgb(255, 255, 255, 0.3)';
                 div.style.borderRadius = '10%'
+                div.style.backgroundColor = 'rgb(255, 255, 255, 0)';
 
                 // Create icon img
                 const icon = document.createElement('img');
                 icon.src = './lightboxIcons/unfold_more-24px.svg';
                 icon.style.transform = 'rotate(45deg)';
-                icon.style.opacity = 0.8;
+                icon.style.opacity = 0;
                 icon.style.height = 'inherit';
                 icon.style.width = 'inherit'
 
                 div.appendChild(icon);
+
+                div.addEventListener('mouseover', () => {
+                    div.style.backgroundColor = 'rgb(255, 255, 255, 0.5)';
+                    div.children[0].style.opacity = 0.8;
+                })
+                
+                div.addEventListener('mouseleave', () => {
+                    div.style.backgroundColor = 'rgb(255, 255, 255, 0)';
+                    div.children[0].style.opacity = 0;
+                })
+
+                div.style.transitionDuration = '400ms';
+                icon.style.transitionDuration = '400ms';
 
                 // Enter full screen when the icon's containing div is clicked
                 div.addEventListener('click', this.enterFullScreen);
 
                 // Add to element
                 element.appendChild(div);
+
+                // Create modal element
+                this.modal = document.createElement('div');
+                this.modal.style.display = 'none';
+                this.modal.style.position = 'fixed';
+                this.modal.style.top = '0px';
+                this.modal.style.left = '0px'
+                this.modal.style.height = '100%';
+                this.modal.style.width = '100%';
+                this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
+                document.body.appendChild(this.modal);
 
             });
         }
@@ -145,6 +171,13 @@ class Slider {
         this.closeSetOnDOMContentLoaded();
         this.updateZIndex();
 
+        this.addEventListeners();
+        
+    }
+
+    /* ----------------------- Helper/Private functions ----------------------- */
+
+    addEventListeners = () => {
         if (this.clickToOpen) {
             this.container.addEventListener('click', this.handleOpenOrClose);
         } else {
@@ -152,10 +185,17 @@ class Slider {
             this.container.addEventListener('click', this.handleCloseSet);
             this.container.addEventListener('mouseleave', this.handleCloseSet);
         }
-        
     }
 
-    /* ----------------------- Helper/Private functions ----------------------- */
+    removeEventListeners = () => {
+        if (this.clickToOpen) {
+            this.container.removeEventListener('click', this.handleOpenOrClose);
+        } else {
+            this.elements[this.selectedElementIndex].removeEventListener('mouseover', this.handleOpenSet);
+            this.container.removeEventListener('click', this.handleCloseSet);
+            this.container.removeEventListener('mouseleave', this.handleCloseSet);
+        }
+    }
 
     handleOpenOrClose = (event) => {
         if (this.isClosed) {
@@ -247,6 +287,9 @@ class Slider {
         // Prevent other event handlers from being triggered
         event.stopPropagation();
 
+        // Remove original event listeners
+        this.removeEventListeners();
+
         // Get icon's div and image
         let img;
         let div;
@@ -269,7 +312,7 @@ class Slider {
         const element = div.parentNode;
 
         // Record the element's previous top and left values to easily reverting the  
-        // top and left positions when full screen closes
+        // top and left positions when exiting fullscreen
         this.prevTop = element.style.top;
         this.prevLeft = element.style.left;
 
@@ -279,6 +322,10 @@ class Slider {
 
         // Set transition speed
         element.style.transitionDuration = '400ms';
+
+        // Update zindex and record previous z index to easily revert when exiting fullscreen
+        this.prevZIndex = element.style.zIndex;
+        element.style.zIndex = 2147483647;
 
         // Center the element
         element.style.top = '50%';
@@ -303,6 +350,12 @@ class Slider {
         // Set new height and width
         element.style.height = newHeight;
         element.style.width = newWidth;
+
+        // Open modal
+        this.modal.style.display = 'block';
+        this.modal.style.zIndex = this.prevZIndex + 1;
+        this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0.9)';
+
     }
 
     exitFullScreen = (event) => {
@@ -344,10 +397,23 @@ class Slider {
         element.style.top = this.prevTop;
         element.style.left = this.prevLeft;
 
+        // Revert z index
+        element.style.zIndex = this.prevZIndex;
+
         // Get rid of transition property after the element exits fullscreen
         setTimeout(() => {
             element.style.transitionDuration = '0ms';
         }, 201);
+
+        // Close modal
+        this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
+        this.modal.style.zIndex = 0;
+        setTimeout(() => {
+            this.modal.style.display = 'none';
+        }, 400);
+        
+        // Re-add original event listeners
+        this.removeEventListeners();
     }
 
     /* ----------------- End Helper/Private functions ----------------- */
