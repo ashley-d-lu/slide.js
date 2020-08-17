@@ -1,6 +1,6 @@
 const slider = new Slider('#lightbox', {
     direction: 'horizontal',
-    clickToOpen: false,
+    clickToOpen: true,
     keepOriginalOrder: true,
     lightbox: true
 });
