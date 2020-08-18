@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <script type='text/javascript' src='slide.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script defer type='text/javascript' src='api.js'></script>
+    <link rel='stylesheet' type='text/css' href='examples.css'>
+    <title>Slide.js</title>
+</head>
+
+<body>
+    <div class="body-content">
+
+        <div id='library-name'>slide.js</div>
+
+        <div class='divider'></div>
+
+        <h1>Customizable Properties</h1>
+
+        <br><br>
+        <h3>direction (*Required*)</h3>
+        <p>direction determines the general direction that the set opens and closes in. It's value can be <span class='val'>'horizontal'</span>, 
+            <span class='val'>'vertical'</span>, or <span class='val'>'diagonal'</span>.</p>
+
+        <br>
+        <h3>selectedElementPosition</h3>
+
+        <p>selectedElementPosition determines the position of the selected element within the container.
+            It's possible values depend on the slider's direction property.
+            However, it's default value for all sliders is <span class='default-val'>'center'</span>.
+        </p>
+
+        <br/>
+        <p>For horizontal sliders, selectedElementPosition can be <span class='val'>'left'</span>, <span class='val'>'center'</span>, or <span class='val'>'right'</span></p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                selectedElementPosition: 'left' or 'center' or 'right'
+            });
+        </pre>
+
+        <div class='flex'>
+            <div id='cards-horiz-left' class='horizontal card-container'>
+                <div class='card blue' id='h-left-card1'></div>
+                <div class='card yellow' id='h-left-card2'></div>
+                <div class='card red' id='h-left-card3'></div>
+                <div class='card green' id='h-left-card4'></div>
+                <div class='card orange' id='h-left-card5'></div>
+            </div>
+        </div>
+
+        <div class='flex'>
+            <div id='cards-horiz-center' class='horizontal card-container'>
+                <div class='card blue' id='h-center-card1'></div>
+                <div class='card yellow' id='h-center-card2'></div>
+                <div class='card red' id='h-center-card3'></div>
+                <div class='card green' id='h-center-card4'></div>
+                <div class='card orange' id='h-center-card5'></div>
+            </div>
+        </div>
+
+        <div class='flex'>
+            <div id='cards-horiz-right' class='horizontal card-container'>
+                <div class='card blue' id='h-right-card1'></div>
+                <div class='card yellow' id='h-right-card2'></div>
+                <div class='card red' id='h-right-card3'></div>
+                <div class='card green' id='h-right-card4'></div>
+                <div class='card orange' id='h-right-card5'></div>
+            </div>
+        </div>
+
+        <br/>
+        <p>For vertical sliders, selectedElementPosition can be <span class='val'>'top'</span>, <span class='val'>'center'</span>, or <span class='val'>'bottom'</span></p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'vertical',
+                selectedElementPosition: 'top' or 'center' or 'bottom'
+            });
+        </pre>
+
+        <div class='flex'>
+            <div id='cards-vertical-top' class='vertical card-container float-left'>
+                <div class='card blue' id='v-top-card1'></div>
+                <div class='card yellow' id='v-top-card2'></div>
+                <div class='card red' id='v-top-card3'></div>
+                <div class='card green' id='v-top-card4'></div>
+                <div class='card orange' id='v-top-card5'></div>
+            </div>
+
+            <div id='cards-vertical-center' class='vertical card-container float-left'>
+                <div class='card blue' id='v-center-card1'></div>
+                <div class='card yellow' id='v-center-card2'></div>
+                <div class='card red' id='v-center-card3'></div>
+                <div class='card green' id='v-center-card4'></div>
+                <div class='card orange' id='v-center-card5'></div>
+            </div>
+
+            <div id='cards-vertical-bottom' class='vertical card-container float-left'>
+                <div class='card blue' id='v-bottom-card1'></div>
+                <div class='card yellow' id='v-bottom-card2'></div>
+                <div class='card red' id='v-bottom-card3'></div>
+                <div class='card green' id='v-bottom-card4'></div>
+                <div class='card orange' id='v-bottom-card5'></div>
+            </div>
+        </div>
+
+        <div class='leftclearfix'></div>
+
+        <br/>
+        <p>For diagonal sliders, selectedElementPosition can be <span class='val'>'top-left'</span>, <span class='val'>'top-right'</span>, <span class='val'>'bottom-right'</span>,
+            <span class='val'>'bottom-left'</span>, or <span class='val'>'center'</span>. (See demo in degree section below).
+        </p>
+
+        <br>
+        <h3>degree</h3>
+        <p>degree can also be customized for diagonal sliders. It determines the angle (from the horizontal) at
+            which the set opens. Its default value is <span class='default-val'>45</span>. It takes any value from <span class='val'>0</span> to <span class='val'>90</span>.
+        </p>
+
+        <div id='diagonal-example'>
+            <pre id='diagonal-example-position-code'>
+            const slider = new Slider(containerSelector, {
+                direction: 'diagonal',
+                selectedElementPosition: 'top-left',
+                degree: 45 // default
+            });
+            </pre>
+            
+            <div class='flex'>
+                <div class='float-left'>
+                    <p>Customize selectedElementPosition:</p>
+                    <button id='topleft-btn'>top-left</button>
+                    <button id='topright-btn'>top-right</button>
+                    <button id='bottomright-btn'>bottom-right</button>
+                    <button id='bottomleft-btn'>bottom-left</button>
+                    <button id='center-btn'>center</button>
+                </div>
+                <div class='float-left' id='angle-btns'>
+                    <p>Customize degree:</p>
+                    <button id='degree-20-btn'>20</button>
+                    <button id='degree-45-btn'>45</button>
+                    <button id='degree-70-btn'>70</button>
+                </div>
+                <div class='leftclearfix'></div>
+            </div>
+
+            <div class='flex'>
+                <div id='cards-diagonal' class='diagonal card-container'>
+                    <div class='card blue' id='d-card1'></div>
+                    <div class='card yellow' id='d-card2'></div>
+                    <div class='card red' id='d-card3'></div>
+                    <div class='card green' id='d-card4'></div>
+                    <div class='card orange' id='d-card5'></div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <h3>upOrDown</h3>
+        <p>urOrDown can be customized for diagonal sliders with selectedElementPosition='center'. It determines
+            whether the set opens in an upward or downward direction. It takes <span class='val'>'up'</span> or <span class='val'>'down'</span>.
+            Its default value is <span class='default-val'>'down'</span>.
+        </p>
+
+        <!-- <div class='float-left'> -->
+            <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'diagonal',
+                selectedElementPosition: 'center', // default
+                upOrDown: 'down' // default
+            });
+            </pre>
+            <div class='flex'>
+                <div id='cards-diagonal-down' class='diagonal card-container'>
+                    <div class='card blue' id='d-down-card1'></div>
+                    <div class='card yellow' id='d-down-card2'></div>
+                    <div class='card red' id='d-down-card3'></div>
+                    <div class='card green' id='d-down-card4'></div>
+                    <div class='card orange' id='d-down-card5'></div>
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- <div class='float-left'> -->
+            <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'diagonal',
+                selectedElementPosition: 'center', // default
+                upOrDown: 'up'
+            });
+            </pre>
+            <div class='flex'>
+                <div id='cards-diagonal-up' class='diagonal card-container'>
+                    <div class='card blue' id='d-up-card1'></div>
+                    <div class='card yellow' id='d-up-card2'></div>
+                    <div class='card red' id='d-up-card3'></div>
+                    <div class='card green' id='d-up-card4'></div>
+                    <div class='card orange' id='d-up-card5'></div>
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- <div class='leftclearfix'></div> -->
+
+        <br>
+        <h3>clickToOpen</h3>
+        <p>If clickToOpen is <span class='val'>true</span>, the set is opened by clicking on the selected element.
+            If clickToOpen is <span class='val'>false</span>, the set is opened by hovering over the selected element.
+            Its default value is <span class='default-val'>false</span>.
+        </p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                clickToOpen: false // default
+            });
+        </pre>
+        <div class='flex'>
+            <div id='cards-clickToOpen-false' class='horizontal card-container'>
+                <div class='card blue' id='cto-f-card1'></div>
+                <div class='card yellow' id='cto-f-card2'></div>
+                <div class='card red' id='cto-f-card3'></div>
+                <div class='card green' id='cto-f-card4'></div>
+                <div class='card orange' id='cto-f-card5'></div>
+            </div>
+        </div>
+
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                clickToOpen: true
+            });
+        </pre>
+        <div class='flex'>
+            <div id='cards-clickToOpen-true' class='horizontal card-container'>
+                <div class='card blue' id='cto-t-card1'></div>
+                <div class='card yellow' id='cto-t-card2'></div>
+                <div class='card red' id='cto-t-card3'></div>
+                <div class='card green' id='cto-t-card4'></div>
+                <div class='card orange' id='cto-t-card5'></div>
+            </div>
+        </div>
+
+        <br>
+        <h3>keepOriginalOrder</h3>
+        <p>keepOriginalOrder determines whether or not the elements are displayed in their original order when the set is open.
+            It takes <span class='val'>true</span> or <span class='val'>false</span>. Its default value is <span class='default-val'>false</span>.
+        </p>
+        <div>Try selecting different items the examples to see the effect.</div>
+
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                keepOriginalOrder: false // default
+            });
+        </pre>
+        <div class='flex'>
+            <div id='cards-keepOriginalOrder-false' class='horizontal card-container'>
+                <div class='card blue' id='koo-f-card1'>1</div>
+                <div class='card yellow' id='koo-f-card2'>2</div>
+                <div class='card red' id='koo-f-card3'>3</div>
+                <div class='card green' id='koo-f-card4'>4</div>
+                <div class='card orange' id='koo-f-card5'>5</div>
+            </div>
+        </div>
+
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                keepOriginalOrder: true
+            });
+        </pre>
+        <div class='flex'>
+            <div id='cards-keepOriginalOrder-true' class='horizontal card-container'>
+                <div class='card blue' id='koo-t-card1'><span>1</span></div>
+                <div class='card yellow' id='koo-t-card2'>2</div>
+                <div class='card red' id='koo-t-card3'>3</div>
+                <div class='card green' id='koo-t-card4'>4</div>
+                <div class='card orange' id='koo-t-card5'>5</div>
+            </div>
+        </div>
+
+        <br>
+        <h3>animationSpeed</h3>
+        <p>animationSpeed determines the speed (in milliseconds) of the animation when the set opens and closes.
+            It takes any <span class='val'>non-negative integer value</span>. Its default value is <span class='default-val'>375</span>.
+        </p>
+
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                animationSpeed: 600
+            });
+        </pre>
+        <div class='flex'>
+            <div id='cards-animationSpeed-600' class='horizontal card-container'>
+                <div class='card blue' id='as-card1'></div>
+                <div class='card yellow' id='as-card2'></div>
+                <div class='card red' id='as-card3'></div>
+                <div class='card green' id='as-card4'></div>
+                <div class='card orange' id='as-card5'></div>
+            </div>
+        </div>
+
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                animationSpeed: 100
+            });
+        </pre>
+        <div class='flex'>
+            <div id='cards-animationSpeed-100' class='horizontal card-container'>
+                <div class='card blue' id='as-100-card1'></div>
+                <div class='card yellow' id='as-100-card2'></div>
+                <div class='card red' id='as-100-card3'></div>
+                <div class='card green' id='as-100-card4'></div>
+                <div class='card orange' id='as-100-card5'></div>
+            </div>
+        </div>
+
+        <br>
+        <h3>showSlideAnimation</h3>
+        <p>showSlideAnimation determines whether the slide animation is shown.
+            It takes <span class='val'>true</span> or <span class='val'>false</span>. 
+            Its default value is <span class='default-val'>true</span>.
+        </p>
+        
+        <h3>showFadeAnimation</h3>
+        <p>showSlideAnimation determines whether the fade animation is shown.
+            It takes <span class='val'>true</span> or <span class='val'>false</span>. 
+            Its default value is <span class='default-val'>true</span>.
+        </p>
+
+        <!-- <div class='float-left'> -->
+            <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                showSlideAnimation: true, // default
+                showFadeAnimation: true // default
+            });
+            </pre>
+            <div class='flex'>
+                <div id='cards-animation-true-true' class='horizontal card-container'>
+                    <div class='card blue' id='a-tt-card1'></div>
+                    <div class='card yellow' id='a-tt-card2'></div>
+                    <div class='card red' id='a-tt-card3'></div>
+                    <div class='card green' id='a-tt-card4'></div>
+                    <div class='card orange' id='a-tt-card5'></div>
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- <div class='float-left'> -->
+            <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                showSlideAnimation: true, // default
+                showFadeAnimation: false
+            });
+            </pre>
+            <div class='flex'>
+                <div id='cards-animation-true-false' class='horizontal card-container'>
+                    <div class='card blue' id='a-tf-card1'></div>
+                    <div class='card yellow' id='a-tf-card2'></div>
+                    <div class='card red' id='a-tf-card3'></div>
+                    <div class='card green' id='a-tf-card4'></div>
+                    <div class='card orange' id='a-tf-card5'></div>
+                </div>
+            </div>
+        <!-- </div> -->
+        <!-- <div class='leftclearfix'></div> -->
+
+        <!-- <div class='float-left'> -->
+            <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                showSlideAnimation: false, 
+                showFadeAnimation: true // default
+            });
+            </pre>
+            <div class='flex'>
+                <div id='cards-animation-false-true' class='horizontal card-container'>
+                    <div class='card blue' id='a-ft-card1'></div>
+                    <div class='card yellow' id='a-ft-card2'></div>
+                    <div class='card red' id='a-ft-card3'></div>
+                    <div class='card green' id='a-ft-card4'></div>
+                    <div class='card orange' id='a-ft-card5'></div>
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- <div class='float-left'> -->
+            <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                showSlideAnimation: false,
+                showFadeAnimation: false
+            });
+            </pre>
+            <div class='flex'>
+                <div id='cards-animation-false-false' class='horizontal card-container'>
+                    <div class='card blue' id='a-ff-card1'></div>
+                    <div class='card yellow' id='a-ff-card2'></div>
+                    <div class='card red' id='a-ff-card3'></div>
+                    <div class='card green' id='a-ff-card4'></div>
+                    <div class='card orange' id='a-ff-card5'></div>
+                </div>
+            </div>
+        <!-- </div> -->
+        <!-- <div class='leftclearfix'></div> -->
+
+        <br>
+        <h3>hoverAnimation</h3>
+        <p>hoverAnimation takes <span class="val">true</span> or <span class="val">false</span>
+            It's default value is <span class="default-val">false</span>. If hoverAnimation is true,
+            when the set is open, the elements in the set shift up when hovered over.
+        </p>
+
+        <br>
+        <h3>onElementSelected</h3>
+        <p>onElementSelected is a function that is called when the user selects an element.
+            It can be assigned to <span class='val'>any function of your choice</span>.
+            Its default value is a <span class='default-val'>function that does nothing</span>.
+        </p>
+        <p>The following is a toy example where onElementSelected is assigned to a function that increments a counter variable:</p>
+        <pre class='float-left'>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                onElementSelected: updateCounter
+            });
+        </pre>
+        <p class='float-left margin-left-40'>or</p>
+        <pre class='float-left'>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+            });
+            slider.onElementSelected = updateCounter;
+        </pre>
+        <div class='leftclearfix'></div>
+
+        <div class='flex'>
+            <div class='float-left'>
+                <div id='cards-onElementSelected' class='horizontal card-container'>
+                    <div class='card blue' id='osec-card1'></div>
+                    <div class='card yellow' id='osec-card2'></div>
+                    <div class='card red' id='osec-card3'></div>
+                    <div class='card green' id='osec-card4'></div>
+                    <div class='card orange' id='osec-card5'></div>
+                </div>
+            </div>
+            <div id='counter' class='outlined-badge float-left'>Counter: 0</div>
+            <div class='leftclearfix'></div>
+        </div>
+
+        <div class='divider'></div>
+        <h1>Functions</h1>
+        <br><br>
+        <h3>openSetOnDOMContentLoaded</h3>
+        <p>By default, the slider is initialized to closed when the DOM loads. To initialize the slider to open,
+            call the openSetOnDOMContentLoaded after the DOM loads. openSetOnDOMContentLoaded is not intechangeable with openSet.
+        </p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal'
+            });
+            slider.openSetOnDOMContentLoaded();
+        </pre>
+        <div class='flex'>
+            <div id='cards-open' class='horizontal card-container'>
+                <div class='card blue' id='open-card1'></div>
+                <div class='card yellow' id='open-card2'></div>
+                <div class='card red' id='open-card3'></div>
+                <div class='card green' id='open-card4'></div>
+                <div class='card orange' id='open-card5'></div>
+            </div>
+        </div>
+
+        <br>
+        <h3>openSet</h3>
+        <p>openSet opens the set.</p>
+
+        <br>
+        <h3>closeSet</h3>
+        <p>closeSet closes the set.</p>
+
+        <br>
+        <h3>getSelectedElement</h3>
+        <p>getSelectedElement returns the HTML node corresponding to the currently selected item.</p>
+
+        <br>
+        <p class='bold'>Toy example using openSet, closeSet, and getSelectedElement:</p>
+        <ul>
+            <li>openSet is called when the "Open" button is clicked. </li>
+            <li>closeSet is called when the "Close" button is clicked.</li>
+            <li>onElementSelected is assigned to a function that uses getSelectedElement to
+                get the currently selected element, logs it, and displays its class name.</li>
+        </ul>
+
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal'
+            });
+
+            openButton.addEventListener('click', slider.openSet);
+
+            closeButton.addEventListener('click', slider.closeSet);
+
+            slider.onElementSelected = () => {
+                const selectedElement = slider.getSelectedElement();
+                console.log(selectedElement);
+                selElemTextBox.innerText = selectedElement.className;
+            };
+        </pre>
+
+        <div class='flex'>
+            <div id='cards-functions' class='horizontal card-container'>
+                <div class='card blue' id='functions-card1'></div>
+                <div class='card yellow' id='functions-card2'></div>
+                <div class='card red' id='functions-card3'></div>
+                <div class='card green' id='functions-card4'></div>
+                <div class='card orange' id='functions-card5'></div>
+            </div>
+        </div>
+
+        <div class='flex'>
+            <button id='open-btn' class='side-margins'>Open</button>
+            <button id='close-btn' class='side-margins'>Close</button>
+            <span id='selected-elem-className' class='outlined-badge side-margins'>Currently selected element: </span>
+        </div>
+
+        <div class='divider-100'></div>
+        <h1>Practical Examples</h1>
+
+        <br><br>
+        <p class='bold'>An animated version of Twitter's sidebar menu:</p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'vertical',
+                selectedElementPosition: 'top',
+                keepOriginalOrder: true,
+                clickToOpen: true
+            });
+            slider.openSetOnDOMContentLoaded();
+        </pre>
+        <div id='dropdown-menu'>
+            <div class='menu-option' id='home'>
+                <img src='./menuIcons/home-24px.svg' class='menu-icon'>
+                <div class='menu-option-text'>Home</div>
+            </div>
+            <div class='menu-option' id='explore'>
+                <img src='./menuIcons/explore-24px.svg' class='menu-icon'>
+                <div class='menu-option-text'>Explore</div>
+            </div>
+            <div class='menu-option' id='notifications'>
+                <img src='./menuIcons/notifications-24px.svg' class='menu-icon'>
+                <div class='menu-option-text'>Notifications</div>
+            </div>
+            <div class='menu-option' id='messages'>
+                <img src='./menuIcons/email-24px.svg' class='menu-icon'>
+                <div class='menu-option-text'>Messages</div>
+            </div>
+            <div class='menu-option' id='bookmarks'>
+                <img src='./menuIcons/bookmark_border-24px.svg' class='menu-icon'>
+                <div class='menu-option-text'>Bookmarks</div>
+            </div>
+            <div class='menu-option' id='lists'>
+                <img src='./menuIcons/format_list_bulleted-24px.svg' class='menu-icon'>
+                <div class='menu-option-text'>Lists</div>
+            </div>
+            <div class='menu-option' id='profile'>
+                <img src='./menuIcons/person-24px.svg' class='menu-icon'>
+                <div class='menu-option-text'>Profile</div>
+            </div>
+            <div class='menu-option' id='more'>
+                <img src='./menuIcons/more_horiz-24px.svg' class='menu-icon'>
+                <div class='menu-option-text'>More</div>
+            </div>
+        </div>
+
+        <br>
+        <p class='bold'>A display for different options for a product:</p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                keepOriginalOrder: true
+            });
+            slider.openSetOnDOMContentLoaded();
+        </pre>
+        <div id='products'>
+            <img src='./productImages/iphone11-green-select-2019.png' id='green-iphone' class='product'>
+            <img src='./productImages/iphone11-white-select-2019.png' id='white-iphone' class='product'>
+            <img src='./productImages/iphone11-black-select-2019.png' id='black-iphone' class='product'>
+            <img src='./productImages/iphone11-purple-select-2019.png' id='purple-iphone' class='product'>
+            <img src='./productImages/iphone11-yellow-select-2019.png' id='yellow-iphone' class='product'>
+            <img src='./productImages/iphone11-red-select-2019.png' id='red-iphone' class='product'>
+        </div>
+
+        <div class='divider'></div>
+
+    </div>
+</body>
+
+</html>

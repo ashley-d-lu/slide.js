@@ -1,6 +1,10 @@
 body {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    padding: 0% 20%;
+}
+
+.body-content {
+    width: 650px;
+    margin: auto
 }
 
 button {
@@ -20,6 +24,33 @@ button:hover {
 
 pre {
     margin-bottom: 0px;
+    background-color: rgb(241, 241, 241);
+    padding-top: 20px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+}
+
+.val {
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: rgb(241, 241, 241);
+    border-radius: 5px;
+    padding: 2px
+}
+
+.default-val {
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: lemonchiffon;
+    border-radius: 5px;
+    padding: 2px
 }
 
 /* From https://medium.com/@mattlistor/highlight-effect-using-css-204ab4590480 */
@@ -139,8 +170,13 @@ h1:after {
     border-color: rgb(201, 201, 201);
 }
 
+.side-margins {
+    margin: 0px 5px
+}
+
 #counter {
     margin-top: 55px;
+    height: 25px;
 }
 
 #dropdown-menu {
