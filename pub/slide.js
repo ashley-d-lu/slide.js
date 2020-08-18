@@ -448,7 +448,10 @@ class Slider {
         let newWidth;
 
         // Calculate the new height and width
-        if (this.elementHeight >= this.elementWidth) {
+        if (this.elementHeight === this.elementWidth) {
+            newHeight = '85vh';
+            newWidth = '85vh';
+        } else if (this.elementHeight > this.elementWidth) {
             const widthOverHeight = this.elementWidth / this.elementHeight;
             newHeight = '60vh';
             newWidth = `calc(60vh * ${widthOverHeight})`;

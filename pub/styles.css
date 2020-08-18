@@ -71,6 +71,23 @@ h1:after {
     z-index: -1;
 }
 
+.line{
+    width: 680px;
+    height: 45px;
+    border-bottom: 4px solid black;
+    position: absolute;
+}
+
+/* .line{
+    position: absolute;
+    top: 92px;
+    width: 680px;
+    margin: auto;
+    height: 0px;
+    border-bottom: 10px solid rgb(233, 233, 233);
+    z-index: -1;
+} */
+
 /* --------------------------------------------------------------------------  */
 
 .leftclearfix {
@@ -79,6 +96,14 @@ h1:after {
 
 .float-left {
     float: left;
+}
+
+.float-right {
+    float: left;
+}
+
+.rightclearfix {
+    clear: right;
 }
 
 .margin-left-40 {
@@ -103,6 +128,33 @@ h1:after {
 
 #library-name {
     font-size: 100px;
+}
+
+#header {
+    width: 680px;
+    margin: auto
+}
+
+#header-btns {
+    height: 105px;
+    width: 380px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.header-btn {
+    color: white;
+    background-color: black;
+    margin-left: 15px;
+    font-weight: 600;
+    padding: 8px 15px;
+    transition: transform 0.2s;
+}
+
+.header-btn:hover {
+    background-color: black;
+    transform: scale(1.05)
 }
 
 #angle-btns {
@@ -195,7 +247,7 @@ h1:after {
 
 #counter {
     margin-top: 55px;
-    height: 25px;
+    height: 22px;
 }
 
 #dropdown-menu {

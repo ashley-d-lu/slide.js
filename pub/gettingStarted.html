@@ -6,67 +6,95 @@
         <script type='text/javascript' src='slide.js'></script>
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
         <script defer type='text/javascript' src='gettingStarted.js'></script>
-        <link rel='stylesheet' type='text/css' href='examples.css'>
-        <title>Slide.js</title>
+        <link rel='stylesheet' type='text/css' href='styles.css'>
+        <title>slide.js</title>
     </head>
 <body>
-    <div class='divider'></div>
-    <h1>Getting Started</h1>
 
-    <p></p>
+    <div id='header'>
+        <div id='library-name' class="float-left">slide.js</div>
 
-    <div class='divider'></div>
-    <h1>How To Use</h1>
-    <p>To turn a set of HTML elements into a slider:</p>
-    <ol>
-        <li>Give a unique id to each HTML element.</li>
-        <li>Enclose all the HTML elements in a container div.*</li>
-        <li>Set the height and width of the container div. This will determine the height
-            and width of the slider when it is open (and how far apart the elements
-            will be).
-        </li>
-        <li>Instantiate a Slider object, passing in the selector of the
-            container div and an object containing customizable properties and their values. The only
-            required property is direction, which takes value 'horizontal', 'vertical',
-            or 'diagonal'. If a property is not specified, it will take its default value.
-        </li>
-    </ol>
-    <p class='small'>*Note: The library changes the 
-        position of the container div to 'relative' and the position of its child
-        elements to 'absolute'.</p>
-    <p class='bold'>Example:</p>
-    <p>HTML:</p>
-    <pre>
-        &lt;div id='cards' class='horizontal card-container'
-            &lt;div id='card1' class='card blue'&gt;&lt;/div&gt;
-            &lt;div id='card2' class='card yellow'&gt;&lt;/div&gt;
-            &lt;div id='card3' class='card red'&gt;&lt;/div&gt;
-            &lt;div id='card4' class='card green'&gt;&lt;/div&gt;
-            &lt;div id='card5' class='card orange'&gt;&lt;/div&gt;
-        &lt;/div&gt;
-    </pre>
+        <div class="float-left">
+            <div id='header-btns'>
+                <button class="header-btn">Examples</button>
+                <button class="header-btn">Getting Started</button>
+                <button class="header-btn">API</button>
+            </div>
+        </div>
 
-    <p>CSS:</p>
-    <pre>
-        .horizontal {
-            height: 100px;
-            width: 400px;
-        }
-    </pre>
+        <div class="leftclearfix"></div>
 
-    <p>JavaScript:</p>
-    <pre>
-        const slider = new Slider('#cards', {
-            direction: 'horizontal'
-        });
-    </pre>
+        <div class='line'></div>
+    </div>
 
-    <div id='cards' class='horizontal card-container'>
-        <div class='card blue' id='card1'></div>
-        <div class='card yellow' id='card2'></div>
-        <div class='card red' id='card3'></div>
-        <div class='card green' id='card4'></div>
-        <div class='card orange' id='card5'></div>
+    <div class="body-content">
+
+        <div class='divider'></div>
+        <h1>Getting Started</h1>
+        <p></p>
+
+        <div class='divider'></div>
+        <h1>How To Use</h1>
+        <p>To turn a set of HTML elements into a slider:</p>
+        <ol>
+            <li>Give a unique id to each HTML element.</li>
+            <li>Enclose all the HTML elements in a container div.*</li>
+            <li>Set the height and width of the container div. This will determine the height
+                and width of the slider when it is open (and how far apart the elements
+                will be).
+            </li>
+            <li>Instantiate a Slider object, passing in the selector of the
+                container div and an object containing customizable properties and their values. The only
+                required property is direction, which takes value 'horizontal', 'vertical',
+                or 'diagonal'. If a property is not specified, it will take its default value.
+            </li>
+        </ol>
+        <p class='small'>*Note: The library changes the 
+            position of the container div to 'relative' and the position of its child
+            elements to 'absolute'.
+        </p>
+
+        <br>
+        <p class='bold'>Example:</p>
+        <p>HTML:</p>
+        <pre>
+            &lt;div id='cards' class='horizontal card-container'
+                &lt;div id='card1' class='card blue'&gt;&lt;/div&gt;
+                &lt;div id='card2' class='card yellow'&gt;&lt;/div&gt;
+                &lt;div id='card3' class='card red'&gt;&lt;/div&gt;
+                &lt;div id='card4' class='card green'&gt;&lt;/div&gt;
+                &lt;div id='card5' class='card orange'&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        </pre>
+
+        <p>CSS:</p>
+        <pre>
+            .horizontal {
+                height: 100px;
+                width: 400px;
+            }
+        </pre>
+
+        <p>JavaScript:</p>
+        <pre>
+            const slider = new Slider('#cards', {
+                direction: 'horizontal'
+            });
+        </pre>
+
+        <br>
+        <div class="flex">
+            <div id='cards' class='horizontal card-container'>
+                <div class='card blue' id='card1'></div>
+                <div class='card yellow' id='card2'></div>
+                <div class='card red' id='card3'></div>
+                <div class='card green' id='card4'></div>
+                <div class='card orange' id='card5'></div>
+            </div>
+        </div>
+
+        <div class='divider'></div>
+
     </div>
 </body>
 </html>
