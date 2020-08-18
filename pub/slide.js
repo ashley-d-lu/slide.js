@@ -169,6 +169,7 @@ class Slider {
             this.modal.style.height = '100%';
             this.modal.style.width = '100%';
             this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
+            this.modal.style.zIndex = this.numElements + 1;
             this.container.appendChild(this.modal);
         }
 
@@ -194,6 +195,7 @@ class Slider {
                 if (this.captions.length >= i) {
                     const caption = document.createElement('div');
                     caption.style.position = 'absolute';
+                    caption.style.top = `100%`;
                     caption.style.right = '1%';
                     caption.innerText = this.captions[i];
                     caption.style.fontWeight = '500';
@@ -233,7 +235,7 @@ class Slider {
                 element.addEventListener('mouseenter', () => {
                     if (!this.inFullscreenMode && !this.isClosed) {
                         $(`#${element.id}`).animate({
-                            top: `${element.offsetTop - (0.05 * this.elementHeight)}px`
+                            top: `${element.offsetTop - (0.075 * this.elementHeight)}px`
                         }, 200);
                     }
                 });
@@ -446,7 +448,7 @@ class Slider {
         let newWidth;
 
         // Calculate the new height and width
-        if (this.elementHeight > this.elementWidth) {
+        if (this.elementHeight >= this.elementWidth) {
             const widthOverHeight = this.elementWidth / this.elementHeight;
             newHeight = '60vh';
             newWidth = `calc(60vh * ${widthOverHeight})`;
@@ -471,7 +473,6 @@ class Slider {
 
         // Open modal
         this.modal.style.display = 'block';
-        this.modal.style.zIndex = this.prevZIndex + 1;
         this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0.9)';
 
     }
@@ -540,7 +541,6 @@ class Slider {
 
         // Close modal
         this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
-        this.modal.style.zIndex = 0;
         setTimeout(() => {
             this.modal.style.display = 'none';
         }, 400);

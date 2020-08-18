@@ -220,3 +220,38 @@ const productsSlider = new Slider('#products', {
     keepOriginalOrder: true
 });
 productsSlider.openSetOnDOMContentLoaded();
+
+const hoverAnimationSlider = new Slider('#hoverAnimation', {
+    direction: 'horizontal',
+    clickToOpen: true,
+    hoverAnimation: true
+});
+hoverAnimationSlider.openSetOnDOMContentLoaded();
+
+const captionsSliders = new Slider('#captions', {
+    direction: 'horizontal',
+    captions: ['blue', 'yellow', 'red', 'green', 'orange']
+});
+
+const onlyShowCaptionsOnHoverSlider = new Slider('#onlyShowCaptionsOnHover', {
+    direction: 'horizontal',
+    captions: ['blue', 'yellow', 'red', 'green', 'orange'],
+    onlyShowCaptionsOnHover: true
+});
+
+const scaleFactorSlider = new Slider('#scaleFactor', {
+    direction: 'horizontal',
+    scaleFactor: 0.5
+});
+
+const scaleFactor2Slider = new Slider('#scaleFactor2', {
+    direction: 'horizontal',
+    scaleFactor: 1.5
+});
+
+const lightboxExampleSlider = new Slider('#lightbox-example', {
+    direction: 'horizontal',
+    clickToOpen: true,
+    lightbox: true
+});
+lightboxExampleSlider.openSetOnDOMContentLoaded();

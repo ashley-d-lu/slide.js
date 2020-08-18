@@ -274,13 +274,53 @@
         </pre>
         <div class='flex'>
             <div id='cards-keepOriginalOrder-true' class='horizontal card-container'>
-                <div class='card blue' id='koo-t-card1'><span>1</span></div>
+                <div class='card blue' id='koo-t-card1'>1</div>
                 <div class='card yellow' id='koo-t-card2'>2</div>
                 <div class='card red' id='koo-t-card3'>3</div>
                 <div class='card green' id='koo-t-card4'>4</div>
                 <div class='card orange' id='koo-t-card5'>5</div>
             </div>
         </div>
+        
+        <br>
+        <h3>scaleFactor</h3>
+        <p>scaleFactor determines how much the elements are scaled up or down in size when the set opens.
+            It takes in <span class="val">number representing the scaling factor</span>. By default, the 
+            size of the elements is not scaled when the set opens.
+        </p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                scaleFactor: 0.5
+            });
+        </pre>
+        <div class='flex'>
+            <div id='scaleFactor' class='horizontal card-container'>
+                <div class='card blue' id='sf-card1'></div>
+                <div class='card yellow' id='sf-card2'></div>
+                <div class='card red' id='sf-card3'></div>
+                <div class='card green' id='sf-card4'></div>
+                <div class='card orange' id='sf-card5'></div>
+            </div>
+        </div>
+
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                scaleFactor: 1.5
+            });
+        </pre>
+        <br>
+        <div class='flex'>
+            <div id='scaleFactor2' class='horizontal card-container'>
+                <div class='card blue' id='sf2-card1'></div>
+                <div class='card yellow' id='sf2-card2'></div>
+                <div class='card red' id='sf2-card3'></div>
+                <div class='card green' id='sf2-card4'></div>
+                <div class='card orange' id='sf2-card5'></div>
+            </div>
+        </div>
+        <br>
 
         <br>
         <h3>animationSpeed</h3>
@@ -335,6 +375,8 @@
 
         <!-- <div class='float-left'> -->
             <pre>
+            // Show both slide and fade animations
+
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
                 showSlideAnimation: true, // default
@@ -354,6 +396,8 @@
 
         <!-- <div class='float-left'> -->
             <pre>
+            // Show only slide animation
+
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
                 showSlideAnimation: true, // default
@@ -374,6 +418,8 @@
 
         <!-- <div class='float-left'> -->
             <pre>
+            // Show only fade animation
+
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
                 showSlideAnimation: false, 
@@ -393,6 +439,8 @@
 
         <!-- <div class='float-left'> -->
             <pre>
+            // Show no animations
+
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
                 showSlideAnimation: false,
@@ -415,8 +463,98 @@
         <h3>hoverAnimation</h3>
         <p>hoverAnimation takes <span class="val">true</span> or <span class="val">false</span>
             It's default value is <span class="default-val">false</span>. If hoverAnimation is true,
-            when the set is open, the elements in the set shift up when hovered over.
+            when the set is open, the elements in the set shift up when they are hovered over.
         </p>
+        <p>The hover animations work best if clickToOpen is true.</p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                clickToOpen: true,
+                hoverAnimation: true
+            });
+            slider.openSetOnDOMContentLoaded();
+        </pre>
+        <div class="flex">
+            <div id='hoverAnimation' class="horizontal card-container">
+                <div class='card blue' id='ha-card1'></div>
+                <div class='card yellow' id='ha-card2'></div>
+                <div class='card red' id='ha-card3'></div>
+                <div class='card green' id='ha-card4'></div>
+                <div class='card orange' id='ha-card5'></div>
+            </div>
+        </div>
+
+        <br>
+        <h3>captions</h3>
+        <p>captions is used to add captions to the slider elements. captions takes a <span class="val">list of caption strings</span>,
+            which will be added to the slider elements in the same order that they initially appear in the HTML code.
+        </p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                captions: ['blue', 'yellow', 'red', 'green', 'orange']
+            });
+        </pre>
+        <div class="flex">
+            <div id='captions' class="horizontal card-container">
+                <div class='captions-card blue' id='cap-card1'></div>
+                <div class='captions-card yellow' id='cap-card2'></div>
+                <div class='captions-card red' id='cap-card3'></div>
+                <div class='captions-card green' id='cap-card4'></div>
+                <div class='captions-card orange' id='cap-card5'></div>
+            </div>
+        </div>
+
+        <br>
+        <h3>onlyShowCaptionsOnHover</h3>
+        <p>onlyShowCaptionsOnHover takes <span class="val">true</span> or <span class="val">false</span>.
+            Its default value is <span class="default-val">false</span>.
+            If onlyShowCaptionsOnHover is true, the caption for an element is only shown when it
+            is hovered over. 
+        </p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                captions: ['blue', 'yellow', 'red', 'green', 'orange'],
+                onlyShowCaptionsOnHover: true
+            });
+        </pre>
+        <div class="flex">
+            <div id='onlyShowCaptionsOnHover' class="horizontal card-container">
+                <div class='captions-card blue' id='cap-hov-card1'></div>
+                <div class='captions-card yellow' id='cap-hov-card2'></div>
+                <div class='captions-card red' id='cap-hov-card3'></div>
+                <div class='captions-card green' id='cap-hov-card4'></div>
+                <div class='captions-card orange' id='cap-hov-card5'></div>
+            </div>
+        </div>
+
+        <br>
+        <h3>lightbox</h3>
+        <p>lightbox takes <span class="val">true</span> or <span class="val">false</span>.
+            Its default value is <span class="default-val">false</span>. Setting lightbox to true
+            enables this library's lightbox feature. To open an element in fullscreen, the user can
+            hover over the top left corner of the element and clicks the 'expand' icon. To exit full screen,
+            the user can hover over the top left corner of the element and clicks the 'minimize' icon. 
+        </p>
+        <p>The lightbox feature works best if clickToOpen is true.</p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                clickToOpen: true,
+                lightbox: true
+            });
+            slider.openSetOnDOMContentLoaded();
+        </pre>
+        <div class="flex">
+            <div id='lightbox-example' class="horizontal card-container">
+                <div class='card blue' id='lightbox-ex-card1'></div>
+                <div class='card yellow' id='lightbox-ex-card2'></div>
+                <div class='card red' id='lightbox-ex-card3'></div>
+                <div class='card green' id='lightbox-ex-card4'></div>
+                <div class='card orange' id='lightbox-ex-card5'></div>
+            </div>
+        </div>
 
         <br>
         <h3>onElementSelected</h3>
