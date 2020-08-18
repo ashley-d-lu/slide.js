@@ -32,6 +32,71 @@ class Slider {
 
         this.numElements = this.elements.length;
 
+        this.direction = direction;
+
+        if (this.direction === 'diagonal' && upOrDown !== undefined) {
+            if (selectedElementPosition == 'center') {
+                if (upOrDown !== undefined && (upOrDown === 'up' || upOrDown === 'down')) {
+                    this.direction = this.direction.concat('-');
+                    this.direction = this.direction.concat(upOrDown);
+                }
+            }
+        }
+
+        if (selectedElementPosition !== undefined) {
+            this.selectedElementPosition = selectedElementPosition;
+        } else {
+            this.selectedElementPosition = 'center';
+        }
+
+        if (this.selectedElementPosition !== 'center') {
+            this.selectedElementIndex = 0;
+        } else { // center
+            this.selectedElementIndex = Math.floor(this.numElements / 2);
+        }
+
+        if (keepOriginalOrder !== undefined) {
+            this.keepOriginalOrder = keepOriginalOrder
+        } else {
+            this.keepOriginalOrder = false;
+        }
+
+        if (clickToOpen !== undefined) {
+            this.clickToOpen = clickToOpen;
+        } else {
+            this.clickToOpen = false;
+        }
+
+        this.containerWidth = this.container.getBoundingClientRect().width
+        this.containerHeight = this.container.getBoundingClientRect().height;
+
+        this.elementHeight = this.elements[0].getBoundingClientRect().height;
+        this.elementWidth = this.elements[0].getBoundingClientRect().width;
+
+        if (animationSpeed !== undefined) {
+            this.animationSpeed = animationSpeed;
+        } else {
+            this.animationSpeed = 375;
+        }
+
+        if (showSlideAnimation !== undefined) {
+            this.showSlideAnimation = showSlideAnimation
+        } else {
+            this.showSlideAnimation = true;
+        }
+
+        if (showFadeAnimation !== undefined) {
+            this.showFadeAnimation = showFadeAnimation
+        } else {
+            this.showFadeAnimation = true;
+        }
+
+        if (degree !== undefined && degree >= 0 && degree <= 90) {
+            this.degree = degree;
+        } else {
+            this.degree = 45;
+        }
+
         if (lightbox !== undefined) {
             this.lightbox = lightbox;
         } else {
@@ -75,7 +140,7 @@ class Slider {
                 div.appendChild(icon);
                 hoverArea.appendChild(div);
 
-                // Only show expand/close icon when hovering overing it
+                // Only show expand/close icon when hovering over the hoverArea
                 hoverArea.addEventListener('mouseover', () => {
                     div.style.backgroundColor = 'rgb(255, 255, 255, 0.5)';
                     div.children[0].style.opacity = 0.8;
@@ -104,7 +169,7 @@ class Slider {
             this.modal.style.height = '100%';
             this.modal.style.width = '100%';
             this.modal.style.backgroundColor = 'rgb(0, 0, 0, 0)';
-            document.body.appendChild(this.modal);
+            this.container.appendChild(this.modal);
         }
 
         this.inFullscreenMode = false;
@@ -180,71 +245,6 @@ class Slider {
                     }
                 });
             });
-        }
-
-        this.direction = direction;
-
-        if (this.direction === 'diagonal' && upOrDown !== undefined) {
-            if (selectedElementPosition == 'center') {
-                if (upOrDown !== undefined && (upOrDown === 'up' || upOrDown === 'down')) {
-                    this.direction = this.direction.concat('-');
-                    this.direction = this.direction.concat(upOrDown);
-                }
-            }
-        }
-
-        if (selectedElementPosition !== undefined) {
-            this.selectedElementPosition = selectedElementPosition;
-        } else {
-            this.selectedElementPosition = 'center';
-        }
-
-        if (this.selectedElementPosition !== 'center') {
-            this.selectedElementIndex = 0;
-        } else { // center
-            this.selectedElementIndex = Math.floor(this.numElements / 2);
-        }
-
-        if (keepOriginalOrder !== undefined) {
-            this.keepOriginalOrder = keepOriginalOrder
-        } else {
-            this.keepOriginalOrder = false;
-        }
-
-        if (clickToOpen !== undefined) {
-            this.clickToOpen = clickToOpen;
-        } else {
-            this.clickToOpen = false;
-        }
-
-        this.containerWidth = this.container.getBoundingClientRect().width
-        this.containerHeight = this.container.getBoundingClientRect().height;
-
-        this.elementHeight = this.elements[0].getBoundingClientRect().height;
-        this.elementWidth = this.elements[0].getBoundingClientRect().width;
-
-        if (animationSpeed !== undefined) {
-            this.animationSpeed = animationSpeed;
-        } else {
-            this.animationSpeed = 375;
-        }
-
-        if (showSlideAnimation !== undefined) {
-            this.showSlideAnimation = showSlideAnimation
-        } else {
-            this.showSlideAnimation = true;
-        }
-
-        if (showFadeAnimation !== undefined) {
-            this.showFadeAnimation = showFadeAnimation
-        } else {
-            this.showFadeAnimation = true;
-        }
-
-        if (degree !== undefined && degree >= 0 && degree <= 90) {
-            this.degree = degree;
-        } else {
-            this.degree = 45;
         }
 
         if (scaleFactor !== undefined) {
