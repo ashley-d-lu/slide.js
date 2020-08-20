@@ -702,9 +702,13 @@ class Slider {
             }
         }
 
-        setTimeout(() => {
+        if (this.hoverAnimation) { 
+            setTimeout(() => {
+                this.isClosed = false;
+            }, animationSpeed + 10);
+        } else {
             this.isClosed = false;
-        }, animationSpeed + 10);
+        }
         
     }
 

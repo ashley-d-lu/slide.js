@@ -1,3 +1,5 @@
+/* Contains general styling for pages */
+
 body {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
@@ -143,10 +145,11 @@ h1:after {
     margin-left: 15px;
     font-weight: 600;
     padding: 8px 15px;
-    transition: 0s;
+    transition: color 0.2s;
 }
 
 .header-btn:hover {
+    color: #007bff;
     cursor: pointer;
     background-color: transparent;
 }
@@ -157,9 +160,6 @@ h1:after {
     margin: auto;
     margin-top: 20px;
     background-color: rgb(201, 201, 201);
-    /* background-image: linear-gradient(to right, black, #007bff 20%,  #28a745 40%, #ffc107 60%, #e83e4c 80%, black); */
-    /* background-image: linear-gradient(to right,rgba(255, 193, 7, 0), #ffc1072d 5%, #007bff 50%, #ffc1072d 95%, rgba(255, 193, 7, 0)); */
-    /* background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(201, 201, 201) 50%, rgba(0, 0, 0, 0)) */
 }
 
 #angle-btns {

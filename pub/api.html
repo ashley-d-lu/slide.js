@@ -13,8 +13,7 @@
 </head>
 
 <body>
-
-    <!-- <div class="gradient-bar"></div> -->
+    
     <div id='header'>
 
         <div id='library-name' class="float-left">slide.js</div>
@@ -29,7 +28,6 @@
         <div class="leftclearfix"></div>
    
     </div>
-    <!-- <div class="gradient-bar"></div> -->
 
     <div class="body-content">
 
@@ -182,45 +180,39 @@
             Its default value is <span class='default-val'>'down'</span>.
         </p>
 
-        <!-- <div class='float-left'> -->
-            <pre>
-            const slider = new Slider(containerSelector, {
-                direction: 'diagonal',
-                selectedElementPosition: 'center', // default
-                upOrDown: 'down' // default
-            });
-            </pre>
-            <div class='flex'>
-                <div id='cards-diagonal-down' class='diagonal card-container'>
-                    <div class='card blue' id='d-down-card1'></div>
-                    <div class='card yellow' id='d-down-card2'></div>
-                    <div class='card red' id='d-down-card3'></div>
-                    <div class='card green' id='d-down-card4'></div>
-                    <div class='card orange' id='d-down-card5'></div>
-                </div>
+        <pre>
+        const slider = new Slider(containerSelector, {
+            direction: 'diagonal',
+            selectedElementPosition: 'center', // default
+            upOrDown: 'down' // default
+        });
+        </pre>
+        <div class='flex'>
+            <div id='cards-diagonal-down' class='diagonal card-container'>
+                <div class='card blue' id='d-down-card1'></div>
+                <div class='card yellow' id='d-down-card2'></div>
+                <div class='card red' id='d-down-card3'></div>
+                <div class='card green' id='d-down-card4'></div>
+                <div class='card orange' id='d-down-card5'></div>
             </div>
-        <!-- </div> -->
+        </div>
 
-        <!-- <div class='float-left'> -->
-            <pre>
-            const slider = new Slider(containerSelector, {
-                direction: 'diagonal',
-                selectedElementPosition: 'center', // default
-                upOrDown: 'up'
-            });
-            </pre>
-            <div class='flex'>
-                <div id='cards-diagonal-up' class='diagonal card-container'>
-                    <div class='card blue' id='d-up-card1'></div>
-                    <div class='card yellow' id='d-up-card2'></div>
-                    <div class='card red' id='d-up-card3'></div>
-                    <div class='card green' id='d-up-card4'></div>
-                    <div class='card orange' id='d-up-card5'></div>
-                </div>
+        <pre>
+        const slider = new Slider(containerSelector, {
+            direction: 'diagonal',
+            selectedElementPosition: 'center', // default
+            upOrDown: 'up'
+        });
+        </pre>
+        <div class='flex'>
+            <div id='cards-diagonal-up' class='diagonal card-container'>
+                <div class='card blue' id='d-up-card1'></div>
+                <div class='card yellow' id='d-up-card2'></div>
+                <div class='card red' id='d-up-card3'></div>
+                <div class='card green' id='d-up-card4'></div>
+                <div class='card orange' id='d-up-card5'></div>
             </div>
-        <!-- </div> -->
-
-        <!-- <div class='leftclearfix'></div> -->
+        </div>
 
         <br>
         <h3>clickToOpen</h3>
@@ -390,91 +382,81 @@
             Its default value is <span class='default-val'>true</span>.
         </p>
 
-        <!-- <div class='float-left'> -->
-            <pre>
-            // Show both slide and fade animations
+         <pre>
+        // Show both slide and fade animations
 
-            const slider = new Slider(containerSelector, {
-                direction: 'horizontal',
-                showSlideAnimation: true, // default
-                showFadeAnimation: true // default
-            });
-            </pre>
-            <div class='flex'>
-                <div id='cards-animation-true-true' class='horizontal card-container'>
-                    <div class='card blue' id='a-tt-card1'></div>
-                    <div class='card yellow' id='a-tt-card2'></div>
-                    <div class='card red' id='a-tt-card3'></div>
-                    <div class='card green' id='a-tt-card4'></div>
-                    <div class='card orange' id='a-tt-card5'></div>
-                </div>
+        const slider = new Slider(containerSelector, {
+            direction: 'horizontal',
+            showSlideAnimation: true, // default
+            showFadeAnimation: true // default
+        });
+        </pre>
+        <div class='flex'>
+            <div id='cards-animation-true-true' class='horizontal card-container'>
+                <div class='card blue' id='a-tt-card1'></div>
+                <div class='card yellow' id='a-tt-card2'></div>
+                <div class='card red' id='a-tt-card3'></div>
+                <div class='card green' id='a-tt-card4'></div>
+                <div class='card orange' id='a-tt-card5'></div>
             </div>
-        <!-- </div> -->
+        </div>
 
-        <!-- <div class='float-left'> -->
-            <pre>
-            // Show only slide animation
+        <pre>
+        // Show only slide animation
 
-            const slider = new Slider(containerSelector, {
-                direction: 'horizontal',
-                showSlideAnimation: true, // default
-                showFadeAnimation: false
-            });
-            </pre>
-            <div class='flex'>
-                <div id='cards-animation-true-false' class='horizontal card-container'>
-                    <div class='card blue' id='a-tf-card1'></div>
-                    <div class='card yellow' id='a-tf-card2'></div>
-                    <div class='card red' id='a-tf-card3'></div>
-                    <div class='card green' id='a-tf-card4'></div>
-                    <div class='card orange' id='a-tf-card5'></div>
-                </div>
+        const slider = new Slider(containerSelector, {
+            direction: 'horizontal',
+            showSlideAnimation: true, // default
+            showFadeAnimation: false
+        });
+        </pre>
+        <div class='flex'>
+            <div id='cards-animation-true-false' class='horizontal card-container'>
+                <div class='card blue' id='a-tf-card1'></div>
+                <div class='card yellow' id='a-tf-card2'></div>
+                <div class='card red' id='a-tf-card3'></div>
+                <div class='card green' id='a-tf-card4'></div>
+                <div class='card orange' id='a-tf-card5'></div>
             </div>
-        <!-- </div> -->
-        <!-- <div class='leftclearfix'></div> -->
+        </div>
 
-        <!-- <div class='float-left'> -->
-            <pre>
-            // Show only fade animation
+        <pre>
+        // Show only fade animation
 
-            const slider = new Slider(containerSelector, {
-                direction: 'horizontal',
-                showSlideAnimation: false, 
-                showFadeAnimation: true // default
-            });
-            </pre>
-            <div class='flex'>
-                <div id='cards-animation-false-true' class='horizontal card-container'>
-                    <div class='card blue' id='a-ft-card1'></div>
-                    <div class='card yellow' id='a-ft-card2'></div>
-                    <div class='card red' id='a-ft-card3'></div>
-                    <div class='card green' id='a-ft-card4'></div>
-                    <div class='card orange' id='a-ft-card5'></div>
-                </div>
+        const slider = new Slider(containerSelector, {
+            direction: 'horizontal',
+            showSlideAnimation: false, 
+            showFadeAnimation: true // default
+        });
+        </pre>
+        <div class='flex'>
+            <div id='cards-animation-false-true' class='horizontal card-container'>
+                <div class='card blue' id='a-ft-card1'></div>
+                <div class='card yellow' id='a-ft-card2'></div>
+                <div class='card red' id='a-ft-card3'></div>
+                <div class='card green' id='a-ft-card4'></div>
+                <div class='card orange' id='a-ft-card5'></div>
             </div>
-        <!-- </div> -->
+        </div>
 
-        <!-- <div class='float-left'> -->
-            <pre>
-            // Show no animations
+        <pre>
+        // Show no animations
 
-            const slider = new Slider(containerSelector, {
-                direction: 'horizontal',
-                showSlideAnimation: false,
-                showFadeAnimation: false
-            });
-            </pre>
-            <div class='flex'>
-                <div id='cards-animation-false-false' class='horizontal card-container'>
-                    <div class='card blue' id='a-ff-card1'></div>
-                    <div class='card yellow' id='a-ff-card2'></div>
-                    <div class='card red' id='a-ff-card3'></div>
-                    <div class='card green' id='a-ff-card4'></div>
-                    <div class='card orange' id='a-ff-card5'></div>
-                </div>
+        const slider = new Slider(containerSelector, {
+            direction: 'horizontal',
+            showSlideAnimation: false,
+            showFadeAnimation: false
+        });
+        </pre>
+        <div class='flex'>
+            <div id='cards-animation-false-false' class='horizontal card-container'>
+                <div class='card blue' id='a-ff-card1'></div>
+                <div class='card yellow' id='a-ff-card2'></div>
+                <div class='card red' id='a-ff-card3'></div>
+                <div class='card green' id='a-ff-card4'></div>
+                <div class='card orange' id='a-ff-card5'></div>
             </div>
-        <!-- </div> -->
-        <!-- <div class='leftclearfix'></div> -->
+        </div>
 
         <br>
         <h3>hoverAnimation</h3>
