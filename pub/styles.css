@@ -71,23 +71,6 @@ h1:after {
     z-index: -1;
 }
 
-.line{
-    width: 680px;
-    height: 45px;
-    border-bottom: 4px solid black;
-    position: absolute;
-}
-
-/* .line{
-    position: absolute;
-    top: 92px;
-    width: 680px;
-    margin: auto;
-    height: 0px;
-    border-bottom: 10px solid rgb(233, 233, 233);
-    z-index: -1;
-} */
-
 /* --------------------------------------------------------------------------  */
 
 .leftclearfix {
@@ -108,6 +91,18 @@ h1:after {
 
 .margin-left-40 {
     margin-left: 40px;
+}
+
+.divider-20 {
+    margin-top: 20px;
+}
+
+.divider-40 {
+    margin-top: 40px;
+}
+
+.divider-60 {
+    margin-top: 60px;
 }
 
 .divider {
@@ -144,17 +139,27 @@ h1:after {
 }
 
 .header-btn {
-    color: white;
-    background-color: black;
+    background-color: transparent;
     margin-left: 15px;
     font-weight: 600;
     padding: 8px 15px;
-    transition: transform 0.2s;
+    transition: 0s;
 }
 
 .header-btn:hover {
-    background-color: black;
-    transform: scale(1.05)
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.gradient-bar {
+    height: 1px;
+    width: 1270px;
+    margin: auto;
+    margin-top: 20px;
+    background-color: rgb(201, 201, 201);
+    /* background-image: linear-gradient(to right, black, #007bff 20%,  #28a745 40%, #ffc107 60%, #e83e4c 80%, black); */
+    /* background-image: linear-gradient(to right,rgba(255, 193, 7, 0), #ffc1072d 5%, #007bff 50%, #ffc1072d 95%, rgba(255, 193, 7, 0)); */
+    /* background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(201, 201, 201) 50%, rgba(0, 0, 0, 0)) */
 }
 
 #angle-btns {
@@ -201,15 +206,11 @@ h1:after {
     left: 0px;
 }
 
-#captions {
+.captions-example {
     width: 550px;
 }
 
 #lightbox-example {
-    width: 550px;
-}
-
-#onlyShowCaptionsOnHover {
     width: 550px;
 }
 
@@ -248,37 +249,4 @@ h1:after {
 #counter {
     margin-top: 55px;
     height: 22px;
-}
-
-#dropdown-menu {
-    width: 150px;
-    height: 320px;
-}
-
-.menu-option {
-    width: 150px;
-    height: 40px;
-    vertical-align: middle;
-}
-
-.menu-option-text {
-    display: inline;
-    font-weight: 600;
-}
-
-.menu-icon {
-    position: relative;
-    display: inline;
-    top: 6px;
-    margin: 0px 5px;
-}
-
-#products {
-    height: 100px;
-    width: 600px;
-}
-
-.product {
-    height: 100px;
-    width: 100px;
 }

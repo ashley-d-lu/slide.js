@@ -204,33 +204,33 @@ functionsSlider.onElementSelected = () => {
 //     selElemTextBox.innerText = tmp.innerHTML;
 // }
 
-
-const dropdownSlider = new Slider('#dropdown-menu', {
-    direction: 'vertical',
-    selectedElementPosition: 'top',
-    keepOriginalOrder: true,
-    clickToOpen: true
-});
-dropdownSlider.openSetOnDOMContentLoaded();
-
-
-const productsSlider = new Slider('#products', {
-    direction: 'horizontal',
-    selectedElementPosition: 'center',
-    keepOriginalOrder: true
-});
-productsSlider.openSetOnDOMContentLoaded();
-
 const hoverAnimationSlider = new Slider('#hoverAnimation', {
     direction: 'horizontal',
-    clickToOpen: true,
     hoverAnimation: true
 });
 hoverAnimationSlider.openSetOnDOMContentLoaded();
 
-const captionsSliders = new Slider('#captions', {
+const captionsSlider = new Slider('#captions', {
     direction: 'horizontal',
     captions: ['blue', 'yellow', 'red', 'green', 'orange']
+});
+
+const captionsLeftSLider = new Slider('#captions-left', {
+    direction: 'horizontal',
+    captions: ['blue', 'yellow', 'red', 'green', 'orange'],
+    captionPosition: 'left'
+});
+
+const captionsCenterSLider = new Slider('#captions-center', {
+    direction: 'horizontal',
+    captions: ['blue', 'yellow', 'red', 'green', 'orange'],
+    captionPosition: 'center'
+});
+
+const captionsRightSLider = new Slider('#captions-right', {
+    direction: 'horizontal',
+    captions: ['blue', 'yellow', 'red', 'green', 'orange'],
+    captionPosition: 'right'
 });
 
 const onlyShowCaptionsOnHoverSlider = new Slider('#onlyShowCaptionsOnHover', {

@@ -6,15 +6,32 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <script type='text/javascript' src='slide.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script defer type='text/javascript' src='buttons.js'></script>
     <script defer type='text/javascript' src='api.js'></script>
     <link rel='stylesheet' type='text/css' href='styles.css'>
     <title>slide.js</title>
 </head>
 
 <body>
-    <div class="body-content">
 
-        <div id='library-name'>slide.js</div>
+    <!-- <div class="gradient-bar"></div> -->
+    <div id='header'>
+
+        <div id='library-name' class="float-left">slide.js</div>
+
+        <div class="float-left">
+            <div id='header-btns'>
+                <button id='examples-btn' class="header-btn">Examples</button>
+                <button id='gettingStarted-btn' class="header-btn">Getting Started</button>
+                <button id='api-btn' class="header-btn">API</button>
+            </div>
+        </div>
+        <div class="leftclearfix"></div>
+   
+    </div>
+    <!-- <div class="gradient-bar"></div> -->
+
+    <div class="body-content">
 
         <div class='divider'></div>
 
@@ -465,13 +482,12 @@
             It's default value is <span class="default-val">false</span>. If hoverAnimation is true,
             when the set is open, the elements in the set shift up when they are hovered over.
         </p>
-        <p>The hover animations work best if clickToOpen is true.</p>
         <pre>
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
-                clickToOpen: true,
                 hoverAnimation: true
             });
+
             slider.openSetOnDOMContentLoaded();
         </pre>
         <div class="flex">
@@ -489,6 +505,9 @@
         <p>captions is used to add captions to the slider elements. captions takes a <span class="val">list of caption strings</span>,
             which will be added to the slider elements in the same order that they initially appear in the HTML code.
         </p>
+        <p>Note: To be able to add captions, every element in document.queryselector(containerSelector).children must be in a 
+            non-self enclosing tag (e.g. a div).
+        </p>
         <pre>
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
@@ -496,12 +515,52 @@
             });
         </pre>
         <div class="flex">
-            <div id='captions' class="horizontal card-container">
+            <div id='captions' class="captions-example horizontal card-container">
                 <div class='captions-card blue' id='cap-card1'></div>
                 <div class='captions-card yellow' id='cap-card2'></div>
                 <div class='captions-card red' id='cap-card3'></div>
                 <div class='captions-card green' id='cap-card4'></div>
                 <div class='captions-card orange' id='cap-card5'></div>
+            </div>
+        </div>
+
+        <br>
+        <h3>captionPosition</h3>
+        <p>captionPosition determines the position of the captions. It's value can be <span class="val">'left'</span>,
+            <span class="val">'center'</span>, or <span class="val">'right'</span>. It's default value is <span class="default-val">'center'</span>.
+        </p>
+        <pre>
+            const slider = new Slider(containerSelector, {
+                direction: 'horizontal',
+                captions: ['blue', 'yellow', 'red', 'green', 'orange'],
+                captionPosition: 'left', 'center', or 'right'
+            });
+        </pre>
+        <div class="flex">
+            <div id='captions-left' class="captions-example horizontal card-container">
+                <div class='captions-card blue' id='cap-l-card1'></div>
+                <div class='captions-card yellow' id='cap-l-card2'></div>
+                <div class='captions-card red' id='cap-l-card3'></div>
+                <div class='captions-card green' id='cap-l-card4'></div>
+                <div class='captions-card orange' id='cap-l-card5'></div>
+            </div>
+        </div>
+        <div class="flex">
+            <div id='captions-center' class="captions-example horizontal card-container">
+                <div class='captions-card blue' id='cap-c-card1'></div>
+                <div class='captions-card yellow' id='cap-c-card2'></div>
+                <div class='captions-card red' id='cap-c-card3'></div>
+                <div class='captions-card green' id='cap-c-card4'></div>
+                <div class='captions-card orange' id='cap-c-card5'></div>
+            </div>
+        </div>
+        <div class="flex">
+            <div id='captions-right' class="captions-example horizontal card-container">
+                <div class='captions-card blue' id='cap-r-card1'></div>
+                <div class='captions-card yellow' id='cap-r-card2'></div>
+                <div class='captions-card red' id='cap-r-card3'></div>
+                <div class='captions-card green' id='cap-r-card4'></div>
+                <div class='captions-card orange' id='cap-r-card5'></div>
             </div>
         </div>
 
@@ -520,7 +579,7 @@
             });
         </pre>
         <div class="flex">
-            <div id='onlyShowCaptionsOnHover' class="horizontal card-container">
+            <div id='onlyShowCaptionsOnHover' class="captions-example horizontal card-container">
                 <div class='captions-card blue' id='cap-hov-card1'></div>
                 <div class='captions-card yellow' id='cap-hov-card2'></div>
                 <div class='captions-card red' id='cap-hov-card3'></div>
@@ -544,6 +603,7 @@
                 clickToOpen: true,
                 lightbox: true
             });
+
             slider.openSetOnDOMContentLoaded();
         </pre>
         <div class="flex">
@@ -597,12 +657,14 @@
         <br><br>
         <h3>openSetOnDOMContentLoaded</h3>
         <p>By default, the slider is initialized to closed when the DOM loads. To initialize the slider to open,
-            call the openSetOnDOMContentLoaded after the DOM loads. openSetOnDOMContentLoaded is not intechangeable with openSet.
+            call the openSetOnDOMContentLoaded after the DOM loads.
         </p>
+        <p>Note: openSetOnDOMContentLoaded is not intechangeable with openSet.</p>
         <pre>
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal'
             });
+
             slider.openSetOnDOMContentLoaded();
         </pre>
         <div class='flex'>
@@ -666,73 +728,6 @@
             <button id='open-btn' class='side-margins'>Open</button>
             <button id='close-btn' class='side-margins'>Close</button>
             <span id='selected-elem-className' class='outlined-badge side-margins'>Currently selected element: </span>
-        </div>
-
-        <div class='divider-100'></div>
-        <h1>Practical Examples</h1>
-
-        <br><br>
-        <p class='bold'>An animated version of Twitter's sidebar menu:</p>
-        <pre>
-            const slider = new Slider(containerSelector, {
-                direction: 'vertical',
-                selectedElementPosition: 'top',
-                keepOriginalOrder: true,
-                clickToOpen: true
-            });
-            slider.openSetOnDOMContentLoaded();
-        </pre>
-        <div id='dropdown-menu'>
-            <div class='menu-option' id='home'>
-                <img src='./menuIcons/home-24px.svg' class='menu-icon'>
-                <div class='menu-option-text'>Home</div>
-            </div>
-            <div class='menu-option' id='explore'>
-                <img src='./menuIcons/explore-24px.svg' class='menu-icon'>
-                <div class='menu-option-text'>Explore</div>
-            </div>
-            <div class='menu-option' id='notifications'>
-                <img src='./menuIcons/notifications-24px.svg' class='menu-icon'>
-                <div class='menu-option-text'>Notifications</div>
-            </div>
-            <div class='menu-option' id='messages'>
-                <img src='./menuIcons/email-24px.svg' class='menu-icon'>
-                <div class='menu-option-text'>Messages</div>
-            </div>
-            <div class='menu-option' id='bookmarks'>
-                <img src='./menuIcons/bookmark_border-24px.svg' class='menu-icon'>
-                <div class='menu-option-text'>Bookmarks</div>
-            </div>
-            <div class='menu-option' id='lists'>
-                <img src='./menuIcons/format_list_bulleted-24px.svg' class='menu-icon'>
-                <div class='menu-option-text'>Lists</div>
-            </div>
-            <div class='menu-option' id='profile'>
-                <img src='./menuIcons/person-24px.svg' class='menu-icon'>
-                <div class='menu-option-text'>Profile</div>
-            </div>
-            <div class='menu-option' id='more'>
-                <img src='./menuIcons/more_horiz-24px.svg' class='menu-icon'>
-                <div class='menu-option-text'>More</div>
-            </div>
-        </div>
-
-        <br>
-        <p class='bold'>A display for different options for a product:</p>
-        <pre>
-            const slider = new Slider(containerSelector, {
-                direction: 'horizontal',
-                keepOriginalOrder: true
-            });
-            slider.openSetOnDOMContentLoaded();
-        </pre>
-        <div id='products'>
-            <img src='./productImages/iphone11-green-select-2019.png' id='green-iphone' class='product'>
-            <img src='./productImages/iphone11-white-select-2019.png' id='white-iphone' class='product'>
-            <img src='./productImages/iphone11-black-select-2019.png' id='black-iphone' class='product'>
-            <img src='./productImages/iphone11-purple-select-2019.png' id='purple-iphone' class='product'>
-            <img src='./productImages/iphone11-yellow-select-2019.png' id='yellow-iphone' class='product'>
-            <img src='./productImages/iphone11-red-select-2019.png' id='red-iphone' class='product'>
         </div>
 
         <div class='divider'></div>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type='text/javascript' src='slide.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script defer type='text/javascript' src='buttons.js'></script>
+    <script defer type='text/javascript' src='examples.js'></script>
+    <link rel='stylesheet' type='text/css' href='styles.css'>
+    <link rel='stylesheet' type='text/css' href='examples.css'>
+    <title>slide.js</title>
+</head>
+<body>
+
+    <!-- <div class="gradient-bar"></div> -->
+    <div id='header'>
+
+        <div id='library-name' class="float-left">slide.js</div>
+
+        <div class="float-left">
+            <div id='header-btns'>
+                <button id='examples-btn' class="header-btn">Examples</button>
+                <button id='gettingStarted-btn' class="header-btn">Getting Started</button>
+                <button id='api-btn' class="header-btn">API</button>
+            </div>
+        </div>
+        <div class="leftclearfix"></div>
+
+    </div>
+    <!-- <div class="gradient-bar"></div> -->
+
+    <div class="body-content-wide">
+
+        <div class="divider"></div>
+
+        <div class="flex"><h1>Example 1</h1></div>
+        <div class="divider-20"></div>
+
+        <div class="flex">
+            <div class='photos-border'>
+
+                <div id='lightbox' class='photos'>    
+                    <div id='photo1' class='photo'><img src='./photography/mountains.jpg'></div>
+                    <div id='photo2' class='photo'><img src='./photography/bridge.jpg'></div>
+                    <div id='photo3' class='photo'><img src='./photography/lake.jpg'></div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="divider-20"></div>
+        <div class="flex-wide">
+            <div class='code-snippet'>
+                <p class='bold'>HTML:</p>
+                <pre>
+    &lt;div id='lightbox' class='photos'&gt; 
+
+        &lt;div id='photo1' class='photo'&gt;&lt;
+            img src='./photography/mountains.jpg'&gt;
+        &lt;/div&gt;
+
+        &lt;div id='photo2' class='photo'&gt;&lt;
+            img src='./photography/bridge.jpg'&gt;
+        &lt;/div&gt;
+        
+        &lt;div id='photo3' class='photo'&gt;&lt;
+            img src='./photography/lake.jpg'&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+                </pre>
+            </div>
+
+            <div class='code-snippet'>
+                <p class='bold'>Relevant CSS:</p>
+                    <pre>
+        .photos {
+            height: 300px;
+            width: 1230px;
+        }
+        
+        .photo {
+            height: 300px;
+            width: 400px;
+        }
+                    </pre>
+                </div>
+            
+            <div class='code-snippet'>
+                <p class='bold'>Javascript:</p>
+                <pre>
+        const lightboxSlider = new Slider('#lightbox', {
+            direction: 'horizontal',
+            clickToOpen: true,
+            keepOriginalOrder: true,
+            lightbox: true,
+            captions: [
+                'Mountains, 2020',
+                'Bridge, 2020',
+                'Lake, 2020'
+            ],
+            captionPosition: 'right',
+            onlyShowCaptionsOnHover: true,
+            scaleFactor: 0.8
+        });
+        
+        lightboxSlider.openSetOnDOMContentLoaded();
+                </pre>
+            </div>
+        </div>
+    
+        <div class="divider"></div>
+        <div class="flex"><h1>Example 2</h1></div>
+        <div class="divider-20"></div>
+
+        <div class="flex">
+            <div class="photos-border-diagonal">
+
+                <div id='lightbox-diagonal' class='photos-diagonal'>    
+                    <div id='photo4' class='photo'><img src='./photography/mountains.jpg'></div>
+                    <div id='photo5' class='photo'><img src='./photography/bridge.jpg'></div>
+                    <div id='photo6' class='photo'><img src='./photography/lake.jpg'></div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="divider-20"></div>
+        <div class="flex-wide">
+            <div class='code-snippet'>
+                <p class='bold'>HTML:</p>
+                <pre>
+    &lt;div id='lightbox-diagonal' class='photos-diagonal'&gt;    
+
+        &lt;div id='photo3' class='photo'&gt;&lt;
+            img src='./photography/mountains.jpg'&gt;
+        &lt;/div&gt;
+
+        &lt;div id='photo4' class='photo'&gt;&lt;
+            img src='./photography/bridge.jpg'&gt;
+        &lt;/div&gt;
+
+        &lt;div id='photo5' class='photo'&gt;&lt;
+            img src='./photography/lake.jpg'&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+                </pre>
+            </div>
+
+            <div class='code-snippet'>
+                <p class='bold'>Relevant CSS:</p>
+                    <pre>
+    .photos-diagonal {
+        height: 300px;
+        width: 700px;
+    }
+    
+    .photo {
+        height: 300px;
+        width: 400px;
+    }
+                    </pre>
+                </div>
+            
+            <div class='code-snippet'>
+                <p class='bold'>Javascript:</p>
+                <pre>
+        const lightboxDiagonalSlider = new Slider('#lightbox-diagonal', {
+            direction: 'diagonal',
+            degree: 25,
+            clickToOpen: true,
+            keepOriginalOrder: false,
+            lightbox: true,
+            captions: [
+                'Mountains, 2020',
+                'Bridge, 2020',
+                'Lake, 2020'
+            ],
+            captionPosition: 'left',
+            onlyShowCaptionsOnHover: true,
+            scaleFactor: 0.5
+        });
+
+        lightboxDiagonalSlider.openSetOnDOMContentLoaded();
+                </pre>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="flex"><h1>Example 3</h1></div>
+        <div class="divider-20"></div>
+
+        <div class="flex">
+            <div id='products'>
+                <div id='green-iphone'>
+                    <img src='./productImages/iphone11-green.png' class='product'>
+                </div>
+                <div id='white-iphone'>
+                    <img src='./productImages/iphone11-white.png' class='product'>
+                </div>
+                <div id='black-iphone'>
+                    <img src='./productImages/iphone11-black.png' class='product'>
+                </div>
+                <div id='purple-iphone'>
+                    <img src='./productImages/iphone11-purple.png' class='product'>
+                </div>
+                <div id='yellow-iphone'>
+                    <img src='./productImages/iphone11-yellow.png'  class='product'>
+                </div>
+                <div id='red-iphone'>
+                    <img src='./productImages/iphone11-red.png' class='product'>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-60"></div>
+        <div class="flex-wide">
+            <div class='code-snippet'>
+                <p class='bold'>HTML:</p>
+                <pre>
+    &lt;div id='products'&gt;
+
+        &lt;div id='green-iphone'&gt;
+            &lt;img src='./productImages/iphone11-green.png' class='product'&gt;
+        &lt;/div&gt;
+
+        &lt;div id='white-iphone'&gt;
+            &lt;img src='./productImages/iphone11-white.png' class='product'&gt;
+        &lt;/div&gt;
+
+        &lt;div id='black-iphone'&gt;
+            &lt;img src='./productImages/iphone11-black.png' class='product'&gt;
+        &lt;/div&gt;
+
+        &lt;div id='purple-iphone'&gt;
+            &lt;img src='./productImages/iphone11-purple.png' class='product'&gt;
+        &lt;/div&gt;
+
+        &lt;div id='yellow-iphone'&gt;
+            &lt;img src='./productImages/iphone11-yellow.png' class='product'&gt;
+        &lt;/div&gt;
+
+        &lt;div id='red-iphone'&gt;
+            &lt;img src='./productImages/iphone11-red.png' class='product'&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+                </pre>
+            </div>
+
+            <div class='code-snippet'>
+                <p class='bold'>Relevant CSS:</p>
+                    <pre>
+    #products {
+        height: 100px;
+        width: 600px;
+    }
+    
+    .product {
+        height: 100px;
+        width: 100px;
+    }
+                    </pre>
+                </div>
+            
+            <div class='code-snippet'>
+                <p class='bold'>Javascript:</p>
+                <pre>
+    const productsSlider = new Slider('#products', {
+        direction: 'horizontal',
+        selectedElementPosition: 'left',
+        clickToOpen: false, // default
+        keepOriginalOrder: true,
+        captions: [
+            'Green',
+            "White",
+            "Black",
+            "Purple",
+            "Yellow",
+            "Red"
+        ],
+        captionPosition: 'center', // default
+        hoverAnimation: true
+    });
+    
+    productsSlider.openSetOnDOMContentLoaded();
+                </pre>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="flex"><h1>Example 4</h1></div>
+        <div class="divider-20"></div>
+
+        <div class="flex">
+            <div id='dropdown-menu'>
+                <div class='menu-option' id='home'>
+                    <img src='./menuIcons/home-24px.svg' class='menu-icon'>
+                    <div class='menu-option-text'>Home</div>
+                </div>
+                <div class='menu-option' id='explore'>
+                    <img src='./menuIcons/explore-24px.svg' class='menu-icon'>
+                    <div class='menu-option-text'>Explore</div>
+                </div>
+                <div class='menu-option' id='notifications'>
+                    <img src='./menuIcons/notifications-24px.svg' class='menu-icon'>
+                    <div class='menu-option-text'>Notifications</div>
+                </div>
+                <div class='menu-option' id='messages'>
+                    <img src='./menuIcons/email-24px.svg' class='menu-icon'>
+                    <div class='menu-option-text'>Messages</div>
+                </div>
+                <div class='menu-option' id='bookmarks'>
+                    <img src='./menuIcons/bookmark_border-24px.svg' class='menu-icon'>
+                    <div class='menu-option-text'>Bookmarks</div>
+                </div>
+                <div class='menu-option' id='lists'>
+                    <img src='./menuIcons/format_list_bulleted-24px.svg' class='menu-icon'>
+                    <div class='menu-option-text'>Lists</div>
+                </div>
+                <div class='menu-option' id='profile'>
+                    <img src='./menuIcons/person-24px.svg' class='menu-icon'>
+                    <div class='menu-option-text'>Profile</div>
+                </div>
+                <div class='menu-option' id='more'>
+                    <img src='./menuIcons/more_horiz-24px.svg' class='menu-icon'>
+                    <div class='menu-option-text'>More</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-20"></div>
+        <div class="flex-wide">
+            <div class='code-snippet'>
+                <p class='bold'>HTML:</p>
+                <pre>
+    &lt;div id='dropdown-menu'&gt;
+
+        &lt;div class='menu-option' id='home'&gt;
+            &lt;img src='./menuIcons/home-24px.svg' class='menu-icon'&gt;
+            &lt;div class='menu-option-text'&gt;Home&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class='menu-option' id='explore'&gt;
+            &lt;img src='./menuIcons/explore-24px.svg' class='menu-icon'&gt;
+            &lt;div class='menu-option-text'&gt;Explore&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class='menu-option' id='notifications'&gt;
+            &lt;img src='./menuIcons/notifications-24px.svg' class='menu-icon'&gt;
+            &lt;div class='menu-option-text'&gt;Notifications&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class='menu-option' id='messages'&gt;
+            &lt;img src='./menuIcons/email-24px.svg' class='menu-icon'&gt;
+            &lt;div class='menu-option-text'&gt;Messages&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class='menu-option' id='bookmarks'&gt;
+            &lt;img src='./menuIcons/bookmark_border-24px.svg' class='menu-icon'&gt;
+            &lt;div class='menu-option-text'&gt;Bookmarks&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class='menu-option' id='lists'&gt;
+            &lt;img src='./menuIcons/format_list_bulleted-24px.svg' class='menu-icon'&gt;
+            &lt;div class='menu-option-text'&gt;Lists&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class='menu-option' id='profile'&gt;
+            &lt;img src='./menuIcons/person-24px.svg' class='menu-icon'&gt;
+            &lt;div class='menu-option-text'&gt;Profile&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class='menu-option' id='more'&gt;
+            &lt;img src='./menuIcons/more_horiz-24px.svg' class='menu-icon'&gt;
+            &lt;div class='menu-option-text'&gt;More&lt;/div&gt;
+        &lt;/div&gt;
+        
+    &lt;/div>
+                </pre>
+            </div>
+
+            <div class='code-snippet'>
+                <p class='bold'>Relevant CSS:</p>
+                    <pre>
+    #dropdown-menu {
+        width: 150px;
+        height: 320px;
+    }
+
+    .menu-option {
+        width: 150px;
+        height: 40px;
+    }
+                    </pre>
+                </div>
+            
+            <div class='code-snippet'>
+                <p class='bold'>Javascript:</p>
+                <pre>
+    const dropdownSlider = new Slider('#dropdown-menu', {
+        direction: 'vertical',
+        selectedElementPosition: 'top',
+        keepOriginalOrder: true,
+        clickToOpen: true
+    });
+    
+    dropdownSlider.openSetOnDOMContentLoaded();
+                </pre>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="divider"></div>
+</body>
+</html>

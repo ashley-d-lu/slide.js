@@ -1,5 +1,4 @@
 "use strict";
-const log = console.log;
 
 class Slider {
     constructor(containerSelector, properties) {
@@ -17,6 +16,7 @@ class Slider {
             onElementSelected,
             lightbox,
             captions,
+            captionPosition,
             onlyShowCaptionsOnHover,
             hoverAnimation,
             scaleFactor
@@ -34,15 +34,6 @@ class Slider {
 
         this.direction = direction;
 
-        if (this.direction === 'diagonal' && upOrDown !== undefined) {
-            if (selectedElementPosition == 'center') {
-                if (upOrDown !== undefined && (upOrDown === 'up' || upOrDown === 'down')) {
-                    this.direction = this.direction.concat('-');
-                    this.direction = this.direction.concat(upOrDown);
-                }
-            }
-        }
-
         if (selectedElementPosition !== undefined) {
             this.selectedElementPosition = selectedElementPosition;
         } else {
@@ -53,6 +44,15 @@ class Slider {
             this.selectedElementIndex = 0;
         } else { // center
             this.selectedElementIndex = Math.floor(this.numElements / 2);
+        }
+
+        if (this.direction === 'diagonal' && upOrDown !== undefined) {
+            if (this.selectedElementPosition == 'center') {
+                if (upOrDown !== undefined && (upOrDown === 'up' || upOrDown === 'down')) {
+                    this.direction = this.direction.concat('-');
+                    this.direction = this.direction.concat(upOrDown);
+                }
+            }
         }
 
         if (keepOriginalOrder !== undefined) {
@@ -183,6 +183,12 @@ class Slider {
             this.hasCaptions = false;
         }
 
+        if (captionPosition !== undefined) {
+            this.captionPosition = captionPosition;
+        } else {
+            this.captionPosition = 'center';
+        }
+
         if (onlyShowCaptionsOnHover !== undefined) {
             this.onlyShowCaptionsOnHover = onlyShowCaptionsOnHover;
         } else {
@@ -196,7 +202,17 @@ class Slider {
                     const caption = document.createElement('div');
                     caption.style.position = 'absolute';
                     caption.style.top = `100%`;
-                    caption.style.right = '1%';
+                    
+                    if (this.captionPosition === 'center') {
+                        caption.style.left = '50%';
+                        caption.style.right - '50%';
+                        caption.style.transform = 'translateX(-50%)';
+                    } else if (this.captionPosition === 'right') {
+                        caption.style.right = '1%';
+                    } else {
+                        caption.style.left = '1%';
+                    }
+                    
                     caption.innerText = this.captions[i];
                     caption.style.fontWeight = '500';
                     caption.style.fontSize = '14px';
@@ -304,7 +320,6 @@ class Slider {
     }
 
     afterCloseForHover = () => {
-        console.log('addMouseover')
         this.elements[this.selectedElementIndex].removeEventListener('mouseleave', this.afterCloseForHover);
         this.elements[this.selectedElementIndex].addEventListener('mouseover', this.handleOpenSet); 
         this.container.addEventListener('mouseleave', this.handleCloseSet);
@@ -353,7 +368,6 @@ class Slider {
     }
 
     handleOpenSet = (event) => {
-        console.log('handleOpenSet')
         let target = event.target;
         // if (event.type === 'click') {
             while (target.parentNode !== this.container && target !== this.container) {
@@ -362,13 +376,11 @@ class Slider {
         // }
 
         if (this.isClosed && this.elements.includes(target)) {
-            console.log('openSet')
             this.openSet();
         }
     }
 
     handleCloseSet = (event) => {
-        console.log('handleCloseSet')
         let target = event.target;
         if (event.type === 'click') {
             while (target.parentNode !== this.container && target !== this.container) {
@@ -483,7 +495,6 @@ class Slider {
     exitFullScreen = (event) => {
         // Prevent other event handlers from being triggered
         event.stopPropagation();
-        console.log('exitFullScreen');
 
         // Get icon's div and image
         let img;
@@ -691,7 +702,10 @@ class Slider {
             }
         }
 
-        this.isClosed = false;
+        setTimeout(() => {
+            this.isClosed = false;
+        }, animationSpeed + 10);
+        
     }
 
     closeSet = (event, noAnimation) => {
@@ -799,7 +813,6 @@ class Slider {
 
         if (!this.clickToOpen && this.indexDidNotChange) {
             setTimeout(() => {
-                console.log('setTimeout', this.elements[this.selectedElementIndex])
                 this.elements[this.selectedElementIndex].addEventListener('mouseleave', this.afterCloseForHover);
             }, this.animationSpeed + 1);
         }
