@@ -705,7 +705,7 @@ class Slider {
         if (this.hoverAnimation) { 
             setTimeout(() => {
                 this.isClosed = false;
-            }, animationSpeed + 10);
+            }, animationSpeed + 5);
         } else {
             this.isClosed = false;
         }

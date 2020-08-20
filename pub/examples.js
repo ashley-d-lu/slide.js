@@ -62,3 +62,9 @@ const dropdownSlider = new Slider('#dropdown-menu', {
     clickToOpen: true
 });
 dropdownSlider.openSetOnDOMContentLoaded();
+
+
+// const videoSlider = new Slider('#videos', {
+//     direction: 'horizontal',
+//     clickToOpen: true
+// })
