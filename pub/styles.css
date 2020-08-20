@@ -32,9 +32,30 @@ pre {
     border-radius: 10px;
 }
 
+#script-example {
+    position: relative;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    left: -15px;
+    width: 640px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
 .flex {
     display: flex;
     justify-content: center;
+}
+
+.fname {
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: rgb(241, 241, 241);
+    border-radius: 5px;
+    padding: 1px
 }
 
 .val {

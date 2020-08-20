@@ -30,16 +30,22 @@
 
     <div class="divider-40"></div>
     <div class="body-content">
-        slide.js helps you to easily <span class="bold">animate the opening and closing of a set of HTML elements</span>, such as set of images or divs.
-        It also has a lightbox feature helps you <span class="bold">turn your set of HTML elements into a simple lightbox</span>.
+        slide.js is a javascript library that helps you to easily <span class="bold">animate the opening and closing of a set of HTML elements</span>, such as set of images or divs.
+        It also has a lightbox feature that <span class="bold">turns a set of HTML elements into a simple lightbox</span>.
     </div>
 
     <div class="body-content-wide">
 
-        <div class="divider-20"></div>
+        <div class="divider-60"></div>
 
-        <div class="flex"><h1>Example 1 - Photo Gallery</h1></div>
-        <div class="divider-20"></div>
+        <div class="body-content">
+            <h1>Example 1 - Photo Gallery</h1>
+            <p>
+                This example uses slide.js to create a photo gallery with a simple lightbox feature. The set opens and closes when an image is clicked. 
+                An image can also be opened in full screen by hovering over the top-right corner of an image and clicking the icon that appears.
+            </p>
+        </div>
+        <div class="divider-40"></div>
 
         <div class="flex">
             <div class='photos-border'>
@@ -53,30 +59,14 @@
             </div>
         </div>
 
-        <div class="divider-20"></div>
-        <!-- <div class="body-content">
-            This example uses slide.js to add the following features to a set of images:
-            <ul>
-                <li>The user can click on an image to open and close the set.</li>
-                <li>Each image has a caption that appears when an image is hovered over.</li>
-                <li>The images are scaled down in size when the set opens.</li>
-            </ul>
-            <div>It also uses slide.js's lightbox feature to achieve a simple lightbox:</div>
-            <ul>
-                <li>To open an image in fullscreen, the user can hover over the top right corner of the element and click the 'expand' icon.</li>
-                <li>To exit full screen, the user can hover over the top right corner of the element and click the 'minimize' icon.</li>
-            </ul>
-        </div> -->
-        <div class="body-content">This example uses slide.js to create a photo gallery with a simple lightbox feature. The set opens and closes when an image is clicked. 
-            An image can also be opened in full screen by hovering over the top-right corner of an image and clicking the icon that appears.
-        </div>
+
 
         <div class="divider-20"></div>
         <div class="flex-wide">
             <div class='code-snippet'>
                 <p class='bold'>HTML:</p>
                 <pre>
-    &lt;div id='lightbox' class='photos'&gt; 
+    &lt;div id='lightbox'&gt; 
 
         &lt;div id='photo1' class='photo'&gt;&lt;
             img src='./photography/mountains.jpg'&gt;
@@ -97,11 +87,11 @@
             <div class='code-snippet'>
                 <p class='bold'>Relevant CSS:</p>
                     <pre>
-        .photos {
+        #lightbox {
             height: 300px;
             width: 1230px;
         }
-        
+
         .photo {
             height: 300px;
             width: 400px;
@@ -133,14 +123,19 @@
         </div>
     
         <div class="divider"></div>
-        <div class="flex"><h1>Example 2 - Diagonal Photo Gallery</h1></div>
-        <div class="divider-20"></div>
 
-        <div class="divider-20"></div>
+        <div class="body-content">
+            <h1>Example 2 - Diagonal Photo Gallery</h1>
+            <p>
+                This example is similar to the first example, except the set opens and closes diagonally.
+            </p>
+        </div>
+
+        <div class="divider-40"></div>
         <div class="flex">
             <div class="photos-border-diagonal">
 
-                <div id='lightbox-diagonal' class='photos-diagonal'>    
+                <div id='lightbox-diagonal'>    
                     <div id='photo4' class='photo'><img src='./photography/mountains.jpg'></div>
                     <div id='photo5' class='photo'><img src='./photography/bridge.jpg'></div>
                     <div id='photo6' class='photo'><img src='./photography/lake.jpg'></div>
@@ -150,22 +145,11 @@
         </div>
 
         <div class="divider-20"></div>
-        <div class="body-content">
-            <!-- This example similar to Example 1, except:
-            <ul>
-                <li>The set is specified to open diagonally at 25 degrees from the horizontal.</li>
-                <li>The captions are positioned to the left.</li>
-                <li>The images are scaled down more drastically when the set opens.</li>
-            </ul> -->
-            This example is similar to the first example, except the set opens and closes diagonally.
-        </div>
-
-        <div class="divider-20"></div>
         <div class="flex-wide">
             <div class='code-snippet'>
                 <p class='bold'>HTML:</p>
                 <pre>
-    &lt;div id='lightbox-diagonal' class='photos-diagonal'&gt;    
+    &lt;div id='lightbox-diagonal'&gt;    
 
         &lt;div id='photo3' class='photo'&gt;&lt;
             img src='./photography/mountains.jpg'&gt;
@@ -186,11 +170,11 @@
             <div class='code-snippet'>
                 <p class='bold'>Relevant CSS:</p>
                     <pre>
-    .photos-diagonal {
+    #lightbox-diagonal {
         height: 300px;
         width: 700px;
     }
-    
+
     .photo {
         height: 300px;
         width: 400px;
@@ -223,7 +207,14 @@
         </div>
 
         <div class="divider"></div>
-        <div class="flex"><h1>Example 3 - Product Display</h1></div>
+
+        <div class="body-content">
+            <h1>Example 3 - Product Display</h1>
+            <p>
+                Unlike the previous examples, this example opens when selected element is hovered over instead of clicked on. When the set is open,
+                each element also performs an animation when it is hovered over.
+            </p>  
+        </div>
         <div class="divider-20"></div>
 
         <div class="flex">
@@ -249,20 +240,7 @@
             </div>
         </div>
 
-        <div class="divider-60"></div>
-        <div class="body-content">
-            <!-- This example uses slide.js to add the following features:
-            <ul>
-                <li>The user can hover over the currently selected element to close the set and click on an element to close the set,</li>
-                <li>When the set is open, the elements shift up when are hovered over.</li>
-                <li>When the set is closed, the currently selected element slides to the left side of the set.</li>
-                <li>The captions are centered</li>
-            </ul> -->
-            Unlike the previous examples, this example opens when selected element is hovered over instead of clicked on. When the set is open,
-            each element also performs an animation when it is hovered over.
-        </div>
-
-        <div class="divider-20"></div>
+        <div class="divider-40"></div>
         <div class="flex-wide">
             <div class='code-snippet'>
                 <p class='bold'>HTML:</p>
@@ -338,7 +316,13 @@
         </div>
 
         <div class="divider"></div>
-        <div class="flex"><h1>Example 4 - Dropdown Menu</h1></div>
+        
+        <div class="body-content">
+            <h1>Example 4 - Dropdown Menu</h1>
+            <p>
+                This example uses slide.js to create an animated version of Twitter's sidebar menu.
+            </p>
+        </div>
         <div class="divider-20"></div>
 
         <div class="flex">
@@ -376,11 +360,6 @@
                     <div class='menu-option-text'>More</div>
                 </div>
             </div>
-        </div>
-
-        <div class="divider-20"></div>
-        <div class="body-content">
-            This example uses slide.js to create an animated version of Twitter's sidebar menu.
         </div>
 
         <div class="divider-20"></div>
@@ -463,17 +442,6 @@
                 </pre>
             </div>
         </div>
-
-
-        <!-- <div id='videos'>
-            <div id='video1' class='video'>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/xR1GOytnd0I?start=7" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div id='video2' class='video'>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/kbN1wh5slnA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div> -->
-
 
     </div>
 

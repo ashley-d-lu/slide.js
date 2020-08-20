@@ -31,7 +31,19 @@
 
         <div class='divider'></div>
         <h1>Getting Started</h1>
-        <p></p>
+        <p>
+            <ol>
+                <li>Download <span class="fname">slide.js</span>. If you are using the lightbox feature, also download <span class="fname">/lightboxIcons</span>
+                and place it in the same folder as <span class="fname">slide.js</span>.</li>
+                <li>Add
+                    <pre id='script-example'>
+&lt;script type='text/javascript' src='slide.js'&gt;&lt;/script&gt;
+&lt;script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'&gt;&lt;/script&gt;
+                    </pre>
+                    to your HTML file, and defer any scripts that will be using <span class="fname">slide.js</span>.
+                </li>
+            </ol>
+        </p>
 
         <div class='divider'></div>
         <h1>How To Use</h1>
@@ -41,20 +53,24 @@
             <li>Enclose all the HTML elements in a container div.*</li>
             <li>Set the height and width of the container div. This will determine the height
                 and width of the slider when it is open (and how far apart the elements
-                will be).
+                will be).**
             </li>
             <li>Instantiate a Slider object, passing in the selector of the
                 container div and an object containing customizable properties and their values. The only
                 required property is direction, which takes value 'horizontal', 'vertical',
                 or 'diagonal'. If a property is not specified, it will take its default value.
+                (See the API to learn about the customizable properties.)
             </li>
         </ol>
         <p class='small'>*Note: The library changes the 
             position of the container div to 'relative' and the position of its child
             elements to 'absolute'.
         </p>
+        <p class='small'>**It is also recomended to set the height and width of the child elements of the 
+            container div, since slide.js will not automatically change their sizes to fit the container.
+        </p>
 
-        <br>
+        <div class="divider-40"></div>
         <p class='bold'>Example:</p>
         <p>HTML:</p>
         <pre>
@@ -67,11 +83,16 @@
             &lt;/div&gt;
         </pre>
 
-        <p>CSS:</p>
+        <p>Relevant CSS:</p>
         <pre>
             .horizontal {
                 height: 100px;
                 width: 400px;
+            }
+
+            .card {
+                height: 100px;
+                width: 100px;
             }
         </pre>
 
