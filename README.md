@@ -4,10 +4,10 @@ slide.js is a javascript library that lets you **animate the opening and closing
 
 ## Demo and Documentation
 
-- #### Demo on [Landing Page](https://agile-badlands-18218.herokuapp.com/)
+- #### Demo on [Landing Page](https://agile-badlands-18218.herokuapp.com/) (https://agile-badlands-18218.herokuapp.com/)
 - #### Documentation:
-  - #### [Getting Started](https://agile-badlands-18218.herokuapp.com/gettingStarted.html)
-  - #### [API](https://agile-badlands-18218.herokuapp.com/api.html)
+  - #### [Getting Started](https://agile-badlands-18218.herokuapp.com/gettingStarted.html) (https://agile-badlands-18218.herokuapp.com/gettingStarted.html)
+  - #### [API](https://agile-badlands-18218.herokuapp.com/api.html) (https://agile-badlands-18218.herokuapp.com/api.html)
 
 ## Getting Started
 
