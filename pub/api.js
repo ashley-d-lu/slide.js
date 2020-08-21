@@ -1,3 +1,5 @@
+/* Script for the API page */
+
 "use strict";
 
 const cardsHorizLeftSlider = new Slider('#cards-horiz-left', {
@@ -180,7 +182,6 @@ const functionsSlider = new Slider('#cards-functions', {
     selectedElementPosition: 'center'
 });
 
-// document.querySelector('#selected-elem-className').innerText = '<div class="card red" id="card3" style="position: absolute; display: inline-block; top: 151px; left: 151px; opacity: 1; z-index: 3;"></div>'
 document.querySelector('#selected-elem-className').innerText = 'Currently selected element: card red';
 
 const openButton = document.querySelector('#open-btn');
@@ -196,13 +197,6 @@ functionsSlider.onElementSelected = () => {
     console.log(selectedElement);
     selElemTextBox.innerText = `Currently selected element: ${selectedElement.className}`;
 }
-
-// const displayStringVersionOfHTMLNode = (selectedElement) => {
-//     selectedElement = selectedElement.cloneNode(true);
-//     const tmp = document.createElement('div');
-//     tmp.appendChild(selectedElement);
-//     selElemTextBox.innerText = tmp.innerHTML;
-// }
 
 const hoverAnimationSlider = new Slider('#hoverAnimation', {
     direction: 'horizontal',

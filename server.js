@@ -11,7 +11,12 @@ const app = express();
 // using Express middleware.
 app.use(express.static(__dirname + '/pub'));
 
-// will use an 'environmental variable', process.env.PORT, for deployment.
+// Redirect "/" to Examples page
+app.get('/', (req, res) => {
+	res.redirect('/examples.html');
+})
+
+// Will use an 'environmental variable', process.env.PORT, for deployment.
 const port = process.env.PORT || 5000
 app.listen(port, () => {
 	log(`Listening on port ${port}...`)

@@ -1,7 +1,9 @@
-/* Buttons to different pages */
+/* Script for the buttons in the header */
+
+'use strict'
 
 document.querySelector("#examples-btn").onclick = () => {
-    location.href = "/pub/examples.html";
+    location.href = "/examples.html";
 };
 
 document.querySelector("#gettingStarted-btn").onclick = () => {
@@ -9,5 +11,5 @@ document.querySelector("#gettingStarted-btn").onclick = () => {
 };
 
 document.querySelector("#api-btn").onclick = () => {
-    location.href = "/pub/api.html";
+    location.href = "/api.html";
 };

@@ -289,7 +289,7 @@ class Slider {
         
     }
 
-    /* ----------------------- Helper/Private functions ----------------------- */
+    /* ------------------------------- Helper/Private functions ------------------------------- */
 
     addEventListeners = () => {
         if (this.clickToOpen) {
@@ -308,14 +308,6 @@ class Slider {
             this.elements[this.selectedElementIndex].removeEventListener('mouseover', this.handleOpenSet);
             this.container.removeEventListener('click', this.handleCloseSet);
             this.container.removeEventListener('mouseleave', this.handleCloseSet);
-        }
-    }
-
-    handleOpenOrClose = (event) => {
-        if (this.isClosed) {
-            this.handleOpenSet(event);
-        } else {
-            this.handleCloseSet(event);
         }
     }
 
@@ -367,13 +359,19 @@ class Slider {
         });
     }
 
+    handleOpenOrClose = (event) => {
+        if (this.isClosed) {
+            this.handleOpenSet(event);
+        } else {
+            this.handleCloseSet(event);
+        }
+    }
+
     handleOpenSet = (event) => {
         let target = event.target;
-        // if (event.type === 'click') {
-            while (target.parentNode !== this.container && target !== this.container) {
-                target = target.parentNode;
-            }
-        // }
+        while (target.parentNode !== this.container && target !== this.container) {
+            target = target.parentNode;
+        }
 
         if (this.isClosed && this.elements.includes(target)) {
             this.openSet();
@@ -567,10 +565,10 @@ class Slider {
         }, 401);
     }
 
-    /* ----------------- End Helper/Private functions ----------------- */
+    /* ------------------------- End Helper/Private functions ------------------------- */
 
 
-    /* ---------------------- API Functions -------------------------- */
+    /* ------------------------------ API Functions ---------------------------------- */
 
     openSetOnDOMContentLoaded = () => {
         this.openSet(undefined, true);
@@ -581,14 +579,6 @@ class Slider {
     }
 
     openSet = (event, noAnimation) => {
-
-        // Hide expand icons if the set opens on hover
-        // if (this.lightbox && !this.clickToOpen) {
-        //     this.elements.forEach(element => {
-        //         const iconDiv = element.children[element.children.length - 1];
-        //         iconDiv.style.display = 'none';
-        //     })
-        // }
 
         // Calculate <top> and <left> units used to calculate the top and left positions
         // of the ith element in the loop
@@ -821,14 +811,6 @@ class Slider {
             }, this.animationSpeed + 1);
         }
 
-        // // Unhide expand icons if the set opens on hover
-        // if (this.lightbox && !this.clickToOpen) {
-        //     this.elements.forEach(element => {
-        //         const iconDiv = element.children[element.children.length - 1];
-        //         iconDiv.style.display = 'block';
-        //     })
-        // }
-
         this.isClosed = true;
     }
 
@@ -836,5 +818,5 @@ class Slider {
         return this.elements[this.selectedElementIndex];
     }
 
-    /* -------------------- End API Functions ------------------------ */
+    /* ---------------------------- End API Functions -------------------------------- */
 }

@@ -1,3 +1,5 @@
+/* Script for the Examples page */
+
 'use strict';
 
 // Lightbox Example
