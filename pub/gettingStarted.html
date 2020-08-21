@@ -33,14 +33,13 @@
         <h1>Getting Started</h1>
         <p>
             <ol>
-                <li>Download <span class="fname">slide.js</span>. If you are using the lightbox feature, also download <span class="fname">/lightboxIcons</span>
-                and place it in the same folder as <span class="fname">slide.js</span>.</li>
+                <li>Download the latest version the library's source code from <a href="https://github.com/csc309-summer-2020/js-library-luashle1/releases">releases.</a></li>
                 <li>Add
                     <pre id='script-example'>
 &lt;script type='text/javascript' src='slide.js'&gt;&lt;/script&gt;
 &lt;script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'&gt;&lt;/script&gt;
                     </pre>
-                    to your HTML file, and defer any scripts that will be using <span class="fname">slide.js</span>.
+                    to your HTML file.
                 </li>
             </ol>
         </p>
@@ -55,11 +54,11 @@
                 and width of the slider when it is open (and how far apart the elements
                 will be).**
             </li>
-            <li>Instantiate a Slider object, passing in the selector of the
-                container div and an object containing customizable properties and their values. The only
-                required property is direction, which takes value 'horizontal', 'vertical',
-                or 'diagonal'. If a property is not specified, it will take its default value.
-                (See the API to learn about the customizable properties.)
+            <li>Instantiate a Slider object, passing 2 arguments: the selector of the
+                container div and an object mapping customizable properties to their values. The only
+                required customizable property is direction, which takes value <span class="val">'horizontal'</span>, <span class="val">'vertical'</span>,
+                or <span class="val">'diagonal'</span>. If any other property is not specified, it will take its default value.
+                (See the <a href="/api.html">API</a> to learn about the customizable properties.)
             </li>
         </ol>
         <p class='small'>*Note: The library changes the 
