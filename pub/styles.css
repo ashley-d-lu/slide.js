@@ -60,6 +60,20 @@ li {
     justify-content: center;
 }
 
+.html {
+    font-family: monospace;
+    font-weight: 600;
+    background-color: rgb(241, 241, 241);
+    border-radius: 5px;
+    padding: 2px
+}
+
+.prop {
+    font-family: monospace;
+    font-weight: 600;
+    font-size: 14px;
+}
+
 .val {
     font-family: monospace;
     font-size: 14px;

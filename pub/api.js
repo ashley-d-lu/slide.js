@@ -245,7 +245,6 @@ const scaleFactor2Slider = new Slider('#scaleFactor2', {
 
 const lightboxExampleSlider = new Slider('#lightbox-example', {
     direction: 'horizontal',
-    clickToOpen: true,
     lightbox: true
 });
 lightboxExampleSlider.openSetOnDOMContentLoaded();

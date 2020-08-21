@@ -33,13 +33,14 @@
         <h1>Getting Started</h1>
         <p>
             <ol>
-                <li>Download the latest version the library's source code from <a href="https://github.com/csc309-summer-2020/js-library-luashle1/releases">releases.</a></li>
-                <li>Add
+                <li>Download the latest version of slide.js from <a href="https://github.com/csc309-summer-2020/js-library-luashle1/releases">releases.</a></li>
+                <li>Place
                     <pre id='script-example'>
-&lt;script type='text/javascript' src='slide.js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='path/to/slide.js'&gt;&lt;/script&gt;
 &lt;script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'&gt;&lt;/script&gt;
                     </pre>
-                    to your HTML file.
+                    in the <span class="html">&lt;head&gt;</span> of your HTML file, and make sure any of your own scripts 
+                    that will be using slide.js are deferred or placed at the very bottom of <span class="html">&lt;body&gt;</span>.
                 </li>
             </ol>
         </p>
@@ -58,15 +59,15 @@
                 container div and an object mapping customizable properties to their values. The only
                 required customizable property is direction, which takes value <span class="val">'horizontal'</span>, <span class="val">'vertical'</span>,
                 or <span class="val">'diagonal'</span>. If any other property is not specified, it will take its default value.
-                (See the <a href="/api.html">API</a> to learn about the customizable properties.)
+                (See the <a href="/api.html">API</a> to learn about the customizable properties!)
             </li>
         </ol>
         <p class='small'>*Note: The library changes the 
             position of the container div to 'relative' and the position of its child
             elements to 'absolute'.
         </p>
-        <p class='small'>**It is also recomended to set the height and width of the child elements of the 
-            container div, since slide.js will not automatically change their sizes to fit the container.
+        <p class='small'>**It is also recommended to set the height and width of the child elements of the 
+            container div since slide.js will not automatically change their sizes to fit the container.
         </p>
 
         <div class="divider-40"></div>

@@ -37,19 +37,19 @@
 
         <br><br>
         <h3>direction (*Required*)</h3>
-        <p>direction determines the general direction that the set opens and closes in. It's value can be <span class='val'>'horizontal'</span>, 
+        <p><span class="prop">direction</span> determines the general direction that the set opens and closes in. It takes value <span class='val'>'horizontal'</span>, 
             <span class='val'>'vertical'</span>, or <span class='val'>'diagonal'</span>.</p>
 
         <br>
         <h3>selectedElementPosition</h3>
 
-        <p>selectedElementPosition determines the position of the selected element within the container.
-            It's possible values depend on the slider's direction property.
+        <p><span class="prop">selectedElementPosition</span> determines the position of the selected element within the container.
+            It's possible values depend on the slider's <span class="prop">direction</span> property.
             However, it's default value for all sliders is <span class='default-val'>'center'</span>.
         </p>
 
         <br/>
-        <p>For horizontal sliders, selectedElementPosition can be <span class='val'>'left'</span>, <span class='val'>'center'</span>, or <span class='val'>'right'</span></p>
+        <p>For horizontal sliders, <span class="prop">selectedElementPosition</span> takes value <span class='val'>'left'</span>, <span class='val'>'center'</span>, or <span class='val'>'right'</span></p>
         <pre>
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
@@ -88,7 +88,7 @@
         </div>
 
         <br/>
-        <p>For vertical sliders, selectedElementPosition can be <span class='val'>'top'</span>, <span class='val'>'center'</span>, or <span class='val'>'bottom'</span></p>
+        <p>For vertical sliders, <span class="prop">selectedElementPosition</span> takes value <span class='val'>'top'</span>, <span class='val'>'center'</span>, or <span class='val'>'bottom'</span></p>
         <pre>
             const slider = new Slider(containerSelector, {
                 direction: 'vertical',
@@ -125,13 +125,13 @@
         <div class='leftclearfix'></div>
 
         <br/>
-        <p>For diagonal sliders, selectedElementPosition can be <span class='val'>'top-left'</span>, <span class='val'>'top-right'</span>, <span class='val'>'bottom-right'</span>,
+        <p>For diagonal sliders, <span class="prop">selectedElementPosition</span> can be <span class='val'>'top-left'</span>, <span class='val'>'top-right'</span>, <span class='val'>'bottom-right'</span>,
             <span class='val'>'bottom-left'</span>, or <span class='val'>'center'</span>. (See demo in degree section below).
         </p>
 
         <br>
         <h3>degree</h3>
-        <p>degree can also be customized for diagonal sliders. It determines the angle (from the horizontal) at
+        <p><span class="prop">degree</span> can also be customized for diagonal sliders. It determines the angle (from the horizontal) at
             which the set opens. Its default value is <span class='default-val'>45</span>. It takes any value from <span class='val'>0</span> to <span class='val'>90</span>.
         </p>
 
@@ -175,8 +175,8 @@
 
         <br>
         <h3>upOrDown</h3>
-        <p>urOrDown can be customized for diagonal sliders with selectedElementPosition='center'. It determines
-            whether the set opens in an upward or downward direction. It takes <span class='val'>'up'</span> or <span class='val'>'down'</span>.
+        <p><span class="prop">upOrDown</span> can be customized for diagonal sliders with <span class="prop">selectedElementPosition</span> = 'center'. It determines
+            whether the set opens in an upward or downward direction. It takes value <span class='val'>'up'</span> or <span class='val'>'down'</span>.
             Its default value is <span class='default-val'>'down'</span>.
         </p>
 
@@ -216,8 +216,9 @@
 
         <br>
         <h3>clickToOpen</h3>
-        <p>If clickToOpen is <span class='val'>true</span>, the set is opened by clicking on the selected element.
-            If clickToOpen is <span class='val'>false</span>, the set is opened by hovering over the selected element.
+        <p><span class="prop">clickToOpen</span> takes <span class='val'>true</span> or <span class='val'>false</span>.
+            If it's value is <span class='val'>true</span>, the set is opened by clicking on the selected element.
+            If it's value is <span class='val'>false</span>, the set is opened by hovering over the selected element.
             Its default value is <span class='default-val'>false</span>.
         </p>
         <pre>
@@ -254,7 +255,7 @@
 
         <br>
         <h3>keepOriginalOrder</h3>
-        <p>keepOriginalOrder determines whether or not the elements are displayed in their original order when the set is open.
+        <p><span class="prop">keepOriginalOrder</span> determines whether or not the elements are displayed in their original order when the set is open.
             It takes <span class='val'>true</span> or <span class='val'>false</span>. Its default value is <span class='default-val'>false</span>.
         </p>
         <div>Try selecting different items the examples to see the effect.</div>
@@ -293,8 +294,8 @@
         
         <br>
         <h3>scaleFactor</h3>
-        <p>scaleFactor determines how much the elements are scaled up or down in size when the set opens.
-            It takes in <span class="val">number representing the scaling factor</span>. By default, the 
+        <p><span class="prop">scaleFactor</span> determines how much the elements are scaled up or down in size when the set opens.
+            It takes a <span class="val">number representing the scaling factor</span>. By default, the 
             size of the elements is not scaled when the set opens.
         </p>
         <pre>
@@ -333,7 +334,7 @@
 
         <br>
         <h3>animationSpeed</h3>
-        <p>animationSpeed determines the speed (in milliseconds) of the animation when the set opens and closes.
+        <p><span class="prop">animationSpeed</span> determines the speed (in milliseconds) of the animation that occurs when the set opens and closes.
             It takes any <span class='val'>non-negative number</span>. Its default value is <span class='default-val'>375</span>.
         </p>
 
@@ -371,13 +372,13 @@
 
         <br>
         <h3>showSlideAnimation</h3>
-        <p>showSlideAnimation determines whether the slide animation is shown.
+        <p><span class="prop">showSlideAnimation</span> determines whether the slide animation is shown.
             It takes <span class='val'>true</span> or <span class='val'>false</span>. 
             Its default value is <span class='default-val'>true</span>.
         </p>
         
         <h3>showFadeAnimation</h3>
-        <p>showSlideAnimation determines whether the fade animation is shown.
+        <p><span class="prop">showFadeAnimation</span> determines whether the fade animation is shown.
             It takes <span class='val'>true</span> or <span class='val'>false</span>. 
             Its default value is <span class='default-val'>true</span>.
         </p>
@@ -460,9 +461,9 @@
 
         <br>
         <h3>hoverAnimation</h3>
-        <p>hoverAnimation takes <span class="val">true</span> or <span class="val">false</span>
-            It's default value is <span class="default-val">false</span>. If hoverAnimation is true,
-            when the set is open, the elements in the set shift up when they are hovered over.
+        <p><span class="prop">hoverAnimation</span> takes <span class="val">true</span> or <span class="val">false</span>
+            It's default value is <span class="default-val">false</span>. If it's value is <span class="val">true</span>,
+            when the set is open, each element performs an animation when the user hovers over it.
         </p>
         <pre>
             const slider = new Slider(containerSelector, {
@@ -484,10 +485,10 @@
 
         <br>
         <h3>captions</h3>
-        <p>captions is used to add captions to the slider elements. captions takes a <span class="val">list of caption strings</span>,
+        <p><span class="prop">captions</span> is used to add captions to the slider elements. <span class="prop">captions</span> takes a <span class="val">list of caption strings</span>,
             which will be added to the slider elements in the same order that they initially appear in the HTML code.
         </p>
-        <p>Note: To be able to add captions, every element in document.queryselector(containerSelector).children must be in a 
+        <p>Note: To be able to add captions, every element in document.querySelector(containerSelector).children must be in a 
             non-self enclosing tag (e.g. a div).
         </p>
         <pre>
@@ -508,7 +509,7 @@
 
         <br>
         <h3>captionPosition</h3>
-        <p>captionPosition determines the position of the captions. It's value can be <span class="val">'left'</span>,
+        <p><span class="prop">captionPosition</span> determines the position of the captions. It's value can be <span class="val">'left'</span>,
             <span class="val">'center'</span>, or <span class="val">'right'</span>. It's default value is <span class="default-val">'center'</span>.
         </p>
         <pre>
@@ -548,10 +549,9 @@
 
         <br>
         <h3>onlyShowCaptionsOnHover</h3>
-        <p>onlyShowCaptionsOnHover takes <span class="val">true</span> or <span class="val">false</span>.
+        <p><span class="prop">onlyShowCaptionsOnHover</span> takes <span class="val">true</span> or <span class="val">false</span>.
             Its default value is <span class="default-val">false</span>.
-            If onlyShowCaptionsOnHover is true, the caption for an element is only shown when it
-            is hovered over. 
+            If it's value is <span class="val">true</span>, the caption for an element is only shown when the user hovers over the element.
         </p>
         <pre>
             const slider = new Slider(containerSelector, {
@@ -572,18 +572,19 @@
 
         <br>
         <h3>lightbox</h3>
-        <p>lightbox takes <span class="val">true</span> or <span class="val">false</span>.
-            Its default value is <span class="default-val">false</span>. Setting lightbox to true
-            enables this library's lightbox feature. To open an element in fullscreen, the user can
-            hover over the top right corner of the element and click the 'expand' icon. To exit full screen,
-            the user can hover over the top right corner of the element and click the 'minimize' icon. 
+        <p><span class="prop">lightbox</span> takes <span class="val">true</span> or <span class="val">false</span>.
+            Its default value is <span class="default-val">false</span>. Setting <span class="prop">lightbox</span> to <span class="val">true</span>
+            enables this library's lightbox feature. To open an element in fullscreen, the user
+            hovers over the top right corner of the element and clicks the 'expand' icon. To exit full screen,
+            the user hover overs the top right corner of the element and clicks the 'minimize' icon. 
         </p>
-        <p>The lightbox feature works best if clickToOpen is true.</p>
+        <p>Note: If <span class="prop">lightbox</span> is true, <span class="prop">clickToOpen</span> is automatically set to true, 
+            since the lightbox feature works best that way.</p>
         <pre>
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
-                clickToOpen: true,
-                lightbox: true
+                lightbox: true,
+                clickToOpen: true // default when lightbox = true
             });
 
             slider.openSetOnDOMContentLoaded();
@@ -600,11 +601,14 @@
 
         <br>
         <h3>onElementSelected</h3>
-        <p>onElementSelected is a function that is called when the user selects an element.
+        <p><span class="prop">onElementSelected</span> is a function that is called when the user selects an element.
             It can be assigned to <span class='val'>any function of your choice</span>.
             Its default value is a <span class='default-val'>function that does nothing</span>.
         </p>
-        <p>The following is a toy example where onElementSelected is assigned to a function that increments a counter variable:</p>
+        <p>It is useful when used in conjunction with <span class="prop">getSelectedElement</span> (see the Functions section below) to get the 
+            currently selected element when the user changes it.
+        </p>
+        <p>The following is a toy example where <span class="prop">onElementSelected</span> is assigned to a function that increments a counter variable:</p>
         <pre class='float-left'>
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal',
@@ -638,10 +642,9 @@
         <h1>Functions</h1>
         <br><br>
         <h3>openSetOnDOMContentLoaded</h3>
-        <p>By default, the slider is initialized to closed when the DOM loads. To initialize the slider to open,
-            call the openSetOnDOMContentLoaded after the DOM loads.
+        <p>By default, the slider is initialized to closed after the DOM loads. To initialize the slider to open,
+            call the <span class="prop">openSetOnDOMContentLoaded</span> after the DOM loads.
         </p>
-        <p>Note: openSetOnDOMContentLoaded is not intechangeable with openSet.</p>
         <pre>
             const slider = new Slider(containerSelector, {
                 direction: 'horizontal'
@@ -661,23 +664,23 @@
 
         <br>
         <h3>openSet</h3>
-        <p>openSet opens the set.</p>
+        <p><span class="prop">openSet</span> opens the set.</p>
 
         <br>
         <h3>closeSet</h3>
-        <p>closeSet closes the set.</p>
+        <p><span class="prop">closeSet</span> closes the set.</p>
 
         <br>
         <h3>getSelectedElement</h3>
-        <p>getSelectedElement returns the HTML node corresponding to the currently selected item.</p>
+        <p><span class="prop">getSelectedElement</span> returns the HTML node corresponding to the currently selected item.</p>
 
         <br>
         <p class='bold'>Toy example using openSet, closeSet, and getSelectedElement:</p>
         <ul>
-            <li>openSet is called when the "Open" button is clicked. </li>
-            <li>closeSet is called when the "Close" button is clicked.</li>
-            <li>onElementSelected is assigned to a function that uses getSelectedElement to
-                get the currently selected element, logs it, and displays its class name.</li>
+            <li><span class="prop">openSet</span> is called when the "Open" button is clicked. </li>
+            <li><span class="prop">closeSet</span> is called when the "Close" button is clicked.</li>
+            <li><span class="prop">onElementSelected</span> (see the Customizable Properties section above) is assigned to a function that calls <span class="prop">getSelectedElement</span> to
+                get the currently selected element, logs it in the browser console, and displays its class name.</li>
         </ul>
 
         <pre>

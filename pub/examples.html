@@ -30,8 +30,8 @@
 
     <div class="divider-40"></div>
     <div class="body-content">
-        slide.js is a javascript library that lets you <span class="bold">easily animate the opening and closing of a set of HTML elements</span>, such as set of images or divs.
-        It also has a lightbox feature, which can <span class="bold">turn a set of HTML elements into a simple lightbox</span>.
+        slide.js is a javascript library that lets you <span class="bold"> animate the opening and closing of a set of HTML elements</span>, such as a set of images or divs.
+        It also has a lightbox feature that lets you <span class="bold">turn a set of HTML elements into a simple lightbox</span>.
     </div>
 
     <div class="body-content-wide">
@@ -41,8 +41,7 @@
         <div class="body-content">
             <h1>Example 1 - Photo Gallery</h1>
             <p>
-                This example uses slide.js to create a photo gallery with a simple lightbox feature. The set opens and closes when an image is clicked. 
-                An image can also be opened in full screen by hovering over the top-right corner of an image and clicking the icon that appears.
+                This example uses slide.js to create a photo gallery that also acts as a lightbox. The user can click an image to open and close the set. The user can also hover over the top right corner of an image and click the icon that appears to open an image in fullscreen.
             </p>
         </div>
         <div class="divider-40"></div>
@@ -104,7 +103,7 @@
                 <pre>
         const lightboxSlider = new Slider('#lightbox', {
             direction: 'horizontal',
-            clickToOpen: true,
+            clickToOpen: true, // default for lightbox = true
             keepOriginalOrder: true,
             lightbox: true,
             captions: [
@@ -188,8 +187,8 @@
         const lightboxDiagonalSlider = new Slider('#lightbox-diagonal', {
             direction: 'diagonal',
             degree: 25,
-            clickToOpen: true,
-            keepOriginalOrder: false,
+            clickToOpen: true, // default for lightbox = true
+            keepOriginalOrder: false, // default
             lightbox: true,
             captions: [
                 'Mountains, 2020',
@@ -211,8 +210,8 @@
         <div class="body-content">
             <h1>Example 3 - Product Display</h1>
             <p>
-                Unlike the previous examples, this example opens when selected element is hovered over instead of clicked on. When the set is open,
-                each element also performs an animation when it is hovered over.
+                Unlike the previous examples, this example opens when the user hovers over the currently selected element instead of clicking on it. When the set is open,
+                each element also performs an animation when the user hovers over it.
             </p>  
         </div>
         <div class="divider-20"></div>

@@ -104,6 +104,8 @@ class Slider {
         }
 
         if (lightbox) {
+
+            this.clickToOpen = true;
             
             // Add expand/close icon button to all elements in this.elements
             for (let i = 0; i < this.numElements; i++) {
@@ -131,7 +133,7 @@ class Slider {
 
                 // Create icon img
                 const icon = document.createElement('img');
-                icon.src = './lightboxIcons/unfold_more-24px.svg';
+                icon.src = 'https://imgur.com/NitowO8.png'; // unfold_more-24px.png
                 icon.style.transform = 'rotate(45deg)';
                 icon.style.opacity = 0;
                 icon.style.height = 'inherit';
@@ -418,7 +420,7 @@ class Slider {
         }
 
         // Change icon's image
-        img.src = './lightboxIcons/unfold_less-24px.svg';
+        img.src = 'https://imgur.com/oUxsAtu.png'; // unfold_less-24px.png
 
         // Change icon's event listener
         div.removeEventListener('click', this.enterFullScreen);
@@ -506,7 +508,7 @@ class Slider {
         }
 
         // Change icon's image
-        img.src = './lightboxIcons/unfold_more-24px.svg';
+        img.src = 'https://imgur.com/NitowO8.png'; // unfold_more-24px.png
 
         // Change icon's event listener
         div.removeEventListener('click', this.exitFullScreen);
