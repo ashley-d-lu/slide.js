@@ -9,27 +9,27 @@ const apiButton = document.querySelector('#api-btn');
 
 
 examplesButton.onclick = () => {
-    location.href = '../index.html';
+    location.href = 'index.html';
 };
 
 gettingStartedButton.onclick = () => {
-    location.href = '../gettingStarted.html';
+    location.href = 'gettingStarted.html';
 };
 
 apiButton.onclick = () => {
-    location.href = '../api.html';
+    location.href = 'api.html';
 };
 
 
-if (window.location.pathname === '/index.html') {
+if (window.location.pathname === '/slides.js') {
     examplesButton.style.color = '#007bff';
     examplesButton.style.borderColor = '#007bff';
     examplesButton.style.backgroundColor = '#007bff11';
-} else if (window.location.pathname === '/gettingStarted.html') {
+} else if (window.location.pathname === '/slides.js/gettingStarted.html') {
     gettingStartedButton.style.color = '#007bff';
     gettingStartedButton.style.borderColor = '#007bff';
     gettingStartedButton.style.backgroundColor = '#007bff11';
-} else if (window.location.pathname === '/api.html') {
+} else if (window.location.pathname === '/slides.js/api.html') {
     apiButton.style.color = '#007bff';
     apiButton.style.borderColor = '#007bff';
     apiButton.style.backgroundColor = '#007bff11';
