@@ -161,6 +161,21 @@ h1:after {
     font-weight: bold;
 }
 
+#github-link {
+    position: absolute;
+    right: 40px;
+    top: 30px;
+    height: 30px;
+    width: 30px;
+    border-bottom: none;
+    border-radius: 50%;
+}
+
+#github-icon {
+    height: inherit;
+    width: inherit;
+}
+
 #library-name {
     font-size: 100px;
 }
