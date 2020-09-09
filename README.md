@@ -1,14 +1,12 @@
-# slide.js
+# slide.js :sparkles:
 
 slide.js is a javascript library that lets you **animate the opening and closing of a set of HTML elements**, such as a set of images or divs. It also has a lightbox feature that lets you **turn a set of HTML elements into a simple lightbox**.
 
 ## Demo and Documentation
 
-- #### Demo on [Landing Page](https://agile-badlands-18218.herokuapp.com/) (https://agile-badlands-18218.herokuapp.com/)
-- #### Documentation:
-  - #### [Getting Started](https://agile-badlands-18218.herokuapp.com/gettingStarted.html) (https://agile-badlands-18218.herokuapp.com/gettingStarted.html)
-  - #### [API](https://agile-badlands-18218.herokuapp.com/api.html) (https://agile-badlands-18218.herokuapp.com/api.html)
-
+- #### Demo on [Landing Page](https://ashley-d-lu.github.io/slide.js/index.html)
+  - #### [Getting Started](https://ashley-d-lu.github.io/slide.js/gettingStarted.html)
+  - #### [API](https://ashley-d-lu.github.io/slide.js/api.html)
 ## Getting Started
 
 1. Download the latest version of slide.js from [releases](https://github.com/csc309-summer-2020/js-library-luashle1/releases).
@@ -31,7 +29,7 @@ To turn a set of HTML elements into a slider:
 
 HTML:
 ```
-<div id='cards' class='horizontal card-container'
+<div id='cards' class='card-container'
     <div id='card1' class='card blue'></div>
     <div id='card2' class='card yellow'></div>
     <div id='card3' class='card red'></div>
@@ -41,7 +39,7 @@ HTML:
 ```
 CSS:
 ```
-.horizontal {
+#cards {
     height: 100px;
     width: 400px;
 }
@@ -57,4 +55,4 @@ const slider = new Slider('#cards', {
     direction: 'horizontal'
 });
 ```
-**Check out the Getting Started page for more details and the results of this code.**
+**Check out the Getting Started page for more details and the results of this code!**

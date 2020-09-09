@@ -14,6 +14,7 @@ a {
     text-decoration: none;
     font-weight: 600;
     border-bottom: 2px solid black;
+    transition-duration: 0.1s;
 }
 
 a:hover {
@@ -186,6 +187,7 @@ h1:after {
     padding-right: 5px;
     border-radius: 0px;
     border-bottom: 3px solid black;
+    transition-duration: 0.1s;
 }
 
 .header-btn:hover {
@@ -205,6 +207,11 @@ h1:after {
 
 #angle-btns {
     margin-left: 30px;
+}
+
+#cards {
+    height: 100px;
+    width: 400px;
 }
 
 .card-container {
