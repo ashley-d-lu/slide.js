@@ -9,19 +9,19 @@ const apiButton = document.querySelector('#api-btn');
 
 
 examplesButton.onclick = () => {
-    location.href = '/examples.html';
+    location.href = '../index.html';
 };
 
 gettingStartedButton.onclick = () => {
-    location.href = '/gettingStarted.html';
+    location.href = '../gettingStarted.html';
 };
 
 apiButton.onclick = () => {
-    location.href = '/api.html';
+    location.href = '../api.html';
 };
 
 
-if (window.location.pathname === '/examples.html') {
+if (window.location.pathname === '/index.html') {
     examplesButton.style.color = '#007bff';
     examplesButton.style.borderColor = '#007bff';
     examplesButton.style.backgroundColor = '#007bff11';
