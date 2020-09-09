@@ -9,15 +9,15 @@ const apiButton = document.querySelector('#api-btn');
 
 
 examplesButton.onclick = () => {
-    location.href = 'index.html';
+    location.href = '/slide.js/index.html';
 };
 
 gettingStartedButton.onclick = () => {
-    location.href = 'gettingStarted.html';
+    location.href = '/slide.js/gettingStarted.html';
 };
 
 apiButton.onclick = () => {
-    location.href = 'api.html';
+    location.href = '/slide.js/api.html';
 };
 
 
