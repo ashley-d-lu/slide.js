@@ -5,13 +5,15 @@ slide.js is a javascript library that lets you **animate the opening and closing
 ## Demo and Documentation
 
 - #### Demo on [Landing Page](https://ashley-d-lu.github.io/slide.js/index.html)
+- #### Documentation:
   - #### [Getting Started](https://ashley-d-lu.github.io/slide.js/gettingStarted.html)
   - #### [API](https://ashley-d-lu.github.io/slide.js/api.html)
+  
 ## Getting Started
 
 1. Download the latest version of slide.js from [releases](https://github.com/csc309-summer-2020/js-library-luashle1/releases).
 2. Place
-    ```
+    ```html
     <script type='text/javascript' src='path/to/slide.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     ```
@@ -28,7 +30,7 @@ To turn a set of HTML elements into a slider:
 **Example:**
 
 HTML:
-```
+```html
 <div id='cards' class='card-container'
     <div id='card1' class='card blue'></div>
     <div id='card2' class='card yellow'></div>
@@ -38,7 +40,7 @@ HTML:
 </div>
 ```
 CSS:
-```
+```css
 #cards {
     height: 100px;
     width: 400px;
@@ -50,9 +52,9 @@ CSS:
 }      
 ```
 Javascript:
-```
+```js
 const slider = new Slider('#cards', {
     direction: 'horizontal'
 });
 ```
-**Check out the Getting Started page for more details and the results of this code!**
+**Visit the [Getting Started](https://ashley-d-lu.github.io/slide.js/gettingStarted.html) page for more details and to see the results of this code!**
