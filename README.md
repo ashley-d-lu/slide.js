@@ -11,7 +11,7 @@ slide.js is a javascript library that lets you **animate the opening and closing
   
 ## Getting Started
 
-1. Download the latest version of slide.js from [releases](https://github.com/csc309-summer-2020/js-library-luashle1/releases).
+1. Download the latest version of slide.js from [releases](https://github.com/ashley-d-lu/slide.js/releases).
 2. Place
     ```html
     <script type='text/javascript' src='path/to/slide.js'></script>
